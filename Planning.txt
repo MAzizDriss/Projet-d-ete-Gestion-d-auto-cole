@@ -1,0 +1,17 @@
+	
+I- Frontened developement: 
+	1st step : 
+		-Fixing the sidebar and the theme
+	2nd step : 
+		-Fixing the admin's dashboard :
+			-decomposing the work into small files
+			-finding the relations that we need to make between files
+			-starting to execute the work
+			-validating the work
+		-Fixing the employee's dashboard:
+
+		-Fixing the participant's dashboard:
+
+	3rd step : 
+		- linking frontend with backend
+II- Backend developement :
