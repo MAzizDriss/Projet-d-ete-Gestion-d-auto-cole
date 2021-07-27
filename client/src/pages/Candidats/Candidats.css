@@ -1,0 +1,94 @@
+  
+  
+         .btn-grad {background-image: linear-gradient(to right, #16222A 0%, #3A6073  51%, #16222A  100%)}
+         .btn-grad {
+            margin: 10px;
+            padding: 15px 45px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;            
+            box-shadow: 0 0 20px #eee;
+            border-radius: 10px;
+            display: block;
+          }
+
+          .btn-grad:hover {
+            background-position: right center; /* change the direction of the change here */
+            color: #fff;
+            text-decoration: none;
+          }
+         
+ .title{
+    display: flex;
+    height: 90vh;
+    align-items: center;
+    margin-left: 1px;
+padding-left: 150px;
+    font-size: 3rem;
+    background-image: url("image1.jpg");
+    image-rendering: auto;
+    height: 540px;
+    width: 1518px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center; 
+    color: #f2f2f2;
+    margin-top: 50px;
+ }
+
+ .bouton1{
+     margin-top: 80px;
+     margin-bottom: 300px;
+     margin-left:50px;
+     width: 400px;
+     
+    
+ }
+ .bouton2{
+    margin-top: 80px;
+    margin-bottom: 0px;
+    margin-left: 50px;
+    width: 400px;
+}
+ .ligne{
+     margin-top: 50px;
+     margin-left: 400px;
+     margin-right: 400px;
+     margin-bottom: 50px;
+    }
+    .buttons{
+        margin-bottom: 00px;
+        padding: 50px;
+        align-items: center;
+        height: 500px;
+        background-color: #f2f2f2;
+        
+    }
+    .choix1{
+        margin: 50px;
+        margin-top: 35px;
+        height: 300px;
+        width: 500px;
+        text-align:justify;
+        background-color: rgba(0,0,0,0.5);
+        border-style: solid;
+
+}
+.choix2 {
+    
+    margin-left: 800px;
+        margin-top: -350px;
+        height: 300px;
+        width: 500px;
+        text-align:justify;
+        background-color: rgba(0,0,0,0.5);
+        border-style: solid;
+}
+
+.parag{
+    margin-top: 0px;
+    text-align: center;
+    padding-top: 40px;
+}
