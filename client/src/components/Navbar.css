@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
 .navbar {
   background-color: #060b26;
   height: 80px;
@@ -27,7 +28,7 @@
 
 .nav-menu.active {
   left: 0;
-  transition: 350ms;
+  transition: 750ms;
 }
 
 .nav-text {
@@ -53,6 +54,7 @@
 
 .nav-text a:hover {
   background-color: #52ab98;
+  transition: all 0.3s;
 }
 
 .nav-menu-items {
@@ -94,5 +96,48 @@ span {
 .logo{
   width: 50px;
   height: 50px;
-  margin: 50px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  box-sizing: border-box;
+  float: left;
+}
+.Title{
+  box-sizing: border-box;
+  float:right;
+  margin-right: 50px;
+  margin-top: 30px ;
+  color: #f2e9e4;
+}
+.Title :hover {
+  color:#52ab98;
+  transition: all 0.3s;
+}
+.bars:hover{
+  fill:#52ab98;
+  transition: all 0.3s;
+  width: 35px;
+}
+.bars{
+  width: 30px;
+}
+hr{
+  margin-top: 90px;
+  width: 80%;
+  margin-left: 8%;
+  opacity: 0.8 ;
+  border: 1px solid  #52ab98 !important;
+  border-radius: 2px;
+}
+.site-title{
+  text-align: center;
+  float:right;
+  box-sizing:border-box;
+  margin-left: 650px;
+  color: #f2e9e4;
+  position:absolute;
+}
+.site-title h2 {
+  font-size: 28px;
+  font-family: 'PT Sans', sans-serif;
 }
