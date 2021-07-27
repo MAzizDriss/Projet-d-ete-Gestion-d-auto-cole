@@ -6,7 +6,10 @@ import { SidebarData } from './SidebarData';
 import './Navbar.css';
 import { IconContext } from 'react-icons';
 import logo from './logo.png';
+<<<<<<< HEAD
 import avatar from './avatar.png';
+=======
+>>>>>>> b6524a1d5e914611a72dfe77e58412d712d9a0fe
 
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);

@@ -96,19 +96,32 @@ span {
 }
 
 .logo{
+<<<<<<< HEAD
   width: 20%;
   height: 20%; /*bel pourcentage a7sen 7aja l9itha*/
   margin-left: 3vh;
   margin-bottom: 2vh;
   margin-top: 2vh;
+=======
+  width: 50px;
+  height: 50px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+>>>>>>> b6524a1d5e914611a72dfe77e58412d712d9a0fe
   box-sizing: border-box;
   float: left;
 }
 .Title{
   box-sizing: border-box;
   float:right;
+<<<<<<< HEAD
   margin-right: 6vh;
   margin-top: 5vh ;
+=======
+  margin-right: 50px;
+  margin-top: 30px ;
+>>>>>>> b6524a1d5e914611a72dfe77e58412d712d9a0fe
   color: #f2e9e4;
 }
 .Title :hover {
@@ -118,6 +131,7 @@ span {
 .bars:hover{
   fill:#52ab98;
   transition: all 0.3s;
+<<<<<<< HEAD
   width: 90%;
 }
 .bars{
@@ -125,6 +139,15 @@ span {
 }
 hr{
   margin-top: 38%;
+=======
+  width: 35px;
+}
+.bars{
+  width: 30px;
+}
+hr{
+  margin-top: 90px;
+>>>>>>> b6524a1d5e914611a72dfe77e58412d712d9a0fe
   width: 80%;
   margin-left: 8%;
   opacity: 0.8 ;
@@ -135,6 +158,7 @@ hr{
   text-align: center;
   float:right;
   box-sizing:border-box;
+<<<<<<< HEAD
   margin-left: 50%;
   color: #f2e9e4;
   position:absolute;
@@ -151,4 +175,13 @@ hr{
   margin-right: 400vh;
   margin-left: 0%;
   margin-bottom: -20%;
+=======
+  margin-left: 650px;
+  color: #f2e9e4;
+  position:absolute;
+}
+.site-title h2 {
+  font-size: 28px;
+  font-family: 'PT Sans', sans-serif;
+>>>>>>> b6524a1d5e914611a72dfe77e58412d712d9a0fe
 }
