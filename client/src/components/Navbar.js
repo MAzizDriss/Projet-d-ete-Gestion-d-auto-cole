@@ -53,7 +53,6 @@ function Navbar() {
             </div>
           </ul>
           <div className="side-menu-footer">
-          <img className="avatar" src={avatar} className="avatar"/>
             <div className="user-info">
               <h5>Ines Essetti</h5>
               <p>inesessetti99@gmail.com</p>
@@ -64,5 +63,7 @@ function Navbar() {
     </>
   );
 }
+/*          <img className="avatar" src={avatar} className="avatar"/>  
+ */
 
 export default Navbar;

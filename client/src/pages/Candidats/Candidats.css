@@ -92,3 +92,11 @@ padding-left: 150px;
     text-align: center;
     padding-top: 40px;
 }
+
+.avatar {
+    vertical-align: middle;
+    width: 15vh;
+    height: 15vh;
+    border-radius: 0%;
+    margin: 5vh;
+  }

@@ -79,16 +79,16 @@ span {
   background: #52ab98;
   position: absolute;
   bottom: 2%;
+  top: 88%;
   left: 0;
   padding: 1vh;
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
 }
-
 .user-info{
   display: inline-block;
-  margin: 0vh 28%;
+  margin: 2vh 15%;
   margin-bottom: 1vh;
   color: #f2e9e4;
   opacity: 1;
