@@ -1,53 +1,105 @@
 import React, { useState, useEffect } from "react";
-import Calendar from "react-calendar";
+import ProchaineSeance from "./ProchaineSeance";
 import './Calendrier.css';
 import sessions from "../Data/SessionsData";
 import SessionCard from "./SessionCard"
+import { Container } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import { Box } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
+import Button from '@material-ui/core/Button';
+
+function TabPanel(props) {
+  const { children, value, index } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`wrapped-tabpanel-${index}`}
+      aria-labelledby={`wrapped-tab-${index}`}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+
+const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+    width: '80%',
+    marginLeft: '10%'
+  },
+});
+
+const relativedate = new Date(2021, 1, 16, 10) // fonction pour retirer la prochaine date
+function closestdate(arr) {
+  let dates = arr.map(item => item.date)
+  dates.sort(function (a, b) {
+    var distancea = Math.abs(relativedate - a);
+    var distanceb = Math.abs(relativedate - b);
+    return distancea - distanceb;
+  })
+  dates = dates.filter(d => d > relativedate)
+  return arr.find(d => dates[0] === d.date)
+}
+
 
 const Calendrier = () => {
   const [date, setDate] = useState(new Date());
   const [data, setdata] = useState(sessions)
-  const [session, setsession] = useState(closestdate(data))
+  const [Nextsession, setNextsession] = useState(closestdate(data))
   useEffect(() => {
     setdata(sessions)
   }, [])
-  const [dd, setdd] = useState(closestdate(data))
-  const onChange = date => {
-    setDate(date);
+
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
   };
-  function closestdate(arr) {
-    //16 02
-    const relativedate = new Date(2021, 1, 16, 10)
-    let dates = arr.map(item => item.date)
-    dates.sort(function (a, b) {
-      var distancea = Math.abs(relativedate - a);
-      var distanceb = Math.abs(relativedate - b);
-      return distancea - distanceb;
-    })
-    dates = dates.filter(d => d > relativedate)
-    return arr.find(d => dates[0] === d.date)
-  } // works gucci
+
 
   return (
     <div >
-     { /*<div className="Calendrier" className='bg'>
-        <h1>Calendrier</h1>
-      </div>
-      <br />
-      <div className="Calender">
-        <br />
-        <br />
-        <br />
-        <Calendar className="Calendrier-S" showWeekNumbers onChange={onChange} value={date} />
-        {console.log(date)}
-        {console.log(dd)}
-        <h1 className="DateForm">Closest Session: {dd.date.toString()}</h1>
-      </div> 
-    */}
-    <h1>Calandrier</h1>
-    <div className="next-session">
-      <SessionCard session={session}/>
-    </div>
+      <Container fixed>
+        <center>
+          <ProchaineSeance session={Nextsession}/>
+        </center>
+        <Paper className={classes.root}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            centered
+          >
+            <Tab label="Toute les séances" />
+            <Tab label="Séance prochaines" />
+            <Tab label="Séeance précidentes" />
+          </Tabs>
+          <TabPanel value={value} index={0} >
+            <SessionCard sessions={sessions} />
+          </TabPanel>
+          <TabPanel value={value} index={1} >
+            <SessionCard sessions={sessions.filter(s=> s.date>relativedate)} />
+          </TabPanel>
+          <TabPanel value={value} index={2} >
+            <SessionCard sessions={sessions.filter(s=> s.date<relativedate)} />
+          </TabPanel>
+        </Paper>
+        <div className="next-session">
+        </div>
+      </Container>
     </div>
   );
 };

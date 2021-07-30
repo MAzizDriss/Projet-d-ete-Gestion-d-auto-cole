@@ -8,6 +8,7 @@ import Calendrier from './pages/Calendrier/Calendrier';
 import Vehicules from './pages/Vehicules/Vehicules';
 import GestionCandidats from './pages/Candidats/gestion';
 import Tests from './pages/Candidats/tests';
+import AddSession from './pages/Calendrier/AddSession';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route exact path='/Candidats' component={Candidats} />
           <Route exact path='/Employes' component={Employes} />
           <Route exact path='/Vehicules' component={Vehicules} />
+          <Route exact path='/Sessions/add' component={AddSession} />
         </Switch>
       </Router>
     </>
