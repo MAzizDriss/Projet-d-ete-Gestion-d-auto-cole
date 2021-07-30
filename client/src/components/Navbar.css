@@ -52,7 +52,7 @@
 }
 
 .nav-text a:hover {
-  background-color: #52ab98;
+  background-color: #5BC0BE;
   transition: all 0.3s;
 }
 
@@ -76,7 +76,7 @@ span {
 
 .side-menu-footer{
   width: 100%;
-  background: #52ab98;
+  background: #1C2541;
   position: absolute;
   bottom: 2%;
   left: 0;
@@ -113,7 +113,7 @@ span {
   color: #f2e9e4;
 }
 .Title :hover {
-  color:#52ab98;
+  color:#5BC0BE;
   transition: all 0.3s;
 }
 .bars:hover{
@@ -130,7 +130,7 @@ hr{
   width: 80%;
   margin-left: 8%;
   opacity: 0.8 ;
-  border: 1px solid  #52ab98 !important;
+  border: 1px solid  #3A506B !important;
   border-radius: 2px;
 }
 .site-title{
