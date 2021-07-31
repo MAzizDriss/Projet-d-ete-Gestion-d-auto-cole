@@ -9,8 +9,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import sessions from '../Data/SessionsData';
 import clients from '../Data/ClientData';
 import employee from '../Data/Employee';
-
-
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,43 +21,51 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center'
     },
 }));
-const AddSession = () => {
+const EditSession = () => {
+    const { ref } = useParams()
+    const [session, setsession] = React.useState(sessions.find(s=>s.ref===ref))
     const classes = useStyles();
-    const [type, settype] = React.useState('c');
+    const [type, settype] = React.useState(session.ref[0]);
     const handleTypeChange = (event) => {
         settype(event.target.value);
     };
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+    const [selectedDate, setSelectedDate] = React.useState(session.date);
     const handleDateChange = (event) => {
         setSelectedDate(event.target.value);
-        console.log(selectedDate)
     };
-    const [client, setclient] = React.useState('')
+    const [client, setclient] = React.useState(clients[session.client -1].name)
     const handleClientChange = (event) => {
         setclient(event.target.value)
     }
-    const [emp, setemp] = React.useState('')
+    const [emp, setemp] = React.useState(employee[session.employee -1].name)
     const handleEmpChange = (event) => {
         setemp(event.target.value)
     }
-    const [veh, setveh] = React.useState(0)
+    const [veh, setveh] = React.useState((session.vehicule)?session.vehicule:0)
     const handleVehChange = (event) => {
         setveh(event.target.value)
     }
-    function createRef(data) {
-        const last_ref = data[data.length - 1].ref
-        console.log('last_ref:')
-        console.log(last_ref)
-        const last_ref_id = parseInt(last_ref.substring(1, last_ref.length))
-        console.log('last_ref_id:')
-        console.log(last_ref_id)
-        const current_id = last_ref_id + 1
-        const ref = type + String(current_id)
-        return ref
-    }
+    React.useEffect(() => {
+      var clientinput=document.querySelector('#Client')
+      var empinput=document.querySelector('#Employee')
+      var dateinput=document.querySelector('#datetime-local')
+      var typeinput=document.querySelector('#type')
+
+      clientinput.value=client
+      empinput.value=emp
+      typeinput.value=type
+
+      setemp(employee[session.employee -1].name)
+      setSelectedDate(session.date)
+      settype(session.ref[0])
+      if(type=='p'){
+          var vehinput=document.querySelector('#Vehicule')
+          setveh(session.vehicule)
+          vehinput.value=veh
+      }
+    }, [])
+
     const handleSubmit = (event) => {
-        console.log('this is')
-        console.log()
         event.preventDefault()
         const verif_client = clients.find(c => c.name === client) //:o
         const verif_employee = employee.find(e => e.name === emp)
@@ -67,60 +74,56 @@ const AddSession = () => {
             alert('Rakez mlih aaych khoya')
             return
         }
-        const session = {
-            ref: createRef(sessions),
-            client: clients.find(c => c.name == client) ? clients.find(c => c.name == client).id : 0,
-            date: selectedDate,
-            employee: employee.find(e => e.name == emp) ? employee.find(e => e.name == emp).id : 0,
 
-        }
+            session.client=clients.find(c => c.name == client) ? clients.find(c => c.name == client).id : 0
+            session.date= selectedDate
+            session.employee= employee.find(e => e.name == emp) ? employee.find(e => e.name == emp).id : 0
+
         if (type === 'p') {
             session.vehicule = veh
+            session.ref='p'+session.ref.substring(1,session.ref.length)
+        }
+        if(type==='c'){
+            session.ref='c'+session.ref.substring(1,session.ref.length)
         }
         console.log(session)
-        var clientvalue = document.querySelector('#Client')
-        var empvalue=document.querySelector('#Employee')
-        clientvalue.value=''
-        empvalue.value=''
-        setclient('')
-        setemp('')
-        sessions.push(session)
+        alert('Saved the new info <3')
     }
 
     return (
         <div>
             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} >
                 <h1 style={{ color: '#3A506B' }}>Ajout d'une séance:</h1>
-                <TextField id="Client" label="Client" onChange={handleClientChange}/>
+                <TextField id="Client" label="Client" onChange={handleClientChange} />
                 <br />
                 <TextField id="Employee" label="Employee" onChange={handleEmpChange} />
                 <br />
                 {(type == 'p') ? <>
                     <TextField id="Vehicule" label="Vehicule" onChange={handleVehChange} /><br /> </> : ''}
-                    <TextField
-                        id="datetime-local"
-                        label="Date De la séance"
-                        type="datetime-local"
-                        defaultValue="2017-05-24T10:30"
-                        className={classes.textField}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        onChange={handleDateChange}
-                    />
-                    <br/>
+                <TextField
+                    id="datetime-local"
+                    label="Date De la séance"
+                    type="datetime-local"
+                    defaultValue="2021-08-01T10:30"
+                    className={classes.textField}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    onChange={handleDateChange}
+                />
+                <br />
                 <FormControl component="fieldset">
                     <FormLabel component="legend" >Type de séance:</FormLabel>
-                    <RadioGroup aria-label="gender" name="gender1" value={type} onChange={handleTypeChange}>
+                    <RadioGroup aria-label="gender" id='type' name="gender1" value={type} onChange={handleTypeChange}>
                         <FormControlLabel value="c" control={<Radio />} label="Code" />
                         <FormControlLabel value="p" control={<Radio />} label="Conduite" />
                     </RadioGroup>
                 </FormControl>
                 <br />
-                <button style={{ width: '18vw', marginLeft: '20vw', textAlign: 'center' }} onSubmit={handleSubmit}>Ajouter</button>
+                <button style={{ width: '18vw', marginLeft: '20vw', textAlign: 'center' }} onSubmit={handleSubmit} >Enregistrer</button>
             </form>
         </div>
     )
 }
 //e
-export default AddSession
+export default EditSession

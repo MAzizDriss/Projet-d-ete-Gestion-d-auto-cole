@@ -10,7 +10,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { Box } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
-import Button from '@material-ui/core/Button';
 
 function TabPanel(props) {
   const { children, value, index } = props;
@@ -36,7 +35,7 @@ const useStyles = makeStyles({
   root: {
     flexGrow: 1,
     width: '80%',
-    marginLeft: '10%'
+    marginLeft: '10%',
   },
 });
 
@@ -71,6 +70,7 @@ const Calendrier = () => {
 
   return (
     <div >
+            <h1 className='title'>Sessions</h1>
       <Container fixed>
         <center>
           <ProchaineSeance session={Nextsession}/>
