@@ -7,12 +7,12 @@ import CandidatCard from "./CandidatCard"
 function Candidats(){
   return (
     <div>
-    <h1>Candidats</h1>
+    <h1 className="title">Candidats</h1>
     { candidats.map(candidat => {
       return (
         <>
-      
        <CandidatCard candidat={candidat}/>
+       <br/>
        </>
       )
       })

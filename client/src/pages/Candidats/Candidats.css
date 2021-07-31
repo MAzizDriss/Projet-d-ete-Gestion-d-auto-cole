@@ -22,19 +22,13 @@
          
  .title{
     display: flex;
-    height: 90vh;
+    height: 12vh;
     align-items: center;
     margin-left: 1px;
-padding-left: 150px;
+padding-left: 670px;
     font-size: 3rem;
-    background-image: url("image1.jpg");
-    image-rendering: auto;
-    height: 540px;
-    width: 1518px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center; 
-    color: #f2f2f2;
+  margin-bottom: 5vh;
+    color: #16222A;
     margin-top: 50px;
  }
 

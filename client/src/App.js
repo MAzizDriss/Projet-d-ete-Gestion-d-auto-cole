@@ -9,6 +9,7 @@ import Vehicules from './pages/Vehicules/Vehicules';
 import GestionCandidats from './pages/Candidats/gestion';
 import Tests from './pages/Candidats/tests';
 import AddSession from './pages/Calendrier/AddSession';
+import Formulaire from './pages/Candidats/Formulaire';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route exact path='/Employes' component={Employes} />
           <Route exact path='/Vehicules' component={Vehicules} />
           <Route exact path='/Sessions/add' component={AddSession} />
+          <Route exact path='/Candidats/Formulaire' component={Formulaire}/>
         </Switch>
       </Router>
     </>

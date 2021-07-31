@@ -7,6 +7,7 @@ import './Navbar.css';
 import { IconContext } from 'react-icons';
 import logo from './logo.png';
 import avatar from './avatar.png';
+import { Avatar } from '@material-ui/core';
 
 
 function Navbar() {
@@ -64,6 +65,8 @@ function Navbar() {
   );
 }
 /*          <img className="avatar" src={avatar} className="avatar"/>  
+            <Avatar alt="Remy Sharp" src={avatar.png} />
+
  */
 
 export default Navbar;
