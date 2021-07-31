@@ -102,6 +102,7 @@ const AddSession = () => {
                         }}
                         onChange={handleDateChange}
                     />
+                    <br/>
                 <FormControl component="fieldset">
                     <FormLabel component="legend" >Type de séance:</FormLabel>
                     <RadioGroup aria-label="gender" name="gender1" value={type} onChange={handleTypeChange}>
