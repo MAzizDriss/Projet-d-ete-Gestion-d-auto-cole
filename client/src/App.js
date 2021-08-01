@@ -27,7 +27,7 @@ function App() {
           <Route exact path='/Vehicules' component={Vehicules} />
           <Route exact path='/Sessions/add' component={AddSession} />
           <Route exact path='/Sessions/edit/:ref' component={EditSession}/>
-          <Route exact path='/Candidats/Formulaire' component={Formulaire}/>
+          <Route exact path='/Candidats/Formulaire/:id' component={Formulaire}/>
         </Switch>
       </Router>
     </>
