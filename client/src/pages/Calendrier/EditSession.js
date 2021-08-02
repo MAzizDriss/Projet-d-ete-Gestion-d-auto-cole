@@ -85,6 +85,8 @@ const EditSession = () => {
         }
         if(type==='c'){
             session.ref='c'+session.ref.substring(1,session.ref.length)
+            if (session.veh)
+            delete session[veh]
         }
         console.log(session)
         alert('Saved the new info <3')
