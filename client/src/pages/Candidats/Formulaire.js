@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
             width: '75ch',
         },
         marginTop: '6vw',
-        textAlign: 'center'
+        textAlign: 'center',
     },
 }));
 const Formulaire = () => {
@@ -52,7 +52,7 @@ const Formulaire = () => {
         <div>
             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} >
                 <h1 style={{ color: '#3A506B' }}>Modifier les données de {candidat.name} :</h1>
-                <br/><br/>
+                <br/><br/><br/><br/><br></br><br/>
                 <TextField id="name" label="Nom du candidat" onChange={handleNameChange} />
                 <br />
                 <TextField id="payement" label="Payement" onChange={handlePayementChange} />

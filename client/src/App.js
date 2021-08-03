@@ -11,6 +11,8 @@ import Tests from './pages/Candidats/tests';
 import AddSession from './pages/Calendrier/AddSession';
 import Formulaire from './pages/Candidats/Formulaire';
 import EditSession from './pages/Calendrier/EditSession';
+import FormulaireV from './pages/Vehicules/Formulaire';
+import Ajout from './pages/Vehicules/ajout';
 
 function App() {
   return (
@@ -20,7 +22,6 @@ function App() {
         <Switch>
           <Route exact path='/'  component={Home}/>
           <Route exact path='/Calendrier' component={Calendrier} />
-          <Route exact path='/Candidats/gestion' component={GestionCandidats} />
           <Route exact path='/Candidats/Tests' component={Tests} />
           <Route exact path='/Candidats' component={Candidats} />
           <Route exact path='/Employes' component={Employes} />
@@ -28,6 +29,9 @@ function App() {
           <Route exact path='/Sessions/add' component={AddSession} />
           <Route exact path='/Sessions/edit/:ref' component={EditSession}/>
           <Route exact path='/Candidats/Formulaire/:id' component={Formulaire}/>
+          <Route exact path='/Vehicules/Formulaire/:id' component={FormulaireV}/>
+          <Route exact path='/Vehicules/ajouter' component={Ajout} />
+
         </Switch>
       </Router>
     </>

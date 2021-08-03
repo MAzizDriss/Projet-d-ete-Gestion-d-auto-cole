@@ -1,11 +1,21 @@
-import React from 'react';
+import React from "react";
+import cars from "../Data/CarData";
+import CarCard from "./CarCard"
+import './Vehicules.css'
 
-function Vehicules() {
+
+function Candidats(){
   return (
-    <div className='Vehicules'>
-      <h1>Véhicules</h1>
+    <div>
+      <h1   className="title">Véhicules</h1>
+    <div className="page">
+    <>
+       <CarCard cars={cars}/>
+       </>
+    </div>
     </div>
   );
-}
+};
 
-export default Vehicules;
+export default Candidats;
+

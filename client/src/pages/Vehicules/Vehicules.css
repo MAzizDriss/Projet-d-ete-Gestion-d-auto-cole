@@ -1,0 +1,23 @@
+.page{
+    border: solid;
+    margin-top: 2%;
+    width:60%;
+    margin-left: 20%;
+    padding: 10vh;
+    z-index:1;
+    background-color: rgb(6,11,38,0.8);
+    border-radius: 1.5%;
+    border-color: rgb(6,11,38,0.8);
+}
+.title{
+    display: flex;
+    height: 12vh;
+    align-items: center;
+    margin-left: 1px;
+padding-left: 670px;
+    font-size: 3rem;
+  margin-bottom: 5vh;
+    color: #16222A;
+    margin-top: 50px;
+ }
+ 

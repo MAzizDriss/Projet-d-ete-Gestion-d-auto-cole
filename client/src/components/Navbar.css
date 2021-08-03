@@ -97,18 +97,19 @@ span {
 
 .logo{
 
-  width: 20%;
-  height: 20%; /*bel pourcentage a7sen 7aja l9itha*/
-  margin-left: 3vh;
-  margin-bottom: 2vh;
-  margin-top: 2vh;
+  width: 40%; /*30%*/
+  height: 40%; /*bel pourcentage a7sen 7aja l9itha*/ /*30%*/
+  margin-left: 10vh;  /*3vh*/
+  margin-bottom: -4vh;  /*2vh*/
+  margin-top: 0vh;   /*3vh*/
   box-sizing: border-box;
   float: left;
 }
+
 .Title{
   box-sizing: border-box;
   float:right;
-  margin-right: 6vh;
+  margin-right: 10vh; /*6vh*/
   margin-top: 5vh ;
   color: #f2e9e4;
 }
