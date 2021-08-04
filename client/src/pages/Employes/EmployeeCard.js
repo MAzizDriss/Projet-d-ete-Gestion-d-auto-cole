@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import sessions from '../Data/SessionsData';
+import {Link} from 'react-router-dom'
 const useStyles = makeStyles({
     root: {
         marginLeft:'15px',
@@ -72,7 +73,7 @@ const EmployeeCard = ({ emp }) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Learn More</Button>
+            <Link to={`/employes/edit/${emp.id}`} style={{textDecoration:'none'}}> <Button color="secondary" variant="contained" ><div style={{marginRight:'15%'}}>Modifier</div></Button></Link>
             </CardActions>
         </Card>
     );

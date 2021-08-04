@@ -10,6 +10,8 @@ import sessions from '../Data/SessionsData';
 import clients from '../Data/ClientData';
 import employee from '../Data/Employee';
 import { useParams } from 'react-router-dom';
+import { Button } from '@material-ui/core';
+import { indexOf } from 'lodash';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -64,6 +66,11 @@ const EditSession = () => {
           vehinput.value=veh
       }
     }, [])
+    const handleDelete = ()=>{
+        alert("deleted")
+        sessions.splice(sessions.indexOf(sessions.find(s=>s.ref===ref),1))
+
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -95,7 +102,7 @@ const EditSession = () => {
     return (
         <div>
             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} >
-                <h1 style={{ color: '#3A506B' }}>Ajout d'une séance:</h1>
+                <h1 style={{ color: '#3A506B' }}>Modification d'une séance:</h1>
                 <TextField id="Client" label="Client" onChange={handleClientChange} />
                 <br />
                 <TextField id="Employee" label="Employee" onChange={handleEmpChange} />
@@ -124,6 +131,8 @@ const EditSession = () => {
                 <br />
                 <button style={{ width: '18vw', marginLeft: '20vw', textAlign: 'center' }} onSubmit={handleSubmit} >Enregistrer</button>
             </form>
+            <Button color="secondary" variant="contained" style={{marginLeft:'60%'}}><div style={{marginRight:'15%'}} onClick={handleDelete}>supprimer</div></Button>
+
         </div>
     )
 }

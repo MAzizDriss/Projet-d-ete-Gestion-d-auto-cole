@@ -14,7 +14,7 @@ import EditSession from './pages/Calendrier/EditSession';
 import FormulaireV from './pages/Vehicules/Formulaire';
 import Ajout from './pages/Vehicules/ajout';
 import AddEmployee from './pages/Employes/AddEmployee';
-
+import EditEmployee from './pages/Employes/EditEmployee';
 function App() {
   return (
     <>
@@ -33,6 +33,7 @@ function App() {
           <Route exact path='/Vehicules/Formulaire/:id' component={FormulaireV}/>
           <Route exact path='/Vehicules/ajouter' component={Ajout} />
           <Route exact path='/Employes/add' component={AddEmployee} />
+          <Route exact path='/Employes/edit/:id' component={EditEmployee} />
 
         </Switch>
       </Router>
