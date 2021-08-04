@@ -9,8 +9,8 @@ const cars = [
         DateEntretien: "01/01/2022",
         papier:"Vérifiées",
         disponibilite:"Non disponible",
-        service: "En service"
-
+        service: "En service",
+        image: "./images/kiap.jpg"
     },
     {
         id:2,
@@ -22,7 +22,8 @@ const cars = [
         DateEntretien: "01/01/2022",
         papier:"Non vérifiées",
         disponibilite:"Disponible",
-        service:"Hors service"
+        service:"Hors service",
+        image: "./images/kiap.jpg"
     },
     {
         id:3,
@@ -34,8 +35,8 @@ const cars = [
         DateEntretien: "01/02/2022",
         papier:"Vérifiées",
         disponibilite:"Non disponible",
-        service:"En service"
-
+        service:"En service",
+        image: "./images/kiap.jpg"
     },
 ]
 export default cars

@@ -228,12 +228,16 @@ import Box from '@material-ui/core/Box';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import CardMedia from '@material-ui/core/CardMedia';
 
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 200,
+  },
+  media: {
+    height: 140,
   },
   title: {
     fontSize: 14
@@ -328,6 +332,11 @@ export default function CarCard({ car }) {
     <Card className={classes.root} variant="outlined">
       <div>
           <CardContent>
+          <CardMedia
+          className={classes.media}
+            >
+          <img src={car.image}/>
+        </CardMedia>
           <Typography className={classes.heading}> {car.marque} {car.modele}</Typography>
           <Typography className={classes.secondaryHeading}>{car.disponibilite}</Typography>
 
