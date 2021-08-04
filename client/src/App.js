@@ -13,6 +13,7 @@ import Formulaire from './pages/Candidats/Formulaire';
 import EditSession from './pages/Calendrier/EditSession';
 import FormulaireV from './pages/Vehicules/Formulaire';
 import Ajout from './pages/Vehicules/ajout';
+import AddEmployee from './pages/Employes/AddEmployee';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route exact path='/Candidats/Formulaire/:id' component={Formulaire}/>
           <Route exact path='/Vehicules/Formulaire/:id' component={FormulaireV}/>
           <Route exact path='/Vehicules/ajouter' component={Ajout} />
+          <Route exact path='/Employes/add' component={AddEmployee} />
 
         </Switch>
       </Router>

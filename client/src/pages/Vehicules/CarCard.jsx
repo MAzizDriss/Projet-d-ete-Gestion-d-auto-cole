@@ -335,7 +335,7 @@ export default function CarCard({ car }) {
           <CardMedia
           className={classes.media}
             >
-          <img src={car.image}/>
+          <img src={car.image} width='250px'/>
         </CardMedia>
           <Typography className={classes.heading}> {car.marque} {car.modele}</Typography>
           <Typography className={classes.secondaryHeading}>{car.disponibilite}</Typography>

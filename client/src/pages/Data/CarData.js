@@ -1,3 +1,4 @@
+import image from '../Vehicules/images/kiap.jpg'
 const cars = [
     {
         id:1,
@@ -10,7 +11,7 @@ const cars = [
         papier:"Vérifiées",
         disponibilite:"Non disponible",
         service: "En service",
-        image: "./images/kiap.jpg"
+        image: image
     },
     {
         id:2,
@@ -23,7 +24,7 @@ const cars = [
         papier:"Non vérifiées",
         disponibilite:"Disponible",
         service:"Hors service",
-        image: "./images/kiap.jpg"
+        image: image
     },
     {
         id:3,
@@ -36,7 +37,7 @@ const cars = [
         papier:"Vérifiées",
         disponibilite:"Non disponible",
         service:"En service",
-        image: "./images/kiap.jpg"
+        image: image
     },
 ]
 export default cars

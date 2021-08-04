@@ -70,10 +70,10 @@ const Calendrier = () => {
 
   return (
     <div >
-            <h1 className='title'>Sessions</h1>
+      <h1 className='title'>Sessions</h1>
       <Container fixed>
         <center>
-          <ProchaineSeance session={Nextsession}/>
+          <ProchaineSeance session={Nextsession} />
         </center>
         <Paper className={classes.root}>
           <Tabs
@@ -91,10 +91,10 @@ const Calendrier = () => {
             <SessionCard sessions={sessions} />
           </TabPanel>
           <TabPanel value={value} index={1} >
-            <SessionCard sessions={sessions.filter(s=> s.date>relativedate)} />
+            <SessionCard sessions={sessions.filter(s => s.date > relativedate)} />
           </TabPanel>
           <TabPanel value={value} index={2} >
-            <SessionCard sessions={sessions.filter(s=> s.date<relativedate)} />
+            <SessionCard sessions={sessions.filter(s => s.date < relativedate)} />
           </TabPanel>
         </Paper>
         <div className="next-session">
