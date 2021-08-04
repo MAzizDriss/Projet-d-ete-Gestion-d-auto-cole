@@ -75,14 +75,11 @@ const Ajout = () => {
     const handlePapierChange = (event) => {
         setpapier(event.target.value)
     };
+    const [image, setimage] = React.useState('')
 
     function lastCar(data) {
         const last_id = data[data.length - 1].id
-        console.log('last_id:')
-        console.log(last_id)
         const last_ref = parseInt(last_id)
-        console.log('last_ref:')
-        console.log(last_ref)
         const current_id = last_ref + 1
         return current_id
     }
@@ -99,24 +96,45 @@ const Ajout = () => {
             DateEntretien: selectedDateE,
             DateAchat: selectedDateA,
             papier: papier,
+            image: image
         }
 
         vehicules.push(vehicule)
-        history.push("/Vehicules");
+        const marquevalue=document.querySelector('#Marque')
+        const modelevalue=document.querySelector('#Modele')
+        const serievalue=document.querySelector('#Serie')
+        const etatvalue=document.querySelector('#Etat')
+        const dispovalue=document.querySelector('#Disponibilite')
+        const papiervalue=document.querySelector('#Papier')
+
+        marquevalue.value=''
+        modelevalue.value=''
+        serievalue.value=''
+        etatvalue.value=''
+        dispovalue.value=''
+        papiervalue.value=''
+
+        setmarque('')
+        setmodele('')
+        setpapier('')
+        setserie(0)
+        setetat('')
+        setdisponibilite('')
+        history.push('/Vehicules')
 
     }
     return (
         <div className="pageAjout">
             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} >
                 <h1 style={{ color: '#3A506B' }}>Ajout d'un véhicule :</h1>
-                <TextField id="marque" label="marque" onChange={handleMarqueChange} />
+                <TextField id="Marque" label="marque" onChange={handleMarqueChange} />
                 <br />
-                <TextField id="modele" label="modele" onChange={handleModeleChange} />
+                <TextField id="Modele" label="modele" onChange={handleModeleChange} />
                 <br />
-                <TextField id="serie" label="serie" onChange={handleSerieChange} />
+                <TextField id="Serie" label="serie" onChange={handleSerieChange} />
                 <br />
 
-                <Box className={classes.Rating} id="etat" label="etat" onChange={handleEtatChange} component="fieldset" mb={3} borderColor="transparent">
+                <Box className={classes.Rating} id="Etat" label="etat" onChange={handleEtatChange} component="fieldset" mb={3} borderColor="transparent">
                     <Typography component="legend">Etat</Typography>
                     <Rating
                         name="simple-controlled"
@@ -128,7 +146,7 @@ const Ajout = () => {
                 </Box>
                 <br />
                 <FormControl className={classes.formControl}>
-                    <InputLabel id="papier" label="papier" onChange={handlePapierChange}>Papier</InputLabel>
+                    <InputLabel id="Papier" label="papier" onChange={handlePapierChange}>Papier</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="papier"
@@ -141,10 +159,10 @@ const Ajout = () => {
                 </FormControl>
                 <br />
                 <FormControl className={classes.formControl}>
-                    <InputLabel id="disponibilite" label="disponibilite" onChange={handleDisponibiliteChange}>Disponibilité</InputLabel>
+                    <InputLabel id="Disponibilite" label="disponibilite" onChange={handleDisponibiliteChange}>Disponibilité</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
-                        id="disponibilite"
+                        id="Disponibilite"
                         value={disponibilite}
                         onChange={handleDisponibiliteChange}
                     >
@@ -155,7 +173,7 @@ const Ajout = () => {
                 <br />
 
                 <TextField
-                    id="datetime-local"
+                    id="datetime-local-Achat"
                     label="Date D'achat"
                     type="datetime-local"
                     defaultValue="2020-01-07T10:30"
@@ -167,7 +185,7 @@ const Ajout = () => {
                 />
                 <br />
                 <TextField
-                    id="datetime-local"
+                    id="datetime-local-Entretien"
                     label="Date D'entretien"
                     type="datetime-local"
                     defaultValue="2022-01-07T10:30"

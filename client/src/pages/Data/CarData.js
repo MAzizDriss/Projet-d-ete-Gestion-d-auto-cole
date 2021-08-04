@@ -1,4 +1,7 @@
-import image from '../Vehicules/images/kiap.jpg'
+import image1 from '../Vehicules/images/kiap.jpg'
+import image3 from '../Vehicules/images/grand.jpg'
+import image2 from '../Vehicules/images/SuzD.png'
+
 const cars = [
     {
         id:1,
@@ -11,7 +14,7 @@ const cars = [
         papier:"Vérifiées",
         disponibilite:"Non disponible",
         service: "En service",
-        image: image
+        image: image1
     },
     {
         id:2,
@@ -24,7 +27,7 @@ const cars = [
         papier:"Non vérifiées",
         disponibilite:"Disponible",
         service:"Hors service",
-        image: image
+        image: image2
     },
     {
         id:3,
@@ -37,7 +40,7 @@ const cars = [
         papier:"Vérifiées",
         disponibilite:"Non disponible",
         service:"En service",
-        image: image
+        image: image3
     },
 ]
 export default cars
