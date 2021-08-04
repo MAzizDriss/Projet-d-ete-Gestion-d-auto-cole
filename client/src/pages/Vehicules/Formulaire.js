@@ -118,8 +118,8 @@ const Formulaire = () => {
                             }}
                         >
                             <option aria-label="None" value="" />
-                            <option value={1}>En service</option>
-                            <option value={0}>Hors service</option>
+                            <option value={"En service"}>En service</option>
+                            <option value={"Hors service"}>Hors service</option>
                         </Select>
                     </FormControl>
                 </div>
