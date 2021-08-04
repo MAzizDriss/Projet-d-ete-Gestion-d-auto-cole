@@ -28,7 +28,6 @@ const EditEmployee = () => {
     const [name, setname] = React.useState(emp.name)
     const handleSwitchChange = (event) => {
         setpaid((event.target.value==='true'))
-        console.log(paid)
     }
     const handleNameChange = (event) => {
         setname(event.target.value)

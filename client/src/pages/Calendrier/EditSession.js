@@ -11,7 +11,6 @@ import clients from '../Data/ClientData';
 import employee from '../Data/Employee';
 import { useParams } from 'react-router-dom';
 import { Button } from '@material-ui/core';
-import { indexOf } from 'lodash';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -60,7 +59,7 @@ const EditSession = () => {
       setemp(employee[session.employee -1].name)
       setSelectedDate(session.date)
       settype(session.ref[0])
-      if(type=='p'){
+      if(type==='p'){
           var vehinput=document.querySelector('#Vehicule')
           setveh(session.vehicule)
           vehinput.value=veh
@@ -82,9 +81,9 @@ const EditSession = () => {
             return
         }
 
-            session.client=clients.find(c => c.name == client) ? clients.find(c => c.name == client).id : 0
+            session.client=clients.find(c => c.name === client) ? clients.find(c => c.name === client).id : 0
             session.date= selectedDate
-            session.employee= employee.find(e => e.name == emp) ? employee.find(e => e.name == emp).id : 0
+            session.employee= employee.find(e => e.name === emp) ? employee.find(e => e.name === emp).id : 0
 
         if (type === 'p') {
             session.vehicule = veh
@@ -107,7 +106,7 @@ const EditSession = () => {
                 <br />
                 <TextField id="Employee" label="Employee" onChange={handleEmpChange} />
                 <br />
-                {(type == 'p') ? <>
+                {(type === 'p') ? <>
                     <TextField id="Vehicule" label="Vehicule" onChange={handleVehChange} /><br /> </> : ''}
                 <TextField
                     id="datetime-local"

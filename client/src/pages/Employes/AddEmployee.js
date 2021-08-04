@@ -19,7 +19,6 @@ const AddEmployee = () => {
     const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
     const handleDateChange = (event) => {
         setSelectedDate(event.target.value);
-        console.log(selectedDate)
     };
     const [name, setname] = React.useState('')
     const handleNameChange = (event) => {
@@ -29,8 +28,6 @@ const AddEmployee = () => {
     const handleSalaireChange = (event) => {
         setsalaire(event.target.value)
     }
-    console.log(typeof('asss'))
-    console.log(typeof(salaire))
     const handleSubmit = (event) => {
         event.preventDefault()
         //verification
@@ -50,7 +47,6 @@ const AddEmployee = () => {
         salaireel.value=''
         setname('')
         setsalaire(200)
-        console.log(employee)
         //window.location.replace("http://localhost:3000/Employes");
     }
 

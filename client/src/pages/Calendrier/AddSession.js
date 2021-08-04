@@ -31,7 +31,6 @@ const AddSession = () => {
     const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
     const handleDateChange = (event) => {
         setSelectedDate(event.target.value);
-        console.log(selectedDate)
     };
     const [client, setclient] = React.useState('')
     const handleClientChange = (event) => {
@@ -47,18 +46,12 @@ const AddSession = () => {
     }
     function createRef(data) {
         const last_ref = data[data.length - 1].ref
-        console.log('last_ref:')
-        console.log(last_ref)
         const last_ref_id = parseInt(last_ref.substring(1, last_ref.length))
-        console.log('last_ref_id:')
-        console.log(last_ref_id)
         const current_id = last_ref_id + 1
         const ref = type + String(current_id)
         return ref
     }
     const handleSubmit = (event) => {
-        console.log('this is')
-        console.log()
         event.preventDefault()
         const verif_client = clients.find(c => c.name === client) //:o
         const verif_employee = employee.find(e => e.name === emp)
@@ -69,9 +62,9 @@ const AddSession = () => {
         }
         const session = {
             ref: createRef(sessions),
-            client: clients.find(c => c.name == client) ? clients.find(c => c.name == client).id : 0,
+            client: clients.find(c => c.name === client) ? clients.find(c => c.name === client).id : 0,
             date: selectedDate,
-            employee: employee.find(e => e.name == emp) ? employee.find(e => e.name == emp).id : 0,
+            employee: employee.find(e => e.name === emp) ? employee.find(e => e.name === emp).id : 0,
 
         }
         if (type === 'p') {
@@ -95,7 +88,7 @@ const AddSession = () => {
                 <br />
                 <TextField id="Employee" label="Employee" onChange={handleEmpChange} />
                 <br />
-                {(type == 'p') ? <>
+                {(type === 'p') ? <>
                     <TextField id="Vehicule" label="Vehicule" onChange={handleVehChange} /><br /> </> : ''}
                     <TextField
                         id="datetime-local"

@@ -47,22 +47,23 @@ export default function SessionCard({ sessions }) {
             expandIcon={<MdExpandMore />}
             aria-controls="panel1bh-content"
             id="panel1bh-header"
+          
           >
             <Typography className={classes.heading}>{clientdata[s.client - 1].name}</Typography>
-            <Typography className={classes.secondaryHeading}>{s.date.toString().substring(0, 21)}</Typography>
+            <Typography className={classes.secondaryHeading} >{s.date.toString().substring(0, 21)}</Typography>
           </AccordionSummary>
-          <AccordionDetails>
-            <Typography className={classes.secondaryHeading}>
+          <AccordionDetails >
+            <Typography className={classes.secondaryHeading} >
               {s.ref}
             </Typography>
             <br />
             <Typography className={classes.secondaryHeading}>
               Teacher : {empdata[s.employee - 1].name}
             </Typography>
-            <Typography className={classes.secondaryHeading}>
+            <Typography className={classes.secondaryHeading} >
               {(s.vehicule != null) ? `véhicule :${s.vehicule}` : ''}
             </Typography>
-            <Link to={`/Sessions/edit/${s.ref}`} style={{ position: 'absolute', left: '94.6%' }}><BsPencilSquare style={{ fill: '#3A506B' }} /></Link>
+            <Link to={`/Sessions/edit/${s.ref}`} style={{ position: 'absolute', left: '94.6%' }} ><BsPencilSquare style={{ fill: '#3A506B' }} /></Link>
           </AccordionDetails>
         </Accordion>)}
 

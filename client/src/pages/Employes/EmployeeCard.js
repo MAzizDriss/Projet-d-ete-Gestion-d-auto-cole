@@ -53,7 +53,7 @@ function Sessionsbymonth(arr,month){
 const EmployeeCard = ({ emp }) => {
     const classes = useStyles();
     return (
-        <Card className={classes.root} variant="outlined">
+        <Card className={classes.root} variant="outlined" key={emp.id}>
             <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                     employee

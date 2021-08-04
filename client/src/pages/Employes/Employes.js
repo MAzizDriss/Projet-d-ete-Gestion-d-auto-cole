@@ -2,7 +2,6 @@ import React from 'react';
 import employee from '../Data/Employee';
 import EmployeeCard from './EmployeeCard';
 import { Container,Button} from '@material-ui/core';
-console.log(employee)
 
 function Employes() {
   return (

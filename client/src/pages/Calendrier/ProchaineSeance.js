@@ -38,6 +38,9 @@ const ProchaineSeance = ({ session }) => {
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           Prochaine Séance:
         </Typography>
+        <Typography className={classes.pos} color="textSecondary">
+          {session.date.toString().substring(0,21)}
+        </Typography>
         <Typography variant="h5" component="h2">
           {clients[session.client - 1].name}
         </Typography>
