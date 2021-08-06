@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
             width: '75ch',
         },
         marginTop: '4vw',
-        textAlign: 'center'
+        textAlign: 'center',
+        marginBottom:'20vh'
     },
 }));
 const AddSession = () => {

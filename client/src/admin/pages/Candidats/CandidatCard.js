@@ -14,7 +14,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
-
+import { BsPencilSquare } from 'react-icons/bs'
+import {MdDelete} from 'react-icons/md'
+import {Tooltip } from '@material-ui/core'
 
 
 
@@ -77,11 +79,11 @@ const useStyles = makeStyles((theme) => ({
   },
   icon1: {
     right: -450,
-    top:15
+    top:10
   },
   icon2: {
-    right: -300,
-    top: -46
+    right: -350,
+    top: -45
   },
   cards:{
 bottom:510,
@@ -112,7 +114,7 @@ export default function CandidatCard({ candidats }) {
     };
     return (
       <div>
-        <Button variant="outlined" color="primary" onClick={handleClickOpen} >Supprimer</Button>
+        <MdDelete onClick={handleClickOpen}/>
 
         <Dialog
           fullScreen={fullScreen}
@@ -181,13 +183,19 @@ export default function CandidatCard({ candidats }) {
             </Typography >
           </div>
           <div className={classes.icons}>
+          <Tooltip title="Supprimer" >
+
             <IconButton className={classes.icon1} >
               <ButtonDelete candidat={candidat} />
             </IconButton>
+            </Tooltip>
             <Typography >
+              <Tooltip title="Modifier" >
               <IconButton className={classes.icon2} >
-              <Button href={`/Candidats/Formulaire/${candidat.id}`} variant="outlined" color="primary"  >Modifier</Button>
+
+              <BsPencilSquare href={`/Candidats/Formulaire/${candidat.id}`}/>
               </IconButton>
+              </Tooltip>
             </Typography>
           </div>
         </AccordionDetails>

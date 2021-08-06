@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
             width: '75ch',
         },
         marginTop: '4vw',
+        marginBottom: '19.6vh',
         textAlign: 'center'
     },
 }));
@@ -76,9 +77,10 @@ const EditEmployee = () => {
                     </RadioGroup>
                 </FormControl>
                 <br />
-                <button style={{ width: '18vw', marginLeft: '20vw', textAlign: 'center' }} onSubmit={handleSubmit}>Enregistrer</button>
+                <Button color="secondary" variant="contained" style={{marginLeft:'59.7vw', marginRight:'30%', width:'10vw'}}><div style={{marginRight:'15%'}} onSubmit={handleSubmit}>Enregistrer </div></Button>
+                <Button color="secondary" variant="contained" style={{marginLeft:'30%',  width:'10vw'}}><div style={{marginRight:'15%'}} onClick={handleDelete}>supprimer</div></Button>
+
             </form>
-            <Button color="secondary" variant="contained" style={{marginLeft:'60%'}}><div style={{marginRight:'15%'}} onClick={handleDelete}>supprimer</div></Button>
 
         </div>
     )

@@ -142,9 +142,9 @@ export default function TemporaryDrawer() {
         <div >
       {['left'].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+          <Drawer  transitionDuration={ { enter: 150, exit: 700 } }   anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
           <div className='site-title'><h1>Auto école SITI</h1></div>
-          <nav  className="nav-menu">
+          <nav  className="nav-menu" >
           <ul className='nav-menu-items'>
             <li className='navbar-toggle'>
               <Link to='#' className='menu-bars'>
