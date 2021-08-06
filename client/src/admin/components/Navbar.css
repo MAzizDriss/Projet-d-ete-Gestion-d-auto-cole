@@ -8,9 +8,10 @@
 }
 
 .menu-bars {
-  margin-left: 3vw;
+  margin-left:6vh;
   font-size: 2rem;
   background: none;
+  color: #f2e9e4;
 }
 
 .nav-menu {
@@ -21,7 +22,6 @@
   justify-content: center;
   position: fixed;
   top: 0;
-  left: -100%;
   transition: 850ms;
 }
 
@@ -79,7 +79,7 @@ span {
   background: #52ab98;
   position: absolute;
   bottom: 2%;
-  top: 88%;
+  top: 91vh;
   left: 0;
   padding: 1vh;
   box-sizing: border-box;
@@ -88,7 +88,7 @@ span {
 }
 .user-info{
   display: inline-block;
-  margin: 2vh 15%;
+  margin: 1vh 15%;
   margin-bottom: 1vh;
   color: #f2e9e4;
   opacity: 1;
@@ -119,11 +119,11 @@ span {
 }
 .bars:hover{
   fill:#52ab98;
-  transition: all 0.3s;
+  transition: all 0.4s;
   width: 90%;
 }
 .bars{
-  width: 100%;
+  size: 7vh;
 }
 hr{
   margin-top: 38%;

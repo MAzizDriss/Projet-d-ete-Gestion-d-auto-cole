@@ -215,7 +215,7 @@ export default function CarCard({ cars }) {
 }*/
 
 
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -229,6 +229,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import CardMedia from '@material-ui/core/CardMedia';
+import { AiOutlineCar } from 'react-icons/ai'
 
 
 
@@ -262,13 +263,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.typography.pxToRem(15),
     flexBasis: '33.33%',
     flexShrink: 0,
-    marginLeft:15,
+    marginLeft: 15,
   },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
     marginLeft: 15,
-    marginTop:15,
+    marginTop: 15,
   },
 
   date: {
@@ -279,32 +280,33 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 5
 
   },
- entretien: {
-   fontSize: theme.typography.pxToRem(15),
+  entretien: {
+    fontSize: theme.typography.pxToRem(15),
     flexBasis: '99.33%',
     flexShrink: 0,
     marginRight: 10,
     marginLeft: 5,
-    marginTop:15
- },
+    marginTop: 15
+  },
   etat: {
-    marginLeft:-600,
+    marginLeft: -600,
     fontSize: theme.typography.pxToRem(15),
-     flexBasis: '99.33%',
-     flexShrink: 0,
-     marginRight: 10,
-     marginLeft: 5,
-    marginTop: 15  },
- 
-  Rating: {
-    marginRight:100,
-    top:100,
-    fontSize: theme.typography.pxToRem(15),
-     flexBasis: '99.33%',
-     flexShrink: 0,
-     right:250
-  }
+    flexBasis: '99.33%',
+    flexShrink: 0,
+    marginRight: 10,
+    marginLeft: 5,
+    marginTop: 15
+  },
 
+  Rating: {
+    marginRight: 100,
+    top: 100,
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: '99.33%',
+    flexShrink: 0,
+    right: 250,
+  },
+ 
 }));
 
 export default function CarCard({ car }) {
@@ -328,21 +330,23 @@ export default function CarCard({ car }) {
   };
 
   return (
-    
+
     <Card className={classes.root} variant="outlined">
       <div>
-          <CardContent>
+        <CardContent>
           <CardMedia
-          className={classes.media}
-            >
-          <img src={car.image} width='250px'/>
-        </CardMedia>
+            className={classes.media}
+          >
+            <img src={car.image} width='250px' />
+          </CardMedia>
+          <br/><br/>
           <Typography className={classes.heading}> {car.marque} {car.modele}</Typography>
           <Typography className={classes.secondaryHeading}>{car.disponibilite}</Typography>
 
-            <Typography variant="h5" component="h2">
-            </Typography>
-            <div className={classes.date}>
+          <Typography variant="h5" component="h2">
+
+          </Typography>
+          <div className={classes.date}>
             <Typography>
               Date d'achat : {car.DateAchat}
 
@@ -354,39 +358,39 @@ export default function CarCard({ car }) {
             </Typography >
           </div>
           <div>
-      <Box className={classes.etat} component="fieldset" mb={3} borderColor="transparent">
-        <Typography component="legend">Etat du véhicule</Typography>
-        <Rating
-          name="disabled"
-          value={value}
-          disabled
-        />
-      </Box>
-      </div>
-      <div>
-      <FormControl className={classes.formControl} disabled>
-        <InputLabel htmlFor="name-native-disabled"></InputLabel>
-        <NativeSelect
-          value={state.name}
-          onChange={handleChange}
-          inputProps={{
-            name: car.service,
-            id: 'name-native-disabled',
-          }}
-        >
-        <option value="">{car.service}</option>
-        </NativeSelect>
-      </FormControl>
-      </div>
+            <Box className={classes.etat} component="fieldset" mb={3} borderColor="transparent">
+              <Typography component="legend">Etat du véhicule</Typography>
+              <Rating
+                name="disabled"
+                value={value}
+                disabled
+              />
+            </Box>
+          </div>
+          <div>
+            <FormControl className={classes.formControl} disabled>
+              <InputLabel htmlFor="name-native-disabled"></InputLabel>
+              <NativeSelect
+                value={state.name}
+                onChange={handleChange}
+                inputProps={{
+                  name: car.service,
+                  id: 'name-native-disabled',
+                }}
+              >
+                <option value="">{car.service}</option>
+              </NativeSelect>
+            </FormControl>
+          </div>
           <div className={classes.icons}>
-            <Button href={`/Vehicules/Formulaire/${car.id}`} variant="contained" color="secondary" style={{marginLeft:'30%',width:'40%', marginTop:'-29%'}}>
-         <center style={{marginRight:'15%'}} >Modifier</center>
-        </Button>
+            <Button href={`/Vehicules/Formulaire/${car.id}`} variant="contained" color="secondary" style={{ marginLeft: '30%', width: '40%', marginTop: '-29%' }}>
+              <center style={{ marginRight: '15%' }} >Modifier</center>
+            </Button>
           </div>
-          </CardContent>
-          
-          </div>
-    
-      </Card>
+        </CardContent>
+
+      </div>
+
+    </Card>
   );
 }

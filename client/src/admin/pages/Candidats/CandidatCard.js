@@ -4,7 +4,7 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
-import { CgMoreVertical } from 'react-icons/cg'
+import { MdExpandMore } from 'react-icons/md'
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '50%',
     marginLeft: 400,
+    marginBottom:135
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -81,7 +82,10 @@ const useStyles = makeStyles((theme) => ({
   icon2: {
     right: -300,
     top: -46
-  }
+  },
+  cards:{
+bottom:510,
+marginBottom:541  }
 }));
 
 
@@ -140,7 +144,7 @@ export default function CandidatCard({ candidats }) {
       {candidatdata.map(candidat =>
       <Accordion expanded={expanded === candidat.id} onChange={handleChange(candidat.id)} key={candidat.id}>
         <AccordionSummary
-          expandIcon={<CgMoreVertical />}
+          expandIcon={<MdExpandMore />}
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >

@@ -1,0 +1,46 @@
+import React from 'react';
+import Navbar from './components/Navbar';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from './pages/Home/Home';
+import Employes from './pages/Employes/Employes';
+import Candidats from './pages/Candidats/Candidats';
+import Calendrier from './pages/Calendrier/Calendrier';
+import Vehicules from './pages/Vehicules/Vehicules';
+import Tests from './pages/Candidats/tests';
+import AddSession from './pages/Calendrier/AddSession';
+import Formulaire from './pages/Candidats/Formulaire';
+import EditSession from './pages/Calendrier/EditSession';
+import FormulaireV from './pages/Vehicules/Formulaire';
+import Ajout from './pages/Vehicules/ajout';
+import AddEmployee from './pages/Employes/AddEmployee';
+import EditEmployee from './pages/Employes/EditEmployee';
+import Footer from './components/Footer';
+
+function MainRouter() {
+  return (
+    <>
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route exact path='/admin/'  component={Home}/>
+          <Route exact path='/Calendrier' component={Calendrier} />
+          <Route exact path='/Candidats/Tests' component={Tests} />
+          <Route exact path='/Candidats' component={Candidats} />
+          <Route exact path='/Employes' component={Employes} />
+          <Route exact path='/Vehicules' component={Vehicules} />
+          <Route exact path='/Sessions/add' component={AddSession} />
+          <Route exact path='/Sessions/edit/:ref' component={EditSession}/>
+          <Route exact path='/Candidats/Formulaire/:id' component={Formulaire}/>
+          <Route exact path='/Vehicules/Formulaire/:id' component={FormulaireV}/>
+          <Route exact path='/Vehicules/ajouter' component={Ajout} />
+          <Route exact path='/Employes/add' component={AddEmployee} />
+          <Route exact path='/Employes/edit/:id' component={EditEmployee} />
+
+        </Switch>
+        <Footer/>
+      </Router>
+    </>
+  );
+}
+
+export default MainRouter;
