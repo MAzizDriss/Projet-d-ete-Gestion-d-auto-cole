@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
             width: '75ch',
         },
         marginTop: '4vw',
-        textAlign: 'center'
+        textAlign: 'center',
+        marginBottom: '19vh'
     },
 }));
 const EditSession = () => {
@@ -121,16 +122,18 @@ const EditSession = () => {
                 />
                 <br />
                 <FormControl component="fieldset">
-                    <FormLabel component="legend" >Type de séance:</FormLabel>
+                    <FormLabel style={{marginLeft:"-33vh"}} component="legend" >Type de séance:</FormLabel>
                     <RadioGroup aria-label="gender" id='type' name="gender1" value={type} onChange={handleTypeChange}>
                         <FormControlLabel value="c" control={<Radio />} label="Code" />
                         <FormControlLabel value="p" control={<Radio />} label="Conduite" />
                     </RadioGroup>
                 </FormControl>
                 <br />
+                <div style={{display: "flex", direction: "column", marginLeft:"65vh"}}>
                 <button style={{ width: '18vw', marginLeft: '20vw', textAlign: 'center' }} onSubmit={handleSubmit} >Enregistrer</button>
+                <Button color="secondary" variant="contained" style={{marginLeft:'1%', width: '15vw'}}><div style={{marginRight:'15%'}} onClick={handleDelete}>supprimer</div></Button>
+</div>
             </form>
-            <Button color="secondary" variant="contained" style={{marginLeft:'60%'}}><div style={{marginRight:'15%'}} onClick={handleDelete}>supprimer</div></Button>
 
         </div>
     )
