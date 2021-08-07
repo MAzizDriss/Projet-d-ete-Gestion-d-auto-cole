@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
         },
         marginTop: '6vw',
         textAlign: 'center',
+        marginBottom: '18vh'
     },
 }));
 const Formulaire = () => {

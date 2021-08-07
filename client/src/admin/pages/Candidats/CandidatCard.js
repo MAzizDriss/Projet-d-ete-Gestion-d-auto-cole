@@ -17,6 +17,7 @@ import { useTheme } from '@material-ui/core/styles';
 import { BsPencilSquare } from 'react-icons/bs'
 import {MdDelete} from 'react-icons/md'
 import {Tooltip } from '@material-ui/core'
+import { Link } from 'react-router-dom';
 
 
 
@@ -65,29 +66,28 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 25,
   },
   date: {
-    top: 50,
-    marginTop: 92,
-    marginLeft: -200,
-
+    marginTop: 50,
   },
   pay: {
-    marginTop: 140,
-    marginLeft: -261,
+    marginTop: 100,
   },
-  icons: {
-    marginTop: 200,
-  },
+ 
   icon1: {
-    right: -450,
-    top:10
+    right: "-600px",
+    marginTop: -200
   },
   icon2: {
-    right: -350,
-    top: -45
+    right: "-610px",
+    marginTop: -70
   },
-  cards:{
-bottom:510,
-marginBottom:541  }
+sessionsmap:{
+  marginRight:50,
+  display: "flex"
+},
+detailsm:{
+  display: "flex",
+  flexDirection: "column"
+}
 }));
 
 
@@ -156,15 +156,15 @@ export default function CandidatCard({ candidats }) {
         </AccordionSummary>
         <br/>
         <br/>
-        <AccordionDetails>
+        <AccordionDetails className={classes.detailsm}>
           <Typography>
-            Les sessions réalisés :
+            Les sessions réalisés : 
           </Typography>
-          <div>
+          <div className={classes.sessionsmap}>
             {candidat.sessions.map(session => {
               return (
                 <Typography >
-                  {session}
+                  {session},
                 </Typography>
               )
             })
@@ -182,24 +182,25 @@ export default function CandidatCard({ candidats }) {
               Payement : {candidat.payement}
             </Typography >
           </div>
-          <div className={classes.icons}>
-          <Tooltip title="Supprimer" >
+        
+        </AccordionDetails>
+        <div className={classes.icons}>
+          <Tooltip title="Modifier" >
 
             <IconButton className={classes.icon1} >
-              <ButtonDelete candidat={candidat} />
+            <Link to={`/Candidats/Formulaire/${candidat.id}`} style={{ position: 'absolute', left: '94.6%' }} ><BsPencilSquare style={{ fill: '#3A506B' }} /></Link>
+
             </IconButton>
             </Tooltip>
             <Typography >
-              <Tooltip title="Modifier" >
+              <Tooltip title="Supprimer" >
               <IconButton className={classes.icon2} >
+              <ButtonDelete candidat={candidat} style={{ position: 'absolute'}} ><BsPencilSquare style={{ fill: '#3A506B' }} /></ButtonDelete>
 
-              <BsPencilSquare href={`/Candidats/Formulaire/${candidat.id}`}/>
               </IconButton>
               </Tooltip>
-            </Typography>
-          </div>
-        </AccordionDetails>
-
+            </Typography></div>
+          
       </Accordion>
       )}
     </div>
