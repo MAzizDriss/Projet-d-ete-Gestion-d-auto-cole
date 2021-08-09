@@ -10,6 +10,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { Box } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
+import Particles from 'react-particles-js';
+
 
 function TabPanel(props) {
   const { children, value, index } = props;
@@ -69,7 +71,8 @@ const Calendrier = () => {
 
 
   return (
-    <div >
+    <div>
+     
       <h1 className='title'>Sessions</h1>
       <Container fixed>
         <center>
@@ -100,6 +103,7 @@ const Calendrier = () => {
         <div className="next-session">
         </div>
       </Container>
+      
     </div>
   );
 };

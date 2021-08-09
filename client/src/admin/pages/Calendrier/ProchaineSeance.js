@@ -55,7 +55,7 @@ const ProchaineSeance = ({ session }) => {
       </CardContent>
       <CardActions>
         <Button href='/Sessions/add' variant="contained" color="secondary" style={{marginLeft:'80%',width:'40%'}}>
-         <center style={{marginRight:'15%'}} >Ajouter</center>
+         <center style={{marginRight:'15%'}} >Ajouter une séance</center>
         </Button>
       </CardActions>
     </Card>
