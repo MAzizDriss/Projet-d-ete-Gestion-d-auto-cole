@@ -49,7 +49,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '4rem',
   },
 }));
-export default function Header() {
+export default function Header({sidebar,setSidebar}) {
+  const showSidebar = () => setSidebar(!sidebar);
+
   const classes = useStyles();
   const [checked, setChecked] = useState(false);
   useEffect(() => {
@@ -60,7 +62,7 @@ export default function Header() {
       <AppBar className={classes.appbar} elevation={0}>
         <Toolbar className={classes.appbarWrapper}>
         <IconButton>
-            <SortIcon className={classes.icon} />
+            <SortIcon onClick={showSidebar} className={classes.icon} />
           </IconButton>
           <h1 className={classes.appbarTitle}>
             Auto école<span className={classes.colorText}>SITI</span>
@@ -80,7 +82,7 @@ export default function Header() {
           </h1>
           <Scroll to="service" smooth={true}>
             <IconButton>
-              <ExpandMoreIcon className={classes.goDown} />
+              <ExpandMoreIcon  onClick={showSidebar} className={classes.goDown} />
             </IconButton>
           </Scroll>
         </div>
