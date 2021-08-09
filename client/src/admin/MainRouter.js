@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
@@ -29,7 +29,7 @@ function MainRouter() {
   return (
     <>
       <Router>
-        <Navbar sidebar={sidebar} setSidebar={setSidebar}/>
+        <Navbar sidebar={sidebar} setSidebar={setSidebar} />
         <Switch>
           <ProtectedAdminRoute exact path='/' component={Home} />
           <Route exact path='/signup' component={Signup} />
@@ -49,8 +49,8 @@ function MainRouter() {
           <ProtectedAdminRoute exact path='/Employes/edit/:id' component={EditEmployee} />
           <ProtectedAdminRoute exact path='/protected' component={Protected} />
         </Switch>
-<Sidebar sidebar={sidebar} setSidebar={setSidebar}/>
-<Footer/>
+        <Sidebar sidebar={sidebar} setSidebar={setSidebar} />
+        <Footer />
       </Router>
     </>
   );

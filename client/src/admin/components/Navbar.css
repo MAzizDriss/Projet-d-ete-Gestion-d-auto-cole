@@ -158,3 +158,17 @@ hr{
   margin-bottom: -20%;
 
 }
+.logout{
+  display: flex;
+  flex-direction: row;
+  left: 80vw;
+  color: #f2e9e4;
+  
+}
+.deconnection{
+  color: #f2e9e4;
+}
+.deconnection:hover{
+  color: #52ab98;
+  transition: all 0.8s;
+}

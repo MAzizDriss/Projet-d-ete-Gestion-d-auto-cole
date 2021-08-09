@@ -1,10 +1,11 @@
 import React from 'react';
 import MainRouter from './admin/MainRouter';
+import MainRouterUser from './user/MainRouterUser';
 function App(){
 
 return(
   <div>
-  <MainRouter/>
+  <MainRouterUser/>
   </div>
   );
 };
