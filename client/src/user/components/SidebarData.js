@@ -1,39 +1,27 @@
 import React from 'react';
-import * as BiIcons from 'react-icons/bi';
+import * as FaIcons from 'react-icons/fa';
 import * as TiIcons from 'react-icons/ti';
-import * as HiIcons from 'react-icons/hi';
 import * as BsIcons from 'react-icons/bs';
 
 
 export const SidebarData = [
   {
     title: 'Acceuil',
-    path: '/',
+    path: '/user/home',
     icon: <TiIcons.TiHomeOutline />,
     cName: 'nav-text'
   },
   {
     title: 'Calendrier',
-    path: '/Calendrier',
+    path: '/user/Calendrier',
     icon: <BsIcons.BsCalendar />,
     cName: 'nav-text'
   },
   {
-    title: 'Candidats',
+    title: 'Questionnaire',
     path: '/Candidats',
-    icon: <BsIcons.BsFillPeopleFill />,
+    icon: <FaIcons.FaWpforms />,
     cName: 'nav-text'
   },
-  {
-    title: 'Employés',
-    path: '/Employes',
-    icon: <HiIcons.HiOutlineOfficeBuilding />,
-    cName: 'nav-text'
-  },
-  {
-    title: 'Véhicules',
-    path: '/Vehicules',
-    icon: <BiIcons.BiCar />,
-    cName: 'nav-text'
-  }
+
 ];

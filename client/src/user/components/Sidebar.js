@@ -7,7 +7,7 @@ import './Navbar.css';
 import { IconContext } from 'react-icons';
 import logo from './logo.png';
 import { Avatar } from '@material-ui/core';
-
+import {CgProfile} from 'react-icons/cg';
 
 function Sidebar({sidebar, setSidebar}) {
   
@@ -47,6 +47,7 @@ function Sidebar({sidebar, setSidebar}) {
           </ul>
           <div className="side-menu-footer">
             <div className="user-info">
+              
               <h5>Ines Essetti</h5>
               <p>inesessetti99@gmail.com</p>
             </div>

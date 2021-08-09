@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, IconButton, Toolbar, Collapse } from '@material-ui/core';
 import SortIcon from '@material-ui/icons/Sort';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Link as Scroll } from 'react-scroll';
-import Home from '../../admin/pages/Home/Home';
-import { Particles } from 'react-particles-js';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -53,10 +50,7 @@ export default function Header({sidebar,setSidebar}) {
   const showSidebar = () => setSidebar(!sidebar);
 
   const classes = useStyles();
-  const [checked, setChecked] = useState(false);
-  useEffect(() => {
-    setChecked(true);
-  }, []);
+
   return (
     <div className={classes.root} id="header">
       <AppBar className={classes.appbar} elevation={0}>
@@ -70,23 +64,7 @@ export default function Header({sidebar,setSidebar}) {
         </Toolbar>
       </AppBar>
 
-      <Collapse
-        in={checked}
-        {...(checked ? { timeout: 1000 } : {})}
-        collapsedHeight={50}
-      >
-        <div className={classes.container}>
-          <h1 className={classes.title}>
-            Bienvenu sur <br />
-            auto école<span className={classes.colorText}>SITI</span>
-          </h1>
-          <Scroll to="service" smooth={true}>
-            <IconButton>
-              <ExpandMoreIcon  onClick={showSidebar} className={classes.goDown} />
-            </IconButton>
-          </Scroll>
-        </div>
-      </Collapse>
+    
     </div>
   );
 }
