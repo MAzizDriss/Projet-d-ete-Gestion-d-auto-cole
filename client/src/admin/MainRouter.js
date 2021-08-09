@@ -15,29 +15,39 @@ import Ajout from './pages/Vehicules/ajout';
 import AddEmployee from './pages/Employes/AddEmployee';
 import EditEmployee from './pages/Employes/EditEmployee';
 import Footer from './components/Footer';
+import Signup from '../auth/Signup';
+import Signin from '../auth/Signin';
+import Test from '../auth/Test';
+import Protected from '../auth/Protected';
+import ProtectedAdminRoute from '../auth/ProtectedRoute';
 
 function MainRouter() {
+
+
   return (
     <>
       <Router>
         <Navbar />
         <Switch>
-          <Route exact path='/admin/'  component={Home}/>
-          <Route exact path='/Calendrier' component={Calendrier} />
-          <Route exact path='/Candidats/Tests' component={Tests} />
-          <Route exact path='/Candidats' component={Candidats} />
-          <Route exact path='/Employes' component={Employes} />
-          <Route exact path='/Vehicules' component={Vehicules} />
-          <Route exact path='/Sessions/add' component={AddSession} />
-          <Route exact path='/Sessions/edit/:ref' component={EditSession}/>
-          <Route exact path='/Candidats/Formulaire/:id' component={Formulaire}/>
-          <Route exact path='/Vehicules/Formulaire/:id' component={FormulaireV}/>
-          <Route exact path='/Vehicules/ajouter' component={Ajout} />
-          <Route exact path='/Employes/add' component={AddEmployee} />
-          <Route exact path='/Employes/edit/:id' component={EditEmployee} />
-
+          <ProtectedAdminRoute exact path='/admin/' component={Home} />
+          <Route exact path='/signup' component={Signup} />
+          <Route exact path='/login' component={Signin} />
+          <Route exact path='/test' component={Test} />
+          <ProtectedAdminRoute exact path='/Calendrier' component={Calendrier} />
+          <ProtectedAdminRoute exact path='/Candidats/Tests' component={Tests} />
+          <ProtectedAdminRoute exact path='/Candidats' component={Candidats} />
+          <ProtectedAdminRoute exact path='/Employes' component={Employes} />
+          <ProtectedAdminRoute exact path='/Vehicules' component={Vehicules} />
+          <ProtectedAdminRoute exact path='/Sessions/add' component={AddSession} />
+          <ProtectedAdminRoute exact path='/Sessions/edit/:ref' component={EditSession} />
+          <ProtectedAdminRoute exact path='/Candidats/Formulaire/:id' component={Formulaire} />
+          <ProtectedAdminRoute exact path='/Vehicules/Formulaire/:id' component={FormulaireV} />
+          <ProtectedAdminRoute exact path='/Vehicules/ajouter' component={Ajout} />
+          <ProtectedAdminRoute exact path='/Employes/add' component={AddEmployee} />
+          <ProtectedAdminRoute exact path='/Employes/edit/:id' component={EditEmployee} />
+          <ProtectedAdminRoute exact path='/protected' component={Protected} />
         </Switch>
-        <Footer/>
+        <Footer />
       </Router>
     </>
   );
