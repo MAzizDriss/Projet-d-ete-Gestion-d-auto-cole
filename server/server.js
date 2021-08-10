@@ -9,6 +9,7 @@ dotenv.config()
 const authRoute = require('./routes/auth')
 const testRoute = require('./routes/test')
 const AdminClientRoute = require('./routes/adminclientreq')
+const AdminSessionRoute = require('./routes/adminsessionreq')
 
 //app use
 const app = express()
@@ -40,7 +41,7 @@ app.get('/', (req, res) => {
 app.use('/api/user', authRoute)
 app.use('/api/test',testRoute)
 app.use('/api/admin',AdminClientRoute)
-
+app.use('/api/admin/session',AdminSessionRoute)
 
 port = process.env.PORT || 3001
 app.listen(port, () => console.log(`listening on port ${port}`))

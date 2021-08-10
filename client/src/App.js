@@ -18,8 +18,7 @@ function App() {
   }, [])
   return (
     <div>
-      {(user.role === "User") ? <MainRouterUser />
-        : <MainRouter />}
+      {(user.role==="Admin")?<MainRouter/>:<MainRouterUser/>}
     </div>
   );
 };

@@ -30,9 +30,22 @@ router.delete('/client/:id', verify, async (req, res) => {
 })
 
 //perform a put request
+function update_validation(data, res) {
+    const schema = Joi.object({
+        name: Joi.string().min(4).required(),
+        payment: Joi.required()
+    })
+    const { error } = schema.validate(data)
+    if (error) {
+        res.status(400).send(error.details[0].message)
+    }
+    return (!error)
+}
+
 router.put('/client/:id', verify, async (req, res) => {
     const role = req.user.userData.role
     if (role !== "Admin") return res.status(401).send('bad request')
+    if(!update_validation) {return}
     User.updateOne(
         { id: req.params.id },
         {
