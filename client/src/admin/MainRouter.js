@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
@@ -20,16 +20,18 @@ import Signin from '../auth/Signin';
 import Test from '../auth/Test';
 import Protected from '../auth/Protected';
 import ProtectedAdminRoute from '../auth/ProtectedRoute';
+import Sidebar from './components/Sidebar';
 
 function MainRouter() {
+  const [sidebar, setSidebar] = useState(false);
 
 
   return (
     <>
       <Router>
-        <Navbar />
+        <Navbar sidebar={sidebar} setSidebar={setSidebar} />
         <Switch>
-          <ProtectedAdminRoute exact path='/admin/' component={Home} />
+          <ProtectedAdminRoute exact path='/' component={Home} />
           <Route exact path='/signup' component={Signup} />
           <Route exact path='/login' component={Signin} />
           <Route exact path='/test' component={Test} />
@@ -47,6 +49,7 @@ function MainRouter() {
           <ProtectedAdminRoute exact path='/Employes/edit/:id' component={EditEmployee} />
           <ProtectedAdminRoute exact path='/protected' component={Protected} />
         </Switch>
+        <Sidebar sidebar={sidebar} setSidebar={setSidebar} />
         <Footer />
       </Router>
     </>

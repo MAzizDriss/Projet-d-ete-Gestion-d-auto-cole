@@ -12,7 +12,7 @@ const cars = [
         DateAchat:"22/01/2010",
         DateEntretien: "01/01/2022",
         papier:"Vérifiées",
-        disponibilite:"Non disponible",
+        disponibilite:"Disponible",
         service: "En service",
         image: image1
     },

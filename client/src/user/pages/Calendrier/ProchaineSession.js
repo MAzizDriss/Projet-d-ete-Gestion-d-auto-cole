@@ -30,7 +30,7 @@ const useStyles = makeStyles({
     marginBottom: 12,
   },
 });
-const ProchaineSeance = ({ session }) => {
+const ProchaineSession = ({ session }) => {
   const classes = useStyles();
   return (
     <Card className={classes.root} variant="outlined">
@@ -61,4 +61,4 @@ const ProchaineSeance = ({ session }) => {
     </Card>
   );
 }
-export default ProchaineSeance
+export default ProchaineSession
