@@ -9,9 +9,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100vh',
+    height: '9vh',
     fontFamily: 'Nunito',
-    background: '#060b26'
   },
   appbar: {
     background: '#060b26',
@@ -52,7 +51,7 @@ export default function Header({sidebar,setSidebar}) {
 
   return (
     <div className={classes.root} id="header">
-      <AppBar className={classes.appbar} elevation={0}>
+      <AppBar className={classes.appbar} >
         <Toolbar className={classes.appbarWrapper}>
         <IconButton>
             <FaBars onClick={showSidebar} className={classes.icon} />

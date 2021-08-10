@@ -15,12 +15,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '0vh',
+    height: '100vh',
     fontFamily: 'Nunito',
-    background: '#060b26'
   },
   root1:{
     height: '100vh',
+background:"#060b26",
+marginTop:-1
   },
   appbar: {
     background: '#060b26',
@@ -47,8 +48,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop:-500,
   },
   title: {
-    color: '#fff',
+    color: '#f2f2f2',
     fontSize: '4.5rem',
+    marginTop:400
   },
   goDown: {
     color: '#52ab98',
@@ -105,8 +107,8 @@ export default function Home(props) {
    
 
 
-    <div  className={classes.root1}>
-      <div className={classes.root}>
+    <div  className={classes.root1} >
+      <div className={classes.root} elevation={0}>
         <Collapse
         in={checked}
         {...(checked ? { timeout: 1000 } : {})}
