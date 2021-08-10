@@ -2,13 +2,15 @@ import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import Serv from './pages/home/services';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Link as Scroll } from 'react-scroll';
 import { Particles } from 'react-particles-js';
 import { AppBar, IconButton, Toolbar, Collapse } from '@material-ui/core';
 import SortIcon from '@material-ui/icons/Sort';
 import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import {MdExpandMore} from 'react-icons/md'
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -118,7 +120,7 @@ export default function Home(props) {
           </h1>
           <Scroll to="service" smooth={true}>
             <IconButton>
-              <ExpandMoreIcon  className={classes.goDown} />
+              <MdExpandMore  className={classes.goDown} />
             </IconButton>
           </Scroll>
         </div>

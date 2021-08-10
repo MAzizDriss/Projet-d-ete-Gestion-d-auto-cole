@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, IconButton, Toolbar, Collapse } from '@material-ui/core';
-import SortIcon from '@material-ui/icons/Sort';
-
+import {FaBars} from 'react-icons/fa'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -56,7 +55,7 @@ export default function Header({sidebar,setSidebar}) {
       <AppBar className={classes.appbar} elevation={0}>
         <Toolbar className={classes.appbarWrapper}>
         <IconButton>
-            <SortIcon onClick={showSidebar} className={classes.icon} />
+            <FaBars onClick={showSidebar} className={classes.icon} />
           </IconButton>
           <h1 className={classes.appbarTitle}>
             Auto école<span className={classes.colorText}>SITI</span>
