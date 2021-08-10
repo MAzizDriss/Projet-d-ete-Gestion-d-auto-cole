@@ -7,12 +7,22 @@ import './Navbar.css';
 import { IconContext } from 'react-icons';
 import logo from './logo.png';
 import { Avatar } from '@material-ui/core';
-import {CgProfile} from 'react-icons/cg';
+import {BiLogInCircle} from 'react-icons/bi';
+import axios from 'axios';
 
 function Sidebar({sidebar, setSidebar}) {
   
   const showSidebar = () => setSidebar(!sidebar);
-
+  const [user, setuser] = React.useState({})
+  const [post, setpost] = React.useState({})
+  React.useEffect(() => {
+      axios.get('http://localhost:3001/api/test',{headers:{
+          "auth-token":localStorage.getItem('token')
+      }}).then((result)=>{setpost(result.data.posts)
+                          setuser(result.data.user.userData)
+                              })
+      .catch((err)=>console.log(err))
+  }, [])
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
@@ -46,10 +56,11 @@ function Sidebar({sidebar, setSidebar}) {
             </div>
           </ul>
           <div className="side-menu-footer">
+            <BiLogInCircle style={{width: 25, height:25, marginLeft:20, marginRight:-10, marginBottom:3}}/>
             <div className="user-info">
               
-              <h5>Ines Essetti</h5>
-              <p>inesessetti99@gmail.com</p>
+              <h5>{user.name}</h5>
+              <p>{user.role}</p>
             </div>
           </div>
         </nav>
@@ -57,8 +68,6 @@ function Sidebar({sidebar, setSidebar}) {
     </>
   );
 }
-   //       <img className="avatar" src={avatar} className="avatar"/>  
-     //       <Avatar alt="Remy Sharp" src={avatar.png} />
 
  
 

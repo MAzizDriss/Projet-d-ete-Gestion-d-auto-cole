@@ -87,6 +87,7 @@ span {
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
+  font-size: larger;
 }
 .user-info{
   display: inline-block;
@@ -126,6 +127,7 @@ span {
 }
 .bars{
   size: 7vh;
+  color: #f2e9e4;
 }
 hr{
   margin-top: 38%;
@@ -159,9 +161,7 @@ hr{
 
 }
 .logout{
-  display: flex;
-  flex-direction: row;
-  left: 80vw;
+right:5000;
   color: #f2e9e4;
   
 }

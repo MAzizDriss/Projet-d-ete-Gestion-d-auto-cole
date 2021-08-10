@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from '../user/components/Header';
 import Sidebar from '../user/components/Sidebar';
-import homeUser from "../user/home"
+import homeUser from "../user/pages/home/home"
 import Signup from '../auth/Signup';
 import Signin from '../auth/Signin';
 import Test from '../auth/Test';

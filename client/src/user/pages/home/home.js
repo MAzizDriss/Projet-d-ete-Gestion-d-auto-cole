@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
-import Serv from './pages/home/services';
+import Serv from './services';
 import { Link as Scroll } from 'react-scroll';
 import { Particles } from 'react-particles-js';
 import { AppBar, IconButton, Toolbar, Collapse } from '@material-ui/core';
