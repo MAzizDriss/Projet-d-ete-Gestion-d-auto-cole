@@ -19,7 +19,7 @@ export const SidebarData = [
   },
   {
     title: 'Questionnaire',
-    path: '/Candidats',
+    path: '/user/questionnaire',
     icon: <FaIcons.FaWpforms />,
     cName: 'nav-text'
   },

@@ -7,7 +7,8 @@ import { Link as Scroll } from 'react-scroll';
 import { Particles } from 'react-particles-js';
 import { AppBar, IconButton, Toolbar, Collapse } from '@material-ui/core';
 import SortIcon from '@material-ui/icons/Sort';
-
+import { withStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -52,14 +53,57 @@ const useStyles = makeStyles((theme) => ({
     color: '#52ab98',
     fontSize: '4rem',
   },
+  bottom: {
+    color: theme.palette.grey[theme.palette.type === 'light' ? 200 : 700],
+    marginTop:-1000
+
+  },
+  top: {
+    color: '#6fffe9',
+    animationDuration: '550ms',
+    position: 'absolute',
+    left: 800,
+    top:320,
+  },
+  circle: {
+    strokeLinecap: 'round',
+  },
 }));
-export default function Home() {
+export default function Home(props) {
+
   const [checked, setChecked] = useState(false);
   useEffect(() => {
     setChecked(true);
   }, []);
   const classes = useStyles();
+
+
+  const [done, setDone] = useState(undefined);
+
+  useEffect(() => {
+    setTimeout(() => {
+          setDone(true);
+      
+    }, 2000);
+  }, []);
   return (
+
+    <>
+    {!done ? (
+     <CircularProgress
+     variant="indeterminate"
+     className={classes.top}
+     size={70}
+     thickness={5}
+     {...props}
+     value={100}
+   />
+   
+    ) : (
+      
+   
+
+
     <div  className={classes.root1}>
       <div className={classes.root}>
         <Collapse
@@ -83,5 +127,9 @@ export default function Home() {
       <CssBaseline />
       <Serv />
     </div>
+
+
+)}
+</>
   );
 }
