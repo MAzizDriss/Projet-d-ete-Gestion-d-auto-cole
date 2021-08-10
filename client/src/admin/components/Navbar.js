@@ -73,13 +73,10 @@ export default Navbar;
 */
 import React, { useState } from 'react';
 import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { SidebarData } from './SidebarData';
 import './Navbar.css';
 import { IconContext } from 'react-icons';
-import logo from './logo.png';
-import avatar from './avatar.png';
 import { Button } from '@material-ui/core';
 import Sidebar from './Sidebar';
 import {FiLogOut} from 'react-icons/fi'
@@ -90,10 +87,9 @@ function Navbar({sidebar,setSidebar}) {
 
   const showSidebar = () => setSidebar(!sidebar);
 const logout = () => {
-  return(
+    localStorage.setItem('isAuth',false)
     history.push("/login")
-
-  )
+  
 }
   return (
     <>

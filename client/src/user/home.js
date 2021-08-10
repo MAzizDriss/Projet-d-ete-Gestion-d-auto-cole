@@ -5,7 +5,6 @@ import Serv from './pages/home/services';
 import { Link as Scroll } from 'react-scroll';
 import { Particles } from 'react-particles-js';
 import { AppBar, IconButton, Toolbar, Collapse } from '@material-ui/core';
-import SortIcon from '@material-ui/icons/Sort';
 import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {MdExpandMore} from 'react-icons/md'
