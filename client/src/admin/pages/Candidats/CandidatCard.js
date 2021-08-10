@@ -15,17 +15,17 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { BsPencilSquare } from 'react-icons/bs'
-import {MdDelete} from 'react-icons/md'
-import {Tooltip } from '@material-ui/core'
+import { MdDelete } from 'react-icons/md'
+import { Tooltip } from '@material-ui/core'
 import { Link } from 'react-router-dom';
-
-
+import axios from 'axios'
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '50%',
     marginLeft: 400,
-    marginBottom:135
+    marginBottom: 135
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   pay: {
     marginTop: 100,
   },
- 
+
   icon1: {
     right: "-600px",
     marginTop: -200
@@ -80,14 +80,14 @@ const useStyles = makeStyles((theme) => ({
     right: "-610px",
     marginTop: -70
   },
-sessionsmap:{
-  marginRight:50,
-  display: "flex"
-},
-detailsm:{
-  display: "flex",
-  flexDirection: "column"
-}
+  sessionsmap: {
+    marginRight: 50,
+    display: "flex"
+  },
+  detailsm: {
+    display: "flex",
+    flexDirection: "column"
+  }
 }));
 
 
@@ -95,7 +95,7 @@ detailsm:{
 export default function CandidatCard({ candidats }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [candidatdata, setcandidatdata] = useState(candidats)
+  const history = useHistory();
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -109,17 +109,29 @@ export default function CandidatCard({ candidats }) {
     const handleClickOpen = () => {
       setOpen(true);
     };
-    const handleClose = () => {
+    const handleNo = () => {
       setOpen(false);
     };
+    const handleYes = () => {
+      axios.delete(`http://localhost:3001/api/admin/client/${candidat.id}`, {
+        headers: {
+          "auth-token": localStorage.getItem('token')
+        }
+      }).then(() => {
+        setOpen(false)
+        history.go(0)
+      }).catch(err => console.log(err))
+
+
+    }
     return (
       <div>
-        <MdDelete onClick={handleClickOpen}/>
+        <MdDelete onClick={handleClickOpen} />
 
         <Dialog
           fullScreen={fullScreen}
           open={open}
-          onClose={handleClose}
+          onClose={handleNo}
           aria-labelledby="responsive-dialog-title"
         >
           <DialogTitle id="responsive-dialog-title">{"Supprimer un candidat ?"}</DialogTitle>
@@ -129,10 +141,10 @@ export default function CandidatCard({ candidats }) {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button autoFocus onClick={handleClose} color="primary">
+            <Button autoFocus onClick={handleNo} color="primary">
               Non
             </Button>
-            <Button onClick={handleClose} color="primary" autoFocus>
+            <Button onClick={handleYes} color="primary" autoFocus>
               Oui
             </Button>
           </DialogActions>
@@ -143,68 +155,68 @@ export default function CandidatCard({ candidats }) {
 
   return (
     <div className={classes.root}>
-      {candidatdata.map(candidat =>
-      <Accordion expanded={expanded === candidat.id} onChange={handleChange(candidat.id)} key={candidat.id}>
-        <AccordionSummary
-          expandIcon={<MdExpandMore />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
-        >
-          <Typography className={classes.heading}>Nom du candidat : </Typography>
-          <Typography className={classes.secondaryHeading}>{candidat.name}</Typography>
+      {candidats.map(candidat =>
+        <Accordion expanded={expanded === candidat.id} onChange={handleChange(candidat.id)} key={candidat.id}>
+          <AccordionSummary
+            expandIcon={<MdExpandMore />}
+            aria-controls="panel1bh-content"
+            id="panel1bh-header"
+          >
+            <Typography className={classes.heading}>Nom du candidat : </Typography>
+            <Typography className={classes.secondaryHeading}>{candidat.name}</Typography>
 
-        </AccordionSummary>
-        <br/>
-        <br/>
-        <AccordionDetails className={classes.detailsm}>
-          <Typography>
-            Les sessions réalisés : 
-          </Typography>
-          <div className={classes.sessionsmap}>
-            {candidat.sessions.map(session => {
-              return (
-                <Typography >
-                  {session},
-                </Typography>
-              )
-            })
-            }
-          </div>
-
-          <div className={classes.date}>
-            <Typography className={classes.heading4}>
-              Date d'inscription : {candidat.insciprtionDate}
-
+          </AccordionSummary>
+          <br />
+          <br />
+          <AccordionDetails className={classes.detailsm}>
+            <Typography>
+              Les sessions réalisés :
             </Typography>
-          </div>
-          <div className={classes.pay}>
-            <Typography className={classes.heading}>
-              Payement : {candidat.payement}
-            </Typography >
-          </div>
-        
-        </AccordionDetails>
-        <div className={classes.icons}>
-          <Tooltip title="Modifier" >
+            <div className={classes.sessionsmap}>
+              {candidat.sessions.map(session => {
+                return (
+                  <Typography >
+                    {session},
+                  </Typography>
+                )
+              })
+              }
+            </div>
 
-            <IconButton className={classes.icon1} >
-            <Link to={`/Candidats/Formulaire/${candidat.id}`} style={{ position: 'absolute', left: '94.6%' }} ><BsPencilSquare style={{ fill: '#3A506B' }} /></Link>
+            <div className={classes.date}>
+              <Typography className={classes.heading4}>
+                Date d'inscription : {candidat.createdAt}
 
-            </IconButton>
+              </Typography>
+            </div>
+            <div className={classes.pay}>
+              <Typography className={classes.heading}>
+                Payement : {(candidat.payment) ? 'oui' : 'non'}
+              </Typography >
+            </div>
+
+          </AccordionDetails>
+          <div className={classes.icons}>
+            <Tooltip title="Modifier" >
+
+              <IconButton className={classes.icon1} >
+                <Link to={`/Candidats/Formulaire/${candidat.id}`} style={{ position: 'absolute', left: '94.6%' }} ><BsPencilSquare style={{ fill: '#3A506B' }} /></Link>
+
+              </IconButton>
             </Tooltip>
             <Typography >
               <Tooltip title="Supprimer" >
-              <IconButton className={classes.icon2} >
-              <ButtonDelete candidat={candidat} style={{ position: 'absolute'}} ><BsPencilSquare style={{ fill: '#3A506B' }} /></ButtonDelete>
+                <IconButton className={classes.icon2} >
+                  <ButtonDelete candidat={candidat} style={{ position: 'absolute' }} ><BsPencilSquare style={{ fill: '#3A506B' }} /></ButtonDelete>
 
-              </IconButton>
+                </IconButton>
               </Tooltip>
             </Typography></div>
-          
-      </Accordion>
+
+        </Accordion>
       )}
     </div>
-          
+
   );
-          
+
 }

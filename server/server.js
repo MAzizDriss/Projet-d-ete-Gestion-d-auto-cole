@@ -8,6 +8,7 @@ dotenv.config()
 //routes import
 const authRoute = require('./routes/auth')
 const testRoute = require('./routes/test')
+const AdminClientRoute = require('./routes/adminclientreq')
 
 //app use
 const app = express()
@@ -38,6 +39,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/user', authRoute)
 app.use('/api/test',testRoute)
+app.use('/api/admin',AdminClientRoute)
 
 
 port = process.env.PORT || 3001
