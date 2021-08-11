@@ -7,13 +7,12 @@ import axios from 'axios'
 import FormCard from './FormCard'
 import { Badge } from "@material-ui/core";
 import MuiAlert from '@material-ui/lab/Alert';
-import { Chip } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
-import Paper from '@material-ui/core/Paper';
+import bg1 from './images/bg1.jpg'
+import bg2 from './images/bg2.jpg'
+import bg3 from './images/bg3.jpg'
+import bg4 from './images/bg4.jpg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,17 +45,8 @@ const Profile = () => {
     })
       .catch((err) => console.log(err))
   }, [])
-  const SessionCount = (sessions) => {
-    {
-      sessions.map((value) => (
-        <Grid key={value} item>
-          <h1> ho
-          </h1>
-        </Grid>
-      ))
-    }
-  };
-  Object.size = function(obj) {
+
+  Object.size = function (obj) {
     var size = 0,
       key;
     for (key in obj) {
@@ -66,11 +56,12 @@ const Profile = () => {
   };
   var size = Object.size(user.sessions);
 
-  const [spacing, setSpacing] = React.useState(2);
   const classes = useStyles();
   return (
     <div>
-      <div className="Page"></div>
+      <div className="Page">
+        <img className="bg_image" src={bg4}/>
+      </div>
 
       <Grid container>
         <Box
@@ -78,10 +69,10 @@ const Profile = () => {
           bgcolor="background.paper"
           m={1}
           p={1}
-          style={{ width: '60rem', height: '35rem', marginTop: -680, marginLeft: 310 }}
+          style={{ width: '35rem', height: '37rem', marginTop: -680, marginLeft: 490, backgroundColor:"#3a506b" }}
         >
           <Grid style={{ backgroundColor: "#3a506b", }}>
-            <Box style={{ backgroundColor: "#0b132b", padding: 70 }}>
+            <Box style={{ backgroundColor: "#0b132b", padding: 70, textAlign:"center" }}>
               <div className="Title">
                 <h1>{user.name}</h1>
                 <hr className="hr" />
@@ -92,52 +83,13 @@ const Profile = () => {
           </Grid>
 
           <div>
-
-          </div>
-          <div>
-            <Grid container className={classes.root} spacing={2}>
-              <Grid item xs={12}>
-                <Grid container justifyContent="center" spacing={5}>
-                    <div >  
-                    <Grid >
-                      <Paper className={classes.paper}>
-                        <br/>
-                        <h2 style={{marginLeft:35, color:"#f2f2f2", marginTop:-8}}>Séances réalisées</h2>
-                        <hr style={{marginTop:10}}/>
-                        </Paper>
-                    </Grid>
-                    </div>
-                    <div>  
-                    <Grid style={{marginLeft:15}}>
-                      <Paper className={classes.paper} >
-                        <br/>
-                        <h2 style={{marginLeft:69, color:"#f2f2f2", marginTop:-8}}>Payement</h2>
-                        <hr style={{marginTop:10, marginBottom:35}}/>
-
-                       <div style={{marginLeft:20, marginRight:20, color:"", textAlign:"center"}}>
-                        {(user.payment) ? 
-                        <>
-                    <h3>Vos séances sont toutes payées.</h3>
-                    </> : 
-                    <h3>Vous avez des séances non payées! <br/>
-                      Veuillez vérifier votre compte..</h3>}
-                        </div>
-                      </Paper>
-                    </Grid>
-                    </div>
-                    <div>  
-                    <Grid style={{marginLeft:15}}>
-                      <Paper className={classes.paper} >
-                      <br/>
-                        <h2 style={{marginLeft:48, color:"#f2f2f2", marginTop:-8}}>Tests réalisés</h2>
-                        <hr style={{marginTop:10}}/>
-                        <h3>{size}</h3>
-                        </Paper>
-                    </Grid>
-                    </div>
-                </Grid>
-              </Grid>
-            </Grid>
+          <Typography variant="body2" component="p">
+                    Nombre total de séances réalisés : {size}
+                    <br />
+                    Nombre de séances : {Object.size(user.sessions)}
+                    <br/>
+                    code: {(Object.size(user.sessions)>0)?(Object.size(user.sessions.filter(u=> u[0] ==='c'))):''}    ;conduite: {(Object.size(user.sessions)>0)?user.sessions.filter(u=>u[0]==='p').length:''}
+                </Typography>
           </div>
         </Box>
       </Grid>

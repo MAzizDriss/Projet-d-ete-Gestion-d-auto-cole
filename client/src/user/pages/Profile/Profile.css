@@ -14,7 +14,6 @@
     margin-left: 4vw;
 }
 .Title{
-    margin-right: 19vw;
     margin-top: -6vh;
 }
 .hr{
@@ -23,7 +22,7 @@
 }
 .sousTitre{
     margin-top: 1vh;
-    margin-left: 2.7vw;
+    
     color: #5bc0be;
 }
 
@@ -39,4 +38,14 @@
     background-color: #000;
     width: 2;
     height: 2;
+}
+.bg_image{
+     /* Full height */
+  height: 100%;
+  width: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
