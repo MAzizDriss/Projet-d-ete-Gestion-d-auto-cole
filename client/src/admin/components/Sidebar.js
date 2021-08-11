@@ -6,7 +6,6 @@ import { SidebarData } from './SidebarData';
 import './Navbar.css';
 import { IconContext } from 'react-icons';
 import logo from './logo.png';
-import avatar from './avatar.png';
 import { Avatar } from '@material-ui/core';
 
 
