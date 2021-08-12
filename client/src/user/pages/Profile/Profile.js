@@ -5,14 +5,15 @@ import Box from '@material-ui/core/Box';
 import avatar from './avatar.png'
 import axios from 'axios'
 import FormCard from './FormCard'
-import { Badge } from "@material-ui/core";
+import { FcCheckmark } from "react-icons/fc";
 import MuiAlert from '@material-ui/lab/Alert';
-import { Typography } from "@material-ui/core";
+import { IoMdAlert } from "react-icons/io";
 import { makeStyles } from '@material-ui/core/styles';
 import bg1 from './images/bg1.jpg'
 import bg2 from './images/bg2.jpg'
 import bg3 from './images/bg3.jpg'
 import bg4 from './images/bg4.jpg'
+import Particles from 'react-particles-js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
   control: {
     padding: theme.spacing(2),
   },
+  colorText: {
+    color: "#5bc0be"
+  }
 }));
 
 
@@ -60,7 +64,7 @@ const Profile = () => {
   return (
     <div>
       <div className="Page">
-        <img className="bg_image" src={bg4}/>
+        <img className="bg_image" src={bg4} />
       </div>
 
       <Grid container>
@@ -69,27 +73,42 @@ const Profile = () => {
           bgcolor="background.paper"
           m={1}
           p={1}
-          style={{ width: '35rem', height: '37rem', marginTop: -680, marginLeft: 490, backgroundColor:"#3a506b" }}
+          style={{ width: '40rem', height: '37rem', marginTop: -680, marginLeft: 490, backgroundColor: "#f2f2f2" }}
         >
           <Grid style={{ backgroundColor: "#3a506b", }}>
-            <Box style={{ backgroundColor: "#0b132b", padding: 70, textAlign:"center" }}>
-              <div className="Title">
+            <Box style={{ backgroundColor: "#0b132b", padding: 70 }}>
+           <center style={{marginRight:"80px"}}>   <div className="Title">
                 <h1>{user.name}</h1>
                 <hr className="hr" />
                 <div className="sousTitre">
                   <h2>Candidat</h2></div>
-              </div>
+              </div></center>
             </Box>
           </Grid>
 
-          <div>
-          <Typography variant="body2" component="p">
-                    Nombre total de séances réalisés : {size}
-                    <br />
-                    Nombre de séances : {Object.size(user.sessions)}
-                    <br/>
-                    code: {(Object.size(user.sessions)>0)?(Object.size(user.sessions.filter(u=> u[0] ==='c'))):''}    ;conduite: {(Object.size(user.sessions)>0)?user.sessions.filter(u=>u[0]==='p').length:''}
-                </Typography>
+          <div style={{ marginLeft: 50 }}>
+
+            <br /><br />
+            <h3>
+              Nombre total de séances : <span className={classes.colorText}>{size} séances</span>
+            </h3>
+
+            <br />
+            <br />
+            <h3>
+              Nombre de séances de code : <span className={classes.colorText}> {(Object.size(user.sessions) > 0) ? (Object.size(user.sessions.filter(u => u[0] === 'c'))) : ''} séances</span>
+            </h3>
+            <br/>
+            <br/>
+            <h3>
+              Nombre de séances de conduite : <span className={classes.colorText}> {(Object.size(user.sessions) > 0) ? Object.size(user.sessions.filter(u => u[0] === 'p')) : ''} séances</span>
+            </h3>
+            <br/><br/>
+            {(user.payment) ? <>
+                    <h3 style={{color:"green"}}><FcCheckmark/> Vous avez payé tout vos séances.</h3>
+                    <br /> </> : 
+                    <h3 style={{color:"red",fontFamily:"Gill Sans", textAlign:"center"}}><IoMdAlert/> Vous avez des séances non payés! Veuillez vérifier votre compte.</h3>
+                    }
           </div>
         </Box>
       </Grid>

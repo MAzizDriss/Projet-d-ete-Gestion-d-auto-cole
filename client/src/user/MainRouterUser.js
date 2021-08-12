@@ -8,6 +8,8 @@ import Signin from '../auth/Signin';
 import Test from '../auth/Test';
 import Calendrier from './pages/Calendrier/Calendrier';
 import Profile from './pages/Profile/Profile'
+import Tests from './pages/Tests/Tests'
+
 function MainRouterUser() {
   const [sidebar, setSidebar] = useState(false);
 
@@ -20,6 +22,7 @@ function MainRouterUser() {
         <Route exact path='/user/Calendrier' component={Calendrier}/>
         <Route exact path='/signup' component={Signup} />
         <Route exact path='/user/Profile' component={Profile}/>
+        <Route exact path='/user/Tests' component={Tests}/>
           <Route exact path='/login' component={Signin} />
           <Route exact path='/test' component={Test} />
         <Sidebar sidebar={sidebar} setSidebar={setSidebar} />

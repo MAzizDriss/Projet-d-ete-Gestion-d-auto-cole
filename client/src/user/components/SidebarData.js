@@ -24,8 +24,8 @@ export const SidebarData = [
     cName: 'nav-text'
   },
   {
-    title: 'Questionnaire',
-    path: '/user/questionnaire',
+    title: 'Tests',
+    path: '/user/Tests',
     icon: <FaIcons.FaWpforms />,
     cName: 'nav-text'
   },
