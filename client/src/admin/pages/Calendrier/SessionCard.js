@@ -5,8 +5,6 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import { MdExpandMore } from 'react-icons/md'
-import clients from '../Data/ClientData';
-import employee from '../Data/Employee';
 import { BsPencilSquare } from 'react-icons/bs'
 import { Link } from 'react-router-dom';
 
@@ -27,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SessionCard({ sessions }) {
+export default function SessionCard({ sessions,clients,employees }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -36,7 +34,27 @@ export default function SessionCard({ sessions }) {
   };
   const [sessdata, setsessdata] = useState(sessions)
   const [clientdata, setclientdata] = useState(clients)
-  const [empdata, setempdata] = useState(employee)
+  const [empdata, setempdata] = useState(employees)
+  React.useEffect(
+    ()=>{
+      console.log('sessions use Effect')
+      setsessdata(sessions)
+    }
+  ,[sessions])
+  React.useEffect(
+    ()=>{
+      console.log("clients use Effect")
+      console.log(clients)
+      setclientdata(clients)
+    }
+  ,[clients])
+  React.useEffect(
+    ()=>{
+      console.log("employees use Effect")
+      setempdata(employees)
+    }
+  ,[employees])
+ 
 
   return (
 
@@ -49,8 +67,9 @@ export default function SessionCard({ sessions }) {
             id="panel1bh-header"
           
           >
-            <Typography className={classes.heading}>{clientdata[s.client - 1].name}</Typography>
-            <Typography className={classes.secondaryHeading} >{s.date.toString().substring(0, 21)}</Typography>
+            {console.log((clientdata[s.clientId-1])?clientdata[s.clientId-1].name:'')}
+            <Typography className={classes.heading}> {(clientdata[s.clientId-1])?clientdata[s.clientId-1].name:''}</Typography>
+            <Typography className={classes.secondaryHeading} >{new Date(s.date).toString().substring(0, 21)}</Typography>
           </AccordionSummary>
           <AccordionDetails >
             <Typography className={classes.secondaryHeading} >
@@ -58,10 +77,10 @@ export default function SessionCard({ sessions }) {
             </Typography>
             <br />
             <Typography className={classes.secondaryHeading}>
-              Teacher : {empdata[s.employee - 1].name}
+              Teacher : {(empdata[s.employeeId-1])?empdata[s.employeeId -1].name:''}
             </Typography>
             <Typography className={classes.secondaryHeading} >
-              {(s.vehicule != null) ? `véhicule :${s.vehicule}` : ''}
+              {(s.vehiculeId != null) ? `véhicule :${s.vehiculeId}` : ''}
             </Typography>
             <Link to={`/Sessions/edit/${s.ref}`} style={{ position: 'absolute', left: '94.6%' }} ><BsPencilSquare style={{ fill: '#3A506B' }} /></Link>
           </AccordionDetails>

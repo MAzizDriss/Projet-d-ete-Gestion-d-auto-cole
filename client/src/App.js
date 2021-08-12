@@ -12,7 +12,6 @@ function App() {
       }
     }).then((result) => {
       setuser(result.data.user.userData)
-      console.log(result)
     })
       .catch((err) => console.log(err))
   }, [])

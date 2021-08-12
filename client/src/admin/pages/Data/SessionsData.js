@@ -38,7 +38,7 @@ const sessions =[
         vehicule:3
     },
     {
-        ref:'p59',//
+        ref:'p59',
         client:2,
         date:new Date(2021,1,22,10),
         employee:1,
@@ -52,7 +52,7 @@ const sessions =[
         vehicule:2
     },
     {
-        ref:'p90' ,//
+        ref:'p90' ,
         client:3 ,
         date:new Date(2021,2,1,10),
         employee:2,

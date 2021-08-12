@@ -23,7 +23,6 @@ const ProtectedAdminRoute = ({ component: Component, ...rest }) => {
     return (
         <Route {...rest}
             render={(props) => {
-                { console.log(isAuth) }
                 if (isAuth === 'true') {
                     if (role === "Admin") { return <Component /> }
                     if (role === "User") {

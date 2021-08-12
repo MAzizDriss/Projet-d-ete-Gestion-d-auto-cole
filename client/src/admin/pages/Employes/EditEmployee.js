@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import employee from '../Data/Employee';
 import { useParams } from 'react-router-dom';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -9,7 +8,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { Button } from '@material-ui/core';
-
+import axios from 'axios';
+import { useHistory } from 'react-router';
 const useStyles = makeStyles((theme) => ({
     root: {
         '& > *': {
@@ -22,43 +22,53 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 const EditEmployee = () => {
+    const history = useHistory();
     const { id } = useParams()
     const classes = useStyles();
-    const [emp, setemp] = React.useState(employee[id - 1])
-    const [paid, setpaid] = React.useState(emp.paiement)
-    const [name, setname] = React.useState(emp.name)
+    const [emp, setemp] = React.useState({})
+    const [paid, setpaid] = React.useState(false)
+    const [name, setname] = React.useState('holder')
+    const [salaire, setsalaire] = React.useState(200)
+    React.useEffect(() => {
+        axios.get(`http://localhost:3001/api/admin/employee/${id}`,{headers:{
+            "auth-token":localStorage.getItem('token')
+        }}).then((result)=>{ setemp(result.data)
+                             setname(result.data.name)
+                             setpaid(result.data.payment) 
+                            setsalaire(result.data.salaire)})
+        .catch((err)=>console.log(err))
+    }, [])
     const handleSwitchChange = (event) => {
         setpaid((event.target.value==='true'))
     }
     const handleNameChange = (event) => {
         setname(event.target.value)
     }
-    const [salaire, setsalaire] = React.useState(emp.salaire)
     const handleSalaireChange = (event) => {
         setsalaire(event.target.value)
     }
     const handleDelete = ()=>{
-        alert('Deleted')
-        delete(employee[id -1])
+        axios.delete(`http://localhost:3001/api/admin/employee/${id}`,{headers:{
+            "auth-token":localStorage.getItem('token')
+        }}).then(()=>{alert('user deleted')
+                    history.push('/Employes')})
 
     }
     const handleSubmit = (event) => {
         event.preventDefault()
         //verification
         const emplo = {
-            id: emp.id,
             name: name,
-            sessions: emp.sessions,
             salaire: salaire,
-            dateAjout: emp.dateAjout,
-            paiement:paid,
-            jourpaiment:emp.jourpaiment
-
+            payment:paid,
         }
-        console.log(emplo)
-        employee[id -1]=emplo
-        alert('Saved')
-        //window.location.replace("http://localhost:3000/Employes");
+        axios.put(`http://localhost:3001/api/admin/employee/${id}`, emplo, {
+            headers: {
+                "auth-token": localStorage.getItem('token')
+            }
+        }).then(() => { history.push('/employes'); })
+            .catch((err) => console.log(err))
+        
     }
 
     return (
@@ -70,14 +80,14 @@ const EditEmployee = () => {
                 <TextField type='number' id="Salaire" label="Salaire" value={salaire} onChange={handleSalaireChange} />
                 <br />
                 <FormControl component="fieldset">
-                    <FormLabel component="legend" >{`a reçu le paiement le ${emp.jourpaiment}/${new Date().getMonth()+1}`}</FormLabel>
+                    <FormLabel component="legend" >{`a reçu le paiement le ${emp.dayofpayment}/${new Date().getMonth()+1}`}</FormLabel>
                     <RadioGroup aria-label="gender" id='type' name="paiement" value={paid} onChange={handleSwitchChange}>
                         <FormControlLabel value={true} control={<Radio />} label="Oui" />
                         <FormControlLabel value={false} control={<Radio />} label="Non" />
                     </RadioGroup>
                 </FormControl>
                 <br />
-                <Button color="secondary" variant="contained" style={{marginLeft:'59.7vw', marginRight:'30%', width:'10vw'}}><div style={{marginRight:'15%'}} onSubmit={handleSubmit}>Enregistrer </div></Button>
+                <button color="secondary" variant="contained" style={{marginLeft:'59.7vw', marginRight:'30%', width:'10vw'}}><div style={{marginRight:'15%'}} >Enregistrer </div></button>
                 <Button color="secondary" variant="contained" style={{marginLeft:'30%',  width:'10vw'}}><div style={{marginRight:'15%'}} onClick={handleDelete}>supprimer</div></Button>
 
             </form>

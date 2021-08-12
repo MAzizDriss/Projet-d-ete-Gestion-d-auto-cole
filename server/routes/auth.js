@@ -9,7 +9,6 @@ router.post('/register', async (req, res) => {
     //hashing
     const salt = await bcrypt.genSalt(10) //10 is the complexity
     const hashedPassword=await bcrypt.hash(req.body.password,salt)
-
     const result = await User.find().sort({ id: -1 }).limit(1)
     const user = new User({
         id: (result.length>0 )?result[0].id+1: 1,

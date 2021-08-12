@@ -5,8 +5,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import sessions from '../Data/SessionsData';
 import {Link} from 'react-router-dom'
+import axios from 'axios';
 const useStyles = makeStyles({
     root: {
         marginLeft:'15px',
@@ -28,30 +28,40 @@ const useStyles = makeStyles({
     },
 });
 
-const relativedate = new Date(2021, 1, 16, 10) // fonction pour retirer la prochaine date
+const relativedate = new Date('2021-09-01T09:00:00.000+00:00') // fonction pour retirer la prochaine date
 function closestdate(arr) {
-    let sessdata = arr.map(
-        ref =>
-            sessions.find(d => d.ref == ref)
-    )
-    let dates = sessdata.map(item => item.date)
-    dates.sort(function (a, b) {
-        var distancea = Math.abs(relativedate - a);
-        var distanceb = Math.abs(relativedate - b);
-        return distancea - distanceb;
+    let datesArr1 = arr.map(item => new Date(item.date).toString())
+    const datesArr = arr.map(item => new Date(item.date))
+    let dates=datesArr.sort(function (a, b) {
+      var distancea = Math.abs(relativedate - a);
+      var distanceb = Math.abs(relativedate - b);
+      return distancea - distanceb;
     })
     dates = dates.filter(d => d > relativedate)
-    return sessdata.find(d => dates[0] === d.date)
-}
-function Sessionsbymonth(arr,month){
-    let sessdata = arr.map(
-        ref =>
-            sessions.find(d => d.ref == ref)
-    )
-    const sessdata2=sessdata.filter(d=> d.date.getMonth()===month )
-    return sessdata2.length
+    const date=datesArr.find(d=>d===dates[0])
+    const index=datesArr1.indexOf(new Date(date).toString())
+    return arr[index]
 }
 const EmployeeCard = ({ emp }) => {
+    const [sessions,setsessions]=React.useState()
+    const [Nextsession,setNextsession]=React.useState()
+    const [monthsess,setmonthsess]=React.useState()
+    React.useEffect(()=>{
+        axios.get('http://localhost:3001/api/admin/session/sessions',{headers:{
+            "auth-token":localStorage.getItem('token')
+        }}).then((result)=>{ setsessions(result.data) 
+                            setNextsession(closestdate(result.data))
+                            setmonthsess(Sessionsbymonth(emp.sessions,relativedate.getMonth(),result.data))})
+                        
+    },[])
+    function Sessionsbymonth(arr,month,sessions){
+        let sessdata = arr.map(
+            ref =>
+                sessions.find(d => d.ref === ref)
+        )
+        const sessdata2=sessdata.filter(d=>d&&new Date (d.date).getMonth()===month )
+        return sessdata2.length
+    }
     const classes = useStyles();
     return (
         <Card className={classes.root} variant="outlined" key={emp.id}>
@@ -63,14 +73,14 @@ const EmployeeCard = ({ emp }) => {
                     {emp.name}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                    prochaine séance : {(emp.sessions.length>0)?closestdate(emp.sessions).date.toString().substring(0, 21):''}
+                    prochaine séance : {(Nextsession)?new Date(Nextsession.date).toString().substring(0, 21):''}
                 </Typography>
                 <Typography variant="body2" component="p">
-                    Nombre de séance pour ce mois : {(emp.sessions.length>0)?Sessionsbymonth(emp.sessions,relativedate.getMonth()):''}
+                    Nombre de séance pour ce mois : {monthsess}
                     <br />
                     Nombre de séances : {emp.sessions.length}
                     <br/>
-                    code: {(emp.sessions.length>0)?(emp.sessions.filter(e=> e[0] ==='c').length):''}    ;conduite: {(emp.sessions.length>0)?emp.sessions.filter(e=>e[0]==='p').length:''}
+                    code: {(sessions)?(emp.sessions.filter(e=> e[0] ==='c').length):''}    ;conduite: {(emp.sessions.length>0)?emp.sessions.filter(e=>e[0]==='p').length:''}
                 </Typography>
             </CardContent>
             <CardActions>

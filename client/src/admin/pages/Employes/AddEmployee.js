@@ -1,7 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import employee from '../Data/Employee';
+import axios from 'axios'
+import { useHistory } from 'react-router';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -12,14 +13,15 @@ const useStyles = makeStyles((theme) => ({
         },
         marginTop: '4vw',
         textAlign: 'center',
-        marginBottom:'36.2vh'
+        marginBottom: '36.2vh'
     },
 }));
 const AddEmployee = () => {
+    const history = useHistory();
     const classes = useStyles();
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
-    const handleDateChange = (event) => {
-        setSelectedDate(event.target.value);
+    const [payday, setpayday] = React.useState(1);
+    const handlePayDayChange = (event) => {
+        setpayday(event.target.value);
     };
     const [name, setname] = React.useState('')
     const handleNameChange = (event) => {
@@ -33,22 +35,27 @@ const AddEmployee = () => {
         event.preventDefault()
         //verification
         const emp = {
-            id: employee.length + 1,
             name: name,
-            sessions: [],
             salaire: salaire,
-            dateAjout:selectedDate
+            dayofpayment: payday,
 
         }
-        console.log(emp)
-        employee.push(emp)
-        const nomel=document.querySelector('#Nom')
-        const salaireel=document.querySelector('#Salaire')
-        nomel.value=''
-        salaireel.value=''
+
+        axios.post('http://localhost:3001/api/admin/employee/add', emp, {
+            headers: {
+                "auth-token": localStorage.getItem('token')
+            }
+        }).then(() => { history.push('/employes'); })
+            .catch((err) => console.log(err))
+        const nomel = document.querySelector('#Nom')
+        const salaireel = document.querySelector('#Salaire')
+        const payel = document.querySelector('#payday')
+        nomel.value = ''
+        salaireel.value = ''
+        payel.value = ''
         setname('')
         setsalaire(200)
-        //window.location.replace("http://localhost:3000/Employes");
+        setpayday(0)
     }
 
     return (
@@ -59,20 +66,9 @@ const AddEmployee = () => {
                 <br />
                 <TextField type='number' id="Salaire" label="Salaire" onChange={handleSalaireChange} />
                 <br />
-                <TextField
-                    id="datetime-local"
-                    label="Date d'inscription"
-                    type="datetime-local"
-                    defaultValue="2017-05-24T10:30"
-                    className={classes.textField}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    onChange={handleDateChange}
-                />
-
+                <TextField type='number' id="payday" label="Jour de paiement" onChange={handlePayDayChange} />
                 <br />
-              <button style={{ width: '18vw', marginLeft: '20vw', textAlign: 'center' }} onSubmit={handleSubmit}>Ajouter</button>
+                <button style={{ width: '18vw', marginLeft: '20vw', textAlign: 'center' }}>Ajouter</button>
             </form>
         </div>
     )

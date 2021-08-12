@@ -1,6 +1,5 @@
 import React from "react";
 import './Candidats.css';
-import candidats from "../Data/ClientData";
 import CandidatCard from "./CandidatCard"
 import axios from 'axios'
 

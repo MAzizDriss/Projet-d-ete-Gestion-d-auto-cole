@@ -6,11 +6,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import sessions from '../Data/SessionsData';
-import clients from '../Data/ClientData';
-import employee from '../Data/Employee';
-
-
+import axios from 'axios';
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const AddSession = () => {
     const classes = useStyles();
+    const history = useHistory();
     const [type, settype] = React.useState('c');
     const handleTypeChange = (event) => {
         settype(event.target.value);
@@ -45,6 +43,23 @@ const AddSession = () => {
     const handleVehChange = (event) => {
         setveh(event.target.value)
     }
+    const [sessions,setsessions]=React.useState([{}])
+    const [clients,setclients]=React.useState([{}])
+    const [employees,setemployees]=React.useState([{}])
+    React.useEffect(() => {
+        axios.get('http://localhost:3001/api/admin/session/sessions',{headers:{
+            "auth-token":localStorage.getItem('token')
+        }}).then((result)=>{ setsessions(result.data) })
+        .catch((err)=>console.log(err))
+        axios.get('http://localhost:3001/api/admin/clients',{headers:{
+            "auth-token":localStorage.getItem('token')
+        }}).then((result)=>{ setclients(result.data) })
+        .catch((err)=>console.log(err))
+        axios.get('http://localhost:3001/api/admin/employee/employees',{headers:{
+            "auth-token":localStorage.getItem('token')
+        }}).then((result)=>{ setemployees(result.data) })
+        .catch((err)=>console.log(err))
+    }, [])
     function createRef(data) {
         const last_ref = data[data.length - 1].ref
         const last_ref_id = parseInt(last_ref.substring(1, last_ref.length))
@@ -55,7 +70,7 @@ const AddSession = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
         const verif_client = clients.find(c => c.name === client) //:o
-        const verif_employee = employee.find(e => e.name === emp)
+        const verif_employee = employees.find(e => e.name === emp)
         // const verif_date = selectedDate > new Date()
         if (!verif_client || !verif_employee) {
             alert('Rakez mlih aaych khoya')
@@ -63,13 +78,13 @@ const AddSession = () => {
         }
         const session = {
             ref: createRef(sessions),
-            client: clients.find(c => c.name === client) ? clients.find(c => c.name === client).id : 0,
+            clientId: clients.find(c => c.name === client) ? clients.find(c => c.name === client).id : 0,
             date: selectedDate,
-            employee: employee.find(e => e.name === emp) ? employee.find(e => e.name === emp).id : 0,
+            employeeId: employees.find(e => e.name === emp) ? employees.find(e => e.name === emp).id : 0,
 
         }
         if (type === 'p') {
-            session.vehicule = veh
+            session.vehiculeId = veh
         }
         console.log(session)
         var clientvalue = document.querySelector('#Client')
@@ -78,7 +93,10 @@ const AddSession = () => {
         empvalue.value=''
         setclient('')
         setemp('')
-        sessions.push(session)
+        axios.post('http://localhost:3001/api/admin/session/add',session,{headers:{
+            "auth-token":localStorage.getItem('token')
+        }}).then(()=>history.push('/Calendrier'))
+        .catch((err)=>console.log(err))
     }
 
     return (

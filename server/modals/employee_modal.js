@@ -30,5 +30,5 @@ const employeeSchema = new schema({
     }
 
 },{timestamps:true})
-const Employee = mongoose.model('Session',employeeSchema)
+const Employee = mongoose.model('Employee',employeeSchema)
 module.exports=Employee

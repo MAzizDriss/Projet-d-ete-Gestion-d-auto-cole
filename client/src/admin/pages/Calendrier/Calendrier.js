@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ProchaineSeance from "./ProchaineSeance";
 import './Calendrier.css';
-import sessions from "../Data/SessionsData";
 import SessionCard from "./SessionCard"
 import { Container } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,6 +10,7 @@ import Tab from '@material-ui/core/Tab';
 import { Box } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
 //import Particles from 'react-particles-js';
+import axios from "axios";
 
 
 function TabPanel(props) {
@@ -55,12 +55,25 @@ function closestdate(arr) {
 
 
 const Calendrier = () => {
-  const [date, setDate] = useState(new Date());
-  const [data, setdata] = useState(sessions)
-  const [Nextsession, setNextsession] = useState(closestdate(data))
-  useEffect(() => {
-    setdata(sessions)
+  const [sessions,setsessions]=React.useState([{}])
+  const [clients,setclients]=React.useState([{}])
+  const [employees,setemployees]=React.useState([{}])
+  React.useEffect(() => {
+      axios.get('http://localhost:3001/api/admin/session/sessions',{headers:{
+          "auth-token":localStorage.getItem('token')
+      }}).then((result)=>{ setsessions(result.data) }
+                )
+      .catch((err)=>console.log(err))
+      axios.get('http://localhost:3001/api/admin/clients',{headers:{
+          "auth-token":localStorage.getItem('token')
+      }}).then((result)=>{ setclients(result.data) })
+      .catch((err)=>console.log(err))
+      axios.get('http://localhost:3001/api/admin/employee/employees',{headers:{
+          "auth-token":localStorage.getItem('token')
+      }}).then((result)=>{ setemployees(result.data) })
+      .catch((err)=>console.log(err))
   }, [])
+  
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -72,11 +85,10 @@ const Calendrier = () => {
 
   return (
     <div>
-     
       <h1 className='title'>Sessions</h1>
       <Container fixed>
         <center>
-          <ProchaineSeance session={Nextsession} />
+          <ProchaineSeance session={closestdate(sessions)} clients ={clients} employees={employees}/>
         </center>
         <Paper className={classes.root}>
           <Tabs
@@ -91,13 +103,13 @@ const Calendrier = () => {
             <Tab label="Séeance précidentes" />
           </Tabs>
           <TabPanel value={value} index={0} >
-            <SessionCard sessions={sessions} />
+            <SessionCard sessions={sessions} clients={clients} employees={employees}/>
           </TabPanel>
           <TabPanel value={value} index={1} >
-            <SessionCard sessions={sessions.filter(s => s.date > relativedate)} />
+            <SessionCard sessions={sessions.filter(s => new Date(s.date) > relativedate)} clients={clients} employees={employees}/>
           </TabPanel>
           <TabPanel value={value} index={2} >
-            <SessionCard sessions={sessions.filter(s => s.date < relativedate)} />
+            <SessionCard sessions={sessions.filter(s => new Date(s.date) < relativedate)} clients={clients} employees={employees}/>
           </TabPanel>
         </Paper>
         <div className="next-session">

@@ -5,9 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import clients from '../Data/ClientData';
-import employee from '../Data/Employee';
-
+import axios from 'axios'
 const useStyles = makeStyles({
   root: {
     width: '60%',
@@ -30,7 +28,55 @@ const useStyles = makeStyles({
     marginBottom: 12,
   },
 });
-const ProchaineSeance = ({ session }) => {
+
+const relativedate = new Date('2021-08-01T09:00:00.000+00:00') // fonction pour retirer la prochaine date
+
+function closestsession(arr) {
+  let datesArr1 = arr.map(item => new Date(item.date).toString())
+  const datesArr = arr.map(item => new Date(item.date))
+  let dates=datesArr.sort(function (a, b) {
+    var distancea = Math.abs(relativedate - a);
+    var distanceb = Math.abs(relativedate - b);
+    return distancea - distanceb;
+  })
+  dates = dates.filter(d => d > relativedate)
+  const date=datesArr.find(d=>d===dates[0])
+  const index=datesArr1.indexOf(new Date(date).toString())
+  return arr[index]
+}
+
+const ProchaineSeance = () => {
+  const [client, setclient] = React.useState({})
+  const [Nextsession, setNextsession] = React.useState({})
+  const [emp, setemp] = React.useState({})
+
+  React.useEffect(() => {
+    axios.get('http://localhost:3001/api/admin/session/sessions', {
+      headers: {
+        "auth-token": localStorage.getItem('token')
+      }
+    }).then((result) => {
+      setNextsession(closestsession(result.data))
+    })
+      .catch((err) => console.log(err))
+  }, [])
+  React.useEffect(() => {
+    if(Nextsession)
+    {axios.get(`http://localhost:3001/api/admin/employee/${Nextsession.employeeId}`, {
+      headers: {
+        "auth-token": localStorage.getItem('token')
+      }
+    }).then((result) => {
+      setemp(result.data)
+    })
+    axios.get(`http://localhost:3001/api/admin/client/${Nextsession.clientId}`, {
+      headers: {
+        "auth-token": localStorage.getItem('token')
+      }
+    }).then((result) => setclient(result.data))}
+
+  }, [Nextsession])
+
   const classes = useStyles();
   return (
     <Card className={classes.root} variant="outlined">
@@ -39,23 +85,23 @@ const ProchaineSeance = ({ session }) => {
           Prochaine Séance:
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          {session.date.toString().substring(0,21)}
+          {new Date(Nextsession.date).toString().substring(0, 21)}
         </Typography>
         <Typography variant="h5" component="h2">
-          {clients[session.client - 1].name}
+          {client.name}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          {session.ref}
+          {Nextsession.ref}
         </Typography>
         <Typography variant="body2" component="p">
-          Teacher : {employee[session.employee - 1].name}
+          Teacher : {emp.name}
           <br />
-          {(session.vehicule != null) ? `véhicule :${session.vehicule}` : ''}
+          {(Nextsession.vehiculeId != null) ? `véhicule :${Nextsession.vehiculeId}` : ''}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button href='/Sessions/add' variant="contained" color="secondary" style={{marginLeft:'80%',width:'40%'}}>
-         <center style={{marginRight:'15%'}} >Ajouter une séance</center>
+        <Button href='/Sessions/add' variant="contained" color="secondary" style={{ marginLeft: '80%', width: '40%' }}>
+          <center style={{ marginRight: '15%' }} >Ajouter une séance</center>
         </Button>
       </CardActions>
     </Card>
