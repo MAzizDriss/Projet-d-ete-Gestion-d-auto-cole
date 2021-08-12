@@ -28,7 +28,7 @@ app.use(function (req, res, next) {
 
 
 //mongodb connection'
-mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true ,'useCreateIndex': true})
     .then(() => console.log('connected to database'))
     .catch((error) => console.log(error))
 
