@@ -1,27 +1,3 @@
-/*import React from "react";
-import cars from "../Data/CarData";
-import CarCard from "./CarCard"
-import './Vehicules.css'
-import { Grid} from '@material-ui/core';
-
-
-function Vehicules() {
-  return (
-    <div>
-      <h1 className="title">Véhicules</h1>
-      <div className="page">
-        <>
-          <Grid container spacing={1}>
-            <CarCard cars={cars} />
-          </Grid>
-        </>
-      </div>
-    </div>
-  );
-};
-
-export default Vehicules;*/
-
 import React from "react";
 import "./Vehicules.css";
 import Card from "./CarCard";

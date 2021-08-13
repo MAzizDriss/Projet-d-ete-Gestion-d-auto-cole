@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ProchaineSeance from "./ProchaineSeance";
 import './Calendrier.css';
 import SessionCard from "./SessionCard"
@@ -9,7 +9,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { Box } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
-//import Particles from 'react-particles-js';
 import axios from "axios";
 
 

@@ -1,81 +1,3 @@
-/*import React, {useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import cars from '../Data/CarData';
-
-const useStyles = makeStyles({
-  root: {
-    width: '77.5%',
-    minWidth: 275,
-    marginTop: '2vw',
-    marginBottom: '2vw',
-    textAlign: 'center',
-    color: '#060b26'
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontSize: 36,
-    color: '#3A506B',
-  },
-  pos: {
-    marginBottom: 12,
-  },
-});
-const VehiculeDispo = () => {
-  const [CarData, setcarData] = useState(cars)
-
-function show ({car}){
-  return(
-    <Card className={classes.root} variant="outlined">
-      <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Véhicule disponible:
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          {car.marque}
-        </Typography>
-        <Typography variant="h5" component="h2">
-          {car.modele}
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          {car.etat}
-        </Typography>
-        <Typography variant="body2" component="p">
-          Teacher : {car.serie}
-          <br />
-          {(car.disponibilite != null) ? `véhicule :${car.disponibilite}` : ''}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button href='/Vehicules/ajouter' variant="contained" color="secondary" style={{marginLeft:'80%',width:'40%'}}>
-         <center style={{marginRight:'15%'}} >Ajouter un véhicule</center>
-        </Button>
-      </CardActions>
-    </Card>
-  )
-}
-  const classes = useStyles();
-
-  return (
-    <div className={classes.root}>
-      {CarData.map(car =>
-      <div>
-      {(car.disponibilite != 'Disponible')? '' : show({car})}
-      </div>
-      )}
-      </div>
-  );
-}
-export default VehiculeDispo*/
-
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
@@ -85,13 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import { CgMoreVertical } from 'react-icons/cg'
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
 import {AiFillCar} from 'react-icons/ai'
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';

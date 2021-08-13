@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { SidebarData } from './SidebarData';
 import './Navbar.css';
 import { IconContext } from 'react-icons';
 import logo from './logo.png';
-import { Avatar } from '@material-ui/core';
 
 
 function Sidebar({sidebar, setSidebar}) {

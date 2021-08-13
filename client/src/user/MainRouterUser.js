@@ -9,6 +9,7 @@ import Test from '../auth/Test';
 import Calendrier from './pages/Calendrier/Calendrier';
 import Profile from './pages/Profile/Profile'
 import Tests from './pages/Tests/Tests'
+import Questonnaire from './pages/Tests/Test';
 
 function MainRouterUser() {
   const [sidebar, setSidebar] = useState(false);
@@ -23,6 +24,7 @@ function MainRouterUser() {
         <Route exact path='/signup' component={Signup} />
         <Route exact path='/user/Profile' component={Profile}/>
         <Route exact path='/user/Tests' component={Tests}/>
+        <Route exact path='/user/Test' component={Questonnaire}/>
           <Route exact path='/login' component={Signin} />
           <Route exact path='/test' component={Test} />
         <Sidebar sidebar={sidebar} setSidebar={setSidebar} />
