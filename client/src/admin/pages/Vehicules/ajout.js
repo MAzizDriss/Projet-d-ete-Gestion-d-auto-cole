@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import vehicules from '../Data/CarData';
 import './Vehicules.css'
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
@@ -11,7 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
+import axios from 'axios'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -65,7 +64,6 @@ const Ajout = () => {
         setSelectedDateA(event.target.value);
         console.log(selectedDateA)
     };
-    const [service, setservice] = React.useState('Hors service')
     const [disponibilite, setdisponibilite] = React.useState('')
     const handleDisponibiliteChange = (event) => {
         setdisponibilite(event.target.value)
@@ -74,31 +72,32 @@ const Ajout = () => {
     const handlePapierChange = (event) => {
         setpapier(event.target.value)
     };
-    const [image, setimage] = React.useState('')
-
-    function lastCar(data) {
-        const last_id = data[data.length - 1].id
-        const last_ref = parseInt(last_id)
-        const current_id = last_ref + 1
-        return current_id
+    const [imageLink, setimageLink] = React.useState('')
+    const handleLinkChange = (event) => {
+        setimageLink(event.target.value)
     }
+
     const handleSubmit = (event) => {
         event.preventDefault()
         const vehicule = {
-            id: lastCar(vehicules),
             marque: marque,
             modele: modele,
             serie: serie,
-            service: service,
             disponibilite: disponibilite,
             etat: etat,
-            DateEntretien: selectedDateE,
-            DateAchat: selectedDateA,
+            dateEntretien: selectedDateE,
+            dateAchat: selectedDateA,
             papier: papier,
-            image: image
+            imageLink: imageLink
         }
+        console.log(vehicule)
 
-        vehicules.push(vehicule)
+        axios.post('http://localhost:3001/api/admin/vehicule/add', vehicule, {
+            headers: {
+                "auth-token": localStorage.getItem('token')
+            }
+        }).then(() => { history.push('/Vehicules'); })
+            .catch((err) => console.log(err))
         const marquevalue=document.querySelector('#Marque')
         const modelevalue=document.querySelector('#Modele')
         const serievalue=document.querySelector('#Serie')
@@ -119,7 +118,7 @@ const Ajout = () => {
         setserie(0)
         setetat('')
         setdisponibilite('')
-        history.push('/Vehicules')
+        //history.push('/Vehicules')
 
     }
     return (
@@ -132,6 +131,9 @@ const Ajout = () => {
                 <br />
                 <TextField id="Serie" label="serie" onChange={handleSerieChange} />
                 <br />
+                <TextField id="Link" label="imageLink" onChange={handleLinkChange} />
+                <br />
+
 
                 <Box className={classes.Rating} id="Etat" label="etat" onChange={handleEtatChange} component="fieldset" mb={3} borderColor="transparent">
                     <Typography component="legend">Etat</Typography>
@@ -152,8 +154,8 @@ const Ajout = () => {
                         value={papier}
                         onChange={handlePapierChange}
                     >
-                        <MenuItem value={'Verifiees'}>Vérifiées</MenuItem>
-                        <MenuItem value={'Non verifiees'}>Non vérifiées</MenuItem>
+                        <MenuItem value={true}>Vérifiées</MenuItem>
+                        <MenuItem value={false}>Non vérifiées</MenuItem>
                     </Select>
                 </FormControl>
                 <br />
@@ -165,8 +167,8 @@ const Ajout = () => {
                         value={disponibilite}
                         onChange={handleDisponibiliteChange}
                     >
-                        <MenuItem value={'Disponible'}>Disponible</MenuItem>
-                        <MenuItem value={'Non disponible'}>Non disponible</MenuItem>
+                        <MenuItem value={true}>Disponible</MenuItem>
+                        <MenuItem value={false}>Non disponible</MenuItem>
                     </Select>
                 </FormControl>
                 <br />

@@ -29,7 +29,8 @@ function car_validation(data, res) {
         dateAchat:Joi.date().required(),
         dateEntretien:Joi.date().required(),
         disponibilite:Joi.required(),
-        papier:Joi.required()
+        papier:Joi.required(),
+        imageLink:Joi.string()
     })
     const { error } = schema.validate(data)
     if (error) {
@@ -53,8 +54,9 @@ router.post('/add', verify, async (req, res) => {
         dateEntretien:req.body.dateEntretien,
         disponibilite:req.body.disponibilite,
         papier:req.body.papier,
-        service:true
+        service:true,
     })
+    if(req.body.imageLink) vehicule.imageLink =req.body.imageLink
    vehicule.save()
         .then(result => res.send(result))
         .catch(err => res.status(400).send(err.message))

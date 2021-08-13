@@ -61,8 +61,10 @@ const ProchaineSeance = () => {
       .catch((err) => console.log(err))
   }, [])
   React.useEffect(() => {
-    if(Nextsession)
-    {axios.get(`http://localhost:3001/api/admin/employee/${Nextsession.employeeId}`, {
+    if(Nextsession && typeof(Nextsession.employeeId)===typeof(5)
+    &&typeof(Nextsession.clientId)===typeof(5))
+    { console.log(Nextsession.employeeId)
+      axios.get(`http://localhost:3001/api/admin/employee/${Nextsession.employeeId}`, {
       headers: {
         "auth-token": localStorage.getItem('token')
       }
