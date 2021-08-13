@@ -1,7 +1,12 @@
 import React from "react";
 import Button from '@material-ui/core/Button'
+import { useHistory } from "react-router";
 const Tests = () => {
- 
+const history = useHistory();
+ const gototest = () => {
+  history.push("/user/Test");
+
+ }
 
   return (
     <div style={{width:"100%", backgroundColor:"#3a506b", height:300,marginTop:-1}}>
@@ -19,9 +24,10 @@ const Tests = () => {
       <div style={{display:"flex", flexDirection:"row"}}>
       <h2 style={{color: '#f2f2f2',
     fontSize: '1.5rem', fontFamily:"Century Gothic", fontWeight:"normal", marginLeft:500, marginRight:20}}>Passez un test gratuitement dès maintement : </h2>
-   <Button variant="contained">Test</Button>
+   <Button variant="contained" onClick={gototest} >Test</Button>
 
    </div>
+   
     </div>
   );
 };
