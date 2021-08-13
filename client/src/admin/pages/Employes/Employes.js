@@ -18,7 +18,6 @@ function Employes() {
     <Button href='/Employes/Add' variant="contained" color="secondary" style={{marginLeft:'45%',width:'10%', marginTop:'2%'}}>
    <center style={{marginRight:'15%'}} >Ajouter</center>
   </Button>
-  {console.log(emps)}
       <div style={{marginLeft:'16%',marginTop:'7vh'}}>
      {
        emps.map( e=>

@@ -7,10 +7,11 @@ dotenv.config()
 
 //routes import
 const authRoute = require('./routes/auth')
-const testRoute = require('./routes/test')
+const authInfoRoute = require('./routes/authinfo')
 const AdminClientRoute = require('./routes/adminclientreq')
 const AdminSessionRoute = require('./routes/adminsessionreq')
 const AdminEmployeeRoute = require('./routes/adminemployeereq')
+const AdminVehRoute=require('./routes/adminvehreq')
 
 //app use
 const app = express()
@@ -40,10 +41,11 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/user', authRoute)
-app.use('/api/test',testRoute)
+app.use('/api/auth',authInfoRoute)
 app.use('/api/admin',AdminClientRoute)
 app.use('/api/admin/session',AdminSessionRoute)
 app.use('/api/admin/employee',AdminEmployeeRoute)
+app.use('/api/admin/vehicule',AdminVehRoute)
 
 port = process.env.PORT || 3001
 app.listen(port, () => console.log(`listening on port ${port}`))

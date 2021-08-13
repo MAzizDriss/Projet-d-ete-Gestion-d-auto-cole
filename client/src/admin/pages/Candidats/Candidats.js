@@ -17,7 +17,6 @@ function Candidats(){
     <div>
     <h1 className="title">Candidats</h1>
     <>
-    {console.log(users)}
        <CandidatCard candidats={users}/>
        </>
     </div>

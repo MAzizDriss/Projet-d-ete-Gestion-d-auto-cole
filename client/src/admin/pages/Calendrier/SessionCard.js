@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.typography.pxToRem(15),
     flexBasis: '33.33%',
     flexShrink: 0,
-    color:'#0B132B'
+    color: '#0B132B'
   },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SessionCard({ sessions,clients,employees }) {
+export default function SessionCard({ sessions, clients, employees }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -36,25 +36,21 @@ export default function SessionCard({ sessions,clients,employees }) {
   const [clientdata, setclientdata] = useState(clients)
   const [empdata, setempdata] = useState(employees)
   React.useEffect(
-    ()=>{
-      console.log('sessions use Effect')
+    () => {
       setsessdata(sessions)
     }
-  ,[sessions])
+    , [sessions])
   React.useEffect(
-    ()=>{
-      console.log("clients use Effect")
-      console.log(clients)
+    () => {
       setclientdata(clients)
     }
-  ,[clients])
+    , [clients])
   React.useEffect(
-    ()=>{
-      console.log("employees use Effect")
+    () => {
       setempdata(employees)
     }
-  ,[employees])
- 
+    , [employees])
+
 
   return (
 
@@ -65,10 +61,9 @@ export default function SessionCard({ sessions,clients,employees }) {
             expandIcon={<MdExpandMore />}
             aria-controls="panel1bh-content"
             id="panel1bh-header"
-          
+
           >
-            {console.log((clientdata[s.clientId-1])?clientdata[s.clientId-1].name:'')}
-            <Typography className={classes.heading}> {(clientdata[s.clientId-1])?clientdata[s.clientId-1].name:''}</Typography>
+            <Typography className={classes.heading}> {(clientdata[s.clientId - 1]) ? clientdata[s.clientId - 1].name : ''}</Typography>
             <Typography className={classes.secondaryHeading} >{new Date(s.date).toString().substring(0, 21)}</Typography>
           </AccordionSummary>
           <AccordionDetails >
@@ -77,7 +72,7 @@ export default function SessionCard({ sessions,clients,employees }) {
             </Typography>
             <br />
             <Typography className={classes.secondaryHeading}>
-              Teacher : {(empdata[s.employeeId-1])?empdata[s.employeeId -1].name:''}
+              Teacher : {(empdata[s.employeeId - 1]) ? empdata[s.employeeId - 1].name : ''}
             </Typography>
             <Typography className={classes.secondaryHeading} >
               {(s.vehiculeId != null) ? `véhicule :${s.vehiculeId}` : ''}

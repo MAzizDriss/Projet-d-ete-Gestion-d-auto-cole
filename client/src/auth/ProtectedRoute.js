@@ -6,14 +6,14 @@ const ProtectedAdminRoute = ({ component: Component, ...rest }) => {
     const [isAuth, setisAuth] = React.useState(localStorage.getItem('isAuth'))
     const [user, setuser] = React.useState({})
     React.useEffect(() => {
-        axios.get('http://localhost:3001/api/test', {
+        axios.get('http://localhost:3001/api/auth', {
             headers: {
                 "auth-token": localStorage.getItem('token')
             }
         }).then((result) => {
-            setuser(result.data.user.userData)
-            setrole(result.data.user.userData.role)
-            console.log(result.data.user.userData.role)
+            setuser(result.data.userData)
+            setrole(result.data.userData.role)
+            console.log(result.data.userData.role)
         })
             .catch((err) => console.log(err))
     }, [])
