@@ -11,6 +11,7 @@ import Select from '@material-ui/core/Select';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -41,12 +42,35 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: 50
     }
 }));
+const generateDefaultdate=(selectedDate)=>{
+    if(!selectedDate) return
+    const month=(String(selectedDate.getMonth()).length===1)?'0'+selectedDate.getMonth():selectedDate.getMonth()
+    const day=(String(selectedDate.getDay()).length===1)?'0'+selectedDate.getDay():selectedDate.getDay()
+    const hours=(String(selectedDate.getHours()).length===1)?'0'+selectedDate.getHours():selectedDate.getHours()
+    const mins=(String(selectedDate.getMinutes()).length===1)?'0'+selectedDate.getMinutes():selectedDate.getMinutes()
+    return (selectedDate.getFullYear()+'-'+ month+'-'+ day +'T'+hours+':'+mins)
+}
+
 const Formulaire = () => {
     const { id } = useParams()
-    const [car, setcar] = useState(cars.find(c => c.id === parseInt(id)))
+    const [car, setcar] = useState({})
+    const [modele, setmodele] = useState()
+    const [marque, setmarque] = useState();
+    const [value, setValue] = React.useState();
+    const [selectedDate,setselectedDate]=React.useState()
+    React.useEffect(() => {
+        axios.get(`http://localhost:3001/api/admin/vehicule/${id}`,{headers:{
+            "auth-token":localStorage.getItem('token')
+        }}).then((result)=>{ setcar(result.data) 
+                            setmodele(result.data.modele)
+                            setmarque(result.data.marque)
+                            setValue(result.data.etat)
+                            setselectedDate(generateDefaultdate(new Date(result.data.dateEntretien)))})
+        .catch((err)=>console.log(err))
+    }, [])
     const classes = useStyles();
     const history = useHistory();
-    const [value, setValue] = React.useState(2);
+
     const [state, setState] = React.useState({
         Service: '',
     });
@@ -58,47 +82,42 @@ const Formulaire = () => {
             [Service]: event.target.value,
         });
     };
-    const [marque, setmarque] = useState(car.marque);
     const handleMarqueChange = (event) => {
+        console.log(marque)
         setmarque(event.target.value);
     };
-    const [modele, setmodele] = useState(car.modele)
     const handleModeleChange = (event) => {
         setmodele(event.target.value)
     }
     React.useEffect(() => {
         var marqueinput = document.querySelector('#marque')
         var modeleinput = document.querySelector('#modele')
-
+        console.log('h')
         marqueinput.value = marque
         modeleinput.value = modele
-
-        setmarque(car.marque)
-        setmodele(car.modele)
-    }, [])
+    }, [marque,modele])
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        car.marque = cars.find(c => c.marque == marque) ? cars.find(c => c.marque == marque) : 0
-        car.modele = cars.find(c => c.modele == modele) ? cars.find(c => c.modele == modele) : 0
         history.push("/Vehicules");
     }
 
     return (
         <div className={classes.page}>
             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} >
-                <h1 style={{ color: '#3A506B' }}>Modifier les données de {car.marque} {car.modele} :</h1>
+                <h1 style={{ color: '#3A506B' }}>Modifier les données de {marque} {modele} :</h1>
                 <br /><br /><br />
                 <TextField id="marque" label="Nom du candidat" onChange={handleMarqueChange} />
                 <br />
                 <TextField id="modele" label="Payement" onChange={handleModeleChange} />
                 <br />
                 <form className={classes.container} noValidate>
+                    {console.log(selectedDate)}
                     <TextField
                         id="datetime-local"
                         label="Date d'entretien"
                         type="datetime-local"
-                        defaultValue="2022-01-01T08:30"
+                        defaultValue={selectedDate}
                         className={classes.date}
                         InputLabelProps={{
                             shrink: true,

@@ -6,23 +6,30 @@ import { SidebarData } from './SidebarData';
 import './Navbar.css';
 import { IconContext } from 'react-icons';
 import logo from './logo.png';
-import { Avatar } from '@material-ui/core';
 import {BiLogInCircle} from 'react-icons/bi';
 import axios from 'axios';
+import { useHistory } from 'react-router';
+
+
 
 function Sidebar({sidebar, setSidebar}) {
-  
+  const history = useHistory();
   const showSidebar = () => setSidebar(!sidebar);
   const [user, setuser] = React.useState({})
-  const [post, setpost] = React.useState({})
   React.useEffect(() => {
-      axios.get('http://localhost:3001/api/test',{headers:{
+      axios.get('http://localhost:3001/api/auth',{headers:{
           "auth-token":localStorage.getItem('token')
-      }}).then((result)=>{setpost(result.data.posts)
-                          setuser(result.data.user.userData)
+      }}).then((result)=>{ 
+                          setuser(result.data.userData)
                               })
       .catch((err)=>console.log(err))
   }, [])
+  const Disconnect = ()=>{
+    localStorage.setItem('isAuth',false)
+    history.push("/login")
+    setuser({})
+    localStorage.setItem('token','')
+  }
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
@@ -56,11 +63,10 @@ function Sidebar({sidebar, setSidebar}) {
             </div>
           </ul>
           <div className="side-menu-footer">
-            <BiLogInCircle style={{width: 25, height:25, marginLeft:20, marginRight:-10, marginBottom:3}}/>
+            <BiLogInCircle style={{width: 25, height:25, marginLeft:20, marginRight:-10, marginBottom:3}} className='logo' onClick={Disconnect} />
             <div className="user-info">
-              
-              <h5>{user.name}</h5>
-              <p>{user.role}</p>
+            <h5><Link to='/user/profile' className='footer-link'>{user.name}</Link> </h5>
+             <p>{user.role}</p>
             </div>
           </div>
         </nav>

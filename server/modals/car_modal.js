@@ -10,14 +10,13 @@ const vehiculeSchema = new schema({
     marque:{
         type:String,
         required:true,
-        minlength: 4
     },
     modele:{
         type:String,
         required:true,
-        minlength: 4
     },
     serie:{
+        unique:true,
         type:Number,
         required:true,
     },
@@ -43,7 +42,7 @@ const vehiculeSchema = new schema({
         type:Boolean,
         required:true
     },
-    serivce:{
+    service:{
         type:Boolean,
         required:true
     },

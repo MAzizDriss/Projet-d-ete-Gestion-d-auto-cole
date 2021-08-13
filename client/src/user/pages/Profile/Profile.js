@@ -37,15 +37,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Profile = () => {
   const [user, setuser] = React.useState({})
-  const [post, setpost] = React.useState({})
   React.useEffect(() => {
-    axios.get('http://localhost:3001/api/test', {
+    axios.get('http://localhost:3001/api/auth', {
       headers: {
         "auth-token": localStorage.getItem('token')
       }
     }).then((result) => {
-      setpost(result.data.posts)
-      setuser(result.data.user.userData)
+      setuser(result.data.userData)
     })
       .catch((err) => console.log(err))
   }, [])

@@ -91,19 +91,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CarCard({ car }) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(2);
   const [expanded, setExpanded] = React.useState(false);
-  const [state, setState] = React.useState({
-    Service: '',
-  });
-
-  const handleClicked = (event) => {
-    const Service = event.target.name;
-    setState({
-      ...state,
-      [Service]: event.target.value,
-    });
-  };
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -111,13 +99,13 @@ export default function CarCard({ car }) {
 
   return (
 
-    <Card className={classes.root} variant="outlined">
+    <Card className={classes.root} variant="outlined" key = {car.id}> 
       <div>
         <CardContent>
           <CardMedia
             className={classes.media}
           >
-            <img src={car.image} width='250px' />
+            <img src={car.imageLink} width='250px' />
           </CardMedia>
           <br/><br/>
           <Typography className={classes.heading}> {car.marque} {car.modele}</Typography>
@@ -128,21 +116,24 @@ export default function CarCard({ car }) {
           </Typography>
           <div className={classes.date}>
             <Typography>
-              Date d'achat : {car.DateAchat}
+              Date d'achat : {(car.dateAchat)?car.dateAchat.substring(0,10):''}
 
             </Typography>
           </div>
           <div className={classes.entretien}>
             <Typography>
-              Date du prochain entretien : {car.DateEntretien}
+              Date du prochain entretien : {(car.dateEntretien)?car.dateEntretien.substring(0,10):''}
             </Typography >
           </div>
           <div>
+            {console.log(car.modele)}
+            {console.log(car.etat)}
+            {console.log(car.service)}
             <Box className={classes.etat} component="fieldset" mb={3} borderColor="transparent">
               <Typography component="legend">Etat du véhicule</Typography>
               <Rating
                 name="disabled"
-                value={value}
+                value={car?car.etat:2}
                 disabled
               />
             </Box>
@@ -151,14 +142,14 @@ export default function CarCard({ car }) {
             <FormControl className={classes.formControl} disabled>
               <InputLabel htmlFor="name-native-disabled"></InputLabel>
               <NativeSelect
-                value={state.name}
+                value={(car.serivce===true)? 'En service':'Hors Service'}
                 onChange={handleChange}
                 inputProps={{
                   name: car.service,
                   id: 'name-native-disabled',
                 }}
               >
-                <option value="">{car.service}</option>
+                <option value="">{(car.service)? 'En service':'Hors Service'}</option>
               </NativeSelect>
             </FormControl>
           </div>

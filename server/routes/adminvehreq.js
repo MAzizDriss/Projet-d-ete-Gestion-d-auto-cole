@@ -22,8 +22,8 @@ router.get('/:id', verify, async (req, res) => {
 
 function car_validation(data, res) {
     const schema = Joi.object({
-        marque: Joi.string().min(4).required(),
-        modele: Joi.string().min(4).required(),
+        marque: Joi.string().required(),
+        modele: Joi.string().required(),
         serie:Joi.number().required(),
         etat:Joi.number().required(),
         dateAchat:Joi.date().required(),
@@ -52,7 +52,8 @@ router.post('/add', verify, async (req, res) => {
         dateAchat:req.body.dateAchat,
         dateEntretien:req.body.dateEntretien,
         disponibilite:req.body.disponibilite,
-        papier:req.body.papier
+        papier:req.body.papier,
+        service:true
     })
    vehicule.save()
         .then(result => res.send(result))
@@ -61,12 +62,11 @@ router.post('/add', verify, async (req, res) => {
 //put one
 function car_update_validation(data, res) {
     const schema = Joi.object({
-        marque: Joi.string().min(4).required(),
-        modele: Joi.string().min(4).required(),
+        marque: Joi.string().required(),
+        modele: Joi.string().required(),
         etat:Joi.number().required(),
         dateEntretien:Joi.date().required(),
         service:Joi.required(),
-
     })
     const { error } = schema.validate(data)
     if (error) {

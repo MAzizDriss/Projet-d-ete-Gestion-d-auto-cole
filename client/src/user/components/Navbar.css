@@ -172,3 +172,17 @@ right:5000;
   color: #52ab98;
   transition: all 0.8s;
 }
+.footer-link{
+  text-decoration: none;
+  color:white;
+}
+.footer-link:hover{
+  transition: all 0.3s;
+  color:#060b26
+}
+.logo:hover{
+  transition: all 0.3s;
+  fill:#060b26;
+  cursor:pointer
+
+}

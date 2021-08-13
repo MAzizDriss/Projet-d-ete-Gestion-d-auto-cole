@@ -5,6 +5,7 @@ import cars from "../Data/CarData";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import axios from "axios";
 
 const useStyles = makeStyles({
   gridContainer: {
@@ -17,7 +18,13 @@ const useStyles = makeStyles({
 
 export default function Vehicules() {
   const classes = useStyles();
-  const [cardata, setcardata] = React.useState(cars)
+  const [cardata, setcardata] = React.useState([{}])
+ React.useEffect(() => {
+    axios.get('http://localhost:3001/api/admin/vehicule/vehicules',{headers:{
+        "auth-token":localStorage.getItem('token')
+    }}).then((result)=>{ setcardata(result.data) })
+    .catch((err)=>console.log(err))
+}, [])
 
   return (
     <div>
