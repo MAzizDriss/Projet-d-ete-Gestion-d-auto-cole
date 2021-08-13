@@ -29,9 +29,11 @@ const useStyles = makeStyles({
 });
 
 const relativedate = new Date('2021-09-01T09:00:00.000+00:00') // fonction pour retirer la prochaine date
-function closestdate(arr) {
-    let datesArr1 = arr.map(item => new Date(item.date).toString())
-    const datesArr = arr.map(item => new Date(item.date))
+function closestdate(arr,sessions) {
+    if (!sessions)return
+    let sessarr=arr.map(ref=>sessions.find(s=>s.ref===ref))
+    let datesArr1 = sessarr.map(item => new Date(item.date).toString())
+    const datesArr = sessarr.map(item => new Date(item.date))
     let dates=datesArr.sort(function (a, b) {
       var distancea = Math.abs(relativedate - a);
       var distanceb = Math.abs(relativedate - b);
@@ -40,7 +42,7 @@ function closestdate(arr) {
     dates = dates.filter(d => d > relativedate)
     const date=datesArr.find(d=>d===dates[0])
     const index=datesArr1.indexOf(new Date(date).toString())
-    return arr[index]
+    return sessarr[index]
 }
 const EmployeeCard = ({ emp }) => {
     const [sessions,setsessions]=React.useState()
@@ -50,7 +52,7 @@ const EmployeeCard = ({ emp }) => {
         axios.get('http://localhost:3001/api/admin/session/sessions',{headers:{
             "auth-token":localStorage.getItem('token')
         }}).then((result)=>{ setsessions(result.data) 
-                            setNextsession(closestdate(result.data))
+                            setNextsession(closestdate(emp.sessions,result.data))
                             setmonthsess(Sessionsbymonth(emp.sessions,relativedate.getMonth(),result.data))})
                         
     },[])

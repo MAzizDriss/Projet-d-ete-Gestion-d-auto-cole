@@ -18,7 +18,6 @@ import Footer from './components/Footer';
 import Signup from '../auth/Signup';
 import Signin from '../auth/Signin';
 import Test from '../auth/Test';
-import Protected from '../auth/Protected';
 import ProtectedAdminRoute from '../auth/ProtectedRoute';
 import Sidebar from './components/Sidebar';
 
@@ -47,7 +46,6 @@ function MainRouter() {
           <ProtectedAdminRoute exact path='/Vehicules/ajouter' component={Ajout} />
           <ProtectedAdminRoute exact path='/Employes/add' component={AddEmployee} />
           <ProtectedAdminRoute exact path='/Employes/edit/:id' component={EditEmployee} />
-          <ProtectedAdminRoute exact path='/protected' component={Protected} />
         </Switch>
         <Sidebar sidebar={sidebar} setSidebar={setSidebar} />
         <Footer />

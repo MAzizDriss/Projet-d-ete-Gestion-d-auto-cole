@@ -6,12 +6,12 @@ import axios from 'axios'
 function App() {
   const [user, setuser] = React.useState({})
   React.useEffect(() => {
-    axios.get('http://localhost:3001/api/test', {
+    axios.get('http://localhost:3001/api/auth', {
       headers: {
         "auth-token": localStorage.getItem('token')
       }
     }).then((result) => {
-      setuser(result.data.user.userData)
+      setuser(result.data.userData)
     })
       .catch((err) => console.log(err))
   }, [])

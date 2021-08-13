@@ -39,7 +39,6 @@ const EditSession = () => {
     const [clients, setclients] = React.useState()
     const [employees, setemployees] = React.useState()
     React.useEffect(() => {
-        console.log('fired')
         axios.get(`http://localhost:3001/api/admin/session/sessions`, {
             headers: {
                 "auth-token": localStorage.getItem('token')
@@ -87,8 +86,6 @@ const EditSession = () => {
         setveh(event.target.value)
     }
     React.useEffect(() => {
-        console.log('update')
-       
         setSelectedDate(session?new Date(session.date):new Date())
         settype(session?session.ref[0]:'c')
         if (session){

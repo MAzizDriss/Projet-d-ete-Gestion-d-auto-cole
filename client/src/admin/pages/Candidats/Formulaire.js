@@ -35,7 +35,6 @@ const Formulaire = () => {
             }
         }).then((result) => {
             setcandidat(result.data)
-            console.log(result.data)
             setname(result.data.name)
             setpayement(result.data.payment)
         }

@@ -86,7 +86,6 @@ const AddSession = () => {
         if (type === 'p') {
             session.vehiculeId = veh
         }
-        console.log(session)
         var clientvalue = document.querySelector('#Client')
         var empvalue=document.querySelector('#Employee')
         clientvalue.value=''
