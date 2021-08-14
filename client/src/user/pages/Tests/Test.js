@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import Card from "./TestCard";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import Timer from "./Timer";
+
+
 
 
 const useStyles = makeStyles({
@@ -15,9 +16,10 @@ const useStyles = makeStyles({
 });
 
 export default function Test() {
+    
   const classes = useStyles();
   return (
-    <div>
+    <div style={{display:'flex', flexDirection:'row'}}>
   
     <Grid
       container
@@ -30,9 +32,7 @@ export default function Test() {
       </Grid>
       
     </Grid>
-    <div  style={{marginLeft:900, marginTop:-500}}>
-    <Timer/>
-    </div>
+    
     </div>
   );
 }

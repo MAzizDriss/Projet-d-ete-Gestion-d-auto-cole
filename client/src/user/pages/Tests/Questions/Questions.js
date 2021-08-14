@@ -330,7 +330,7 @@ const Questions = [
     answerOptions: [
       { option: "1.5 m", isCorrect: true },
       { option: "0.5 m", isCorrect: false },
-      { option: '1.5 m', isCorrect: false },
+      { option: '2 m', isCorrect: false },
     ],
   },
 ]
