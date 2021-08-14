@@ -72,3 +72,6 @@ padding-left: 670px;
     border-radius: 0%;
     margin: 5vh;
   }
+.deleteb:hover{
+    cursor:pointer
+}

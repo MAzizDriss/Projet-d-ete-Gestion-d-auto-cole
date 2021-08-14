@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     },
 });
 
-const relativedate = new Date('2021-09-01T09:00:00.000+00:00') // fonction pour retirer la prochaine date
+const relativedate = new Date() // fonction pour retirer la prochaine date
 function closestdate(arr,sessions) {
     if (!sessions)return 0
     let sessarr=arr.map(ref=>sessions.find(s=>s.ref===ref))

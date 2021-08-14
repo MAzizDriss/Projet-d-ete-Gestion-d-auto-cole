@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 50,
   },
   pay: {
-    marginTop: 100,
+    marginTop: 50,
   },
 
   icon1: {
@@ -170,28 +170,18 @@ export default function CandidatCard({ candidats }) {
           <br />
           <AccordionDetails className={classes.detailsm}>
             <Typography>
-              Les sessions réalisés :
+              Les séances réalisées :{candidat.sessions.map(session=><span>{session} |</span>)}
             </Typography>
-            <div className={classes.sessionsmap}>
-              {candidat.sessions.map(session => {
-                return (
-                  <Typography >
-                    {session},
-                  </Typography>
-                )
-              })
-              }
-            </div>
 
             <div className={classes.date}>
               <Typography className={classes.heading4}>
-                Date d'inscription : {candidat.createdAt}
+                Date d'inscription : {candidat.createdAt.substring(0,10)}
 
               </Typography>
             </div>
             <div className={classes.pay}>
               <Typography className={classes.heading}>
-                Payement : {(candidat.payment) ? 'oui' : 'non'}
+                 {(candidat.payment) ? <span style={{fontSize:'1.2rem', color:'green'}}>Paiement verifié</span> :  <span style={{fontSize:'1.2rem', color:'red'}}>Pas de paiement</span>}
               </Typography >
             </div>
 

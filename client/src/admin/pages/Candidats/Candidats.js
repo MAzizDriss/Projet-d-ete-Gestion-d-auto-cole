@@ -1,6 +1,7 @@
 import React from "react";
 import './Candidats.css';
 import CandidatCard from "./CandidatCard"
+import { Container } from "@material-ui/core";
 import axios from 'axios'
 
 
@@ -14,7 +15,7 @@ function Candidats(){
 }, [])
 
   return (
-    <div>
+    <div >
     <h1 className="title">Candidats</h1>
     <>
        <CandidatCard candidats={users}/>

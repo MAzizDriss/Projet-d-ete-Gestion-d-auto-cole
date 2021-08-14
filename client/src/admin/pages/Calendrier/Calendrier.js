@@ -40,7 +40,7 @@ const useStyles = makeStyles({
   },
 });
 
-const relativedate = new Date(2021, 1, 16, 10) // fonction pour retirer la prochaine date
+const relativedate = new Date() // fonction pour retirer la prochaine date
 function closestdate(arr) {
   let dates = arr.map(item => item.date)
   dates.sort(function (a, b) {
