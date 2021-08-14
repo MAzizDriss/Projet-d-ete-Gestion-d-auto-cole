@@ -110,11 +110,23 @@ router.put('/:ref',verify,async (req,res)=>{
             $push:{sessions:req.body.ref}
         })
     }
+    else if(req.body.ref!==session.ref){
+        let action = await Employee.updateOne({id:session.employeeId},{
+            $pull:{sessions:session.ref},
+            $push:{sessions:req.body.ref}
+        })
+    }
     if (session.clientId!==req.body.clientID){
         let action2 = await User.updateOne({id:session.clientId},{
             $pull:{sessions:session.ref}
         })
         action = await User.updateOne({id:req.body.clientId},{
+            $push:{sessions:req.body.ref}
+        })
+    }
+    else if(req.body.ref!==session.ref){
+        let action = await User.updateOne({id:session.clientId},{
+            $pull:{sessions:session.ref},
             $push:{sessions:req.body.ref}
         })
     }
