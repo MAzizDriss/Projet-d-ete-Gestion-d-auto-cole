@@ -13,8 +13,7 @@ import Box from '@material-ui/core/Box';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
-import cars from '../Data/CarData';
-
+import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -75,33 +74,30 @@ const useStyles = makeStyles((theme) => ({
 export default function VehiculeDispo() {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [cardata, setcardata] = useState(cars)
-  const [value, setValue] = React.useState(2);
-  const [state, setState] = React.useState({
-    Service: '',
-  });
+  const [cardata, setcardata] = useState()
 
-  const handleClicked = (event) => {
-    const Service = event.target.name;
-    setState({
-      ...state,
-      [Service]: event.target.value,
-    });
-  };
+
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-
+  React.useEffect(()=>{
+    axios.get('http://localhost:3001/api/admin/vehicule/vehicules', {
+      headers: {
+          "auth-token": localStorage.getItem('token')
+      }
+  }).then((result) => { setcardata(result.data) })
+      .catch((err) => console.log(err))
+  },[])
 
   return (
     <div className={classes.root}>
        <Typography className={classes.title} color="textSecondary" gutterBottom>
           Véhicules disponibles:
         </Typography>
-      {cardata.map(car =>
+      {cardata && cardata.map(car =>
         <div>
-        {(car.disponibilite != 'Disponible')? '' : 
+        {(!car.service)? '' : 
         <div>
       <Accordion className={ classes.cards } expanded={expanded === car.id} onChange={handleChange(car.id)} key={car.id}>
         <AccordionSummary
@@ -111,7 +107,7 @@ export default function VehiculeDispo() {
         >
             <AiFillCar/> 
           <Typography className={classes.heading}> {car.marque} {car.modele}</Typography>
-          <Typography className={classes.secondaryHeading}>{car.disponibilite}</Typography>
+          <Typography className={classes.secondaryHeading}>{car.disponibilite?"Disponible":"Non disponible"}</Typography>
 
         </AccordionSummary>
         <br/>
@@ -123,13 +119,13 @@ export default function VehiculeDispo() {
           
           <div className={classes.date}>
             <Typography>
-              Date d'achat : {car.DateAchat}
+              Date d'achat : {car.dateAchat.substring(0,16)}
 
             </Typography>
           </div>
           <div className={classes.entretien}>
             <Typography>
-              Date du prochain entretien : {car.DateEntretien}
+              Date du prochain entretien : {car.dateEntretien.substring(0,16)}
             </Typography >
           </div>
           <div>
@@ -137,7 +133,7 @@ export default function VehiculeDispo() {
         <Typography component="legend">Etat du véhicule</Typography>
         <Rating
           name="disabled"
-          value={value}
+          value={car.etat}
           disabled
         />
       </Box>
@@ -146,14 +142,10 @@ export default function VehiculeDispo() {
       <FormControl className={classes.formControl} disabled>
         <InputLabel htmlFor="name-native-disabled"></InputLabel>
         <NativeSelect
-          value={state.name}
-          onChange={handleChange}
-          inputProps={{
-            name: car.service,
-            id: 'name-native-disabled',
-          }}
+          value={car.service}
         >
-        <option value="">{car.service}</option>
+        <option value={true}>En Service</option>
+        <option value={false}>HorsService</option>
         </NativeSelect>
       </FormControl>
       </div>

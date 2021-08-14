@@ -191,7 +191,7 @@ const EditSession = () => {
                         value={veh}
                         onChange={handleVehChange}
                     >
-                        {vehicules.filter(v => v.disponibilite === true).map(vehicule =>
+                        {vehicules.filter(v => v.service === true).map(vehicule =>
                             <MenuItem key={vehicule.id} value={vehicule.id}>{vehicule.marque} {vehicule.modele}</MenuItem>
                         )}
                     </Select>
