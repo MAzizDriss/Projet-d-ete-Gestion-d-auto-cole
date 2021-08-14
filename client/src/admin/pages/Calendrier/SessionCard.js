@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SessionCard({ sessions, clients, employees }) {
+export default function SessionCard({ sessions, clients, employees, vehicules }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -35,6 +35,7 @@ export default function SessionCard({ sessions, clients, employees }) {
   const [sessdata, setsessdata] = useState(sessions)
   const [clientdata, setclientdata] = useState(clients)
   const [empdata, setempdata] = useState(employees)
+  const [vehdata,setvehdata]=useState(vehicules)
   React.useEffect(
     () => {
       setsessdata(sessions)
@@ -50,6 +51,11 @@ export default function SessionCard({ sessions, clients, employees }) {
       setempdata(employees)
     }
     , [employees])
+    React.useEffect(
+      () => {
+        setvehdata(vehicules)
+      }
+      , [vehicules])
 
 
   return (
@@ -74,8 +80,8 @@ export default function SessionCard({ sessions, clients, employees }) {
             <Typography className={classes.secondaryHeading}>
               Teacher : {(empdata[s.employeeId - 1]) ? empdata[s.employeeId - 1].name : ''}
             </Typography>
-            <Typography className={classes.secondaryHeading} >
-              {(s.vehiculeId != null) ? `véhicule :${s.vehiculeId}` : ''}
+            <Typography className={classes.secondaryHeading} style={{marginLeft:'4%'}} >
+              {(s.vehiculeId != null) ? `véhicule :${(vehdata[s.vehiculeId - 1]) ?( vehdata[s.vehiculeId - 1].marque +' '+ vehdata[s.vehiculeId - 1].modele ): ''}` : ''}
             </Typography>
             <Link to={`/Sessions/edit/${s.ref}`} style={{ position: 'absolute', left: '94.6%' }} ><BsPencilSquare style={{ fill: '#3A506B' }} /></Link>
           </AccordionDetails>

@@ -57,6 +57,7 @@ const Calendrier = () => {
   const [sessions,setsessions]=React.useState([{}])
   const [clients,setclients]=React.useState([{}])
   const [employees,setemployees]=React.useState([{}])
+  const [vehicules,setvehicules]=React.useState([{}])
   React.useEffect(() => {
       axios.get('http://localhost:3001/api/admin/session/sessions',{headers:{
           "auth-token":localStorage.getItem('token')
@@ -71,6 +72,10 @@ const Calendrier = () => {
           "auth-token":localStorage.getItem('token')
       }}).then((result)=>{ setemployees(result.data) })
       .catch((err)=>console.log(err))
+      axios.get('http://localhost:3001/api/admin/vehicule/vehicules',{headers:{
+        "auth-token":localStorage.getItem('token')
+    }}).then((result)=>{ setvehicules(result.data) })
+    .catch((err)=>console.log(err))
   }, [])
   
 
@@ -102,13 +107,13 @@ const Calendrier = () => {
             <Tab label="Séeance précidentes" />
           </Tabs>
           <TabPanel value={value} index={0} >
-            <SessionCard sessions={sessions} clients={clients} employees={employees}/>
+            <SessionCard sessions={sessions} clients={clients} employees={employees} vehicules={vehicules}/>
           </TabPanel>
           <TabPanel value={value} index={1} >
-            <SessionCard sessions={sessions.filter(s => new Date(s.date) > relativedate)} clients={clients} employees={employees}/>
+            <SessionCard sessions={sessions.filter(s => new Date(s.date) > relativedate)} clients={clients} employees={employees} vehicules={vehicules}/>
           </TabPanel>
           <TabPanel value={value} index={2} >
-            <SessionCard sessions={sessions.filter(s => new Date(s.date) < relativedate)} clients={clients} employees={employees}/>
+            <SessionCard sessions={sessions.filter(s => new Date(s.date) < relativedate)} clients={clients} employees={employees} vehicules={vehicules}/>
           </TabPanel>
         </Paper>
         <div className="next-session">

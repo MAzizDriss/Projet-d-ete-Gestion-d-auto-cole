@@ -10,6 +10,9 @@ import { useParams } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import axios from 'axios'
 import { useHistory } from 'react-router';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,12 +25,12 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '19vh'
     },
 }));
-const generateDefaultdate=(selectedDate)=>{
-    const month=(String(selectedDate.getMonth()).length===1)?'0'+selectedDate.getMonth():selectedDate.getMonth()
-    const day=(String(selectedDate.getDay()).length===1)?'0'+selectedDate.getDay():selectedDate.getDay()
-    const hours=(String(selectedDate.getHours()).length===1)?'0'+selectedDate.getHours():selectedDate.getHours()
-    const mins=(String(selectedDate.getMinutes()).length===1)?'0'+selectedDate.getMinutes():selectedDate.getMinutes()
-    return (selectedDate.getFullYear()+'-'+ month+'-'+ day +'T'+hours+':'+mins)
+const generateDefaultdate = (selectedDate) => {
+    const month = (String(selectedDate.getMonth()).length === 1) ? '0' + selectedDate.getMonth() : selectedDate.getMonth()
+    const day = (String(selectedDate.getDay()).length === 1) ? '0' + selectedDate.getDay() : selectedDate.getDay()
+    const hours = (String(selectedDate.getHours()).length === 1) ? '0' + selectedDate.getHours() : selectedDate.getHours()
+    const mins = (String(selectedDate.getMinutes()).length === 1) ? '0' + selectedDate.getMinutes() : selectedDate.getMinutes()
+    return (selectedDate.getFullYear() + '-' + month + '-' + day + 'T' + hours + ':' + mins)
 
 }
 
@@ -36,6 +39,7 @@ const EditSession = () => {
     const history = useHistory();
     const [session, setsession] = React.useState()
     const [sessions, setsessions] = React.useState([{}])
+    const [vehicules, setvehicules] = React.useState()
     const [clients, setclients] = React.useState()
     const [employees, setemployees] = React.useState()
     React.useEffect(() => {
@@ -45,7 +49,7 @@ const EditSession = () => {
             }
         }).then((result) => {
             setsessions(result.data);
-            const sess=result.data.find(s => s.ref === ref)
+            const sess = result.data.find(s => s.ref === ref)
             setsession(result.data.find(s => s.ref === ref))
 
         })
@@ -54,13 +58,19 @@ const EditSession = () => {
             headers: {
                 "auth-token": localStorage.getItem('token')
             }
-        }).then((result) => { setclients(result.data)})
+        }).then((result) => { setclients(result.data) })
             .catch((err) => console.log(err))
         axios.get('http://localhost:3001/api/admin/employee/employees', {
             headers: {
                 "auth-token": localStorage.getItem('token')
             }
         }).then((result) => { setemployees(result.data) })
+            .catch((err) => console.log(err))
+        axios.get('http://localhost:3001/api/admin/vehicule/vehicules', {
+            headers: {
+                "auth-token": localStorage.getItem('token')
+            }
+        }).then((result) => { setvehicules(result.data) })
             .catch((err) => console.log(err))
     }, [])
     const classes = useStyles();
@@ -69,61 +79,56 @@ const EditSession = () => {
     const handleTypeChange = (event) => {
         settype(event.target.value);
     };
-    const [selectedDate, setSelectedDate] = React.useState(new Date());
+    const [selectedDate, setSelectedDate] = React.useState();
     const handleDateChange = (event) => {
         setSelectedDate(event.target.value);
     };
-    const [client, setclient] = React.useState({})
+    const [client, setclient] = React.useState()
     const handleClientChange = (event) => {
         setclient(event.target.value)
     }
-    const [emp, setemp] = React.useState({})
+    const [emp, setemp] = React.useState()
     const handleEmpChange = (event) => {
         setemp(event.target.value)
     }
-    const [veh, setveh] = React.useState(0)
+    const [veh, setveh] = React.useState()
     const handleVehChange = (event) => {
         setveh(event.target.value)
     }
     React.useEffect(() => {
-        setSelectedDate(session?new Date(session.date):new Date())
-        settype(session?session.ref[0]:'c')
-        if (session){
-        if(clients)setclient(clients[session.clientId -1].name)
-        if (employees)setemp(employees[session.employeeId - 1].name)
+        if (session) setSelectedDate(session.date)
+        settype(session ? session.ref[0] : 'c')
+        if (session) {
+            if (clients) setclient(clients[session.clientId - 1].id)
+            if (employees) setemp(employees[session.employeeId - 1].id)
         }
-        setveh(session ? session.vehicule : 0)
         if (type === 'p') {
-            var vehinput = document.querySelector('#Vehicule')
             setveh(session.vehiculeId)
-            vehinput.value = veh
         }
 
-    }, [session,clients,employees])
+    }, [session, clients, employees])
 
     const handleDelete = () => {
         axios.delete(`http://localhost:3001/api/admin/session/${ref}`, {
             headers: {
                 "auth-token": localStorage.getItem('token')
             }
-        }).then((result) => {console.log(result)
+        }).then((result) => {
+            console.log(result)
+            alert("deleted")
+            history.push('/Calendrier')
         })
-        alert("deleted")
-        history.push('/Calendrier')
-
     }
     const handleSubmit = (event) => {
         event.preventDefault()
-        const verif_client = clients.find(c => c.name === client) //:o
-        const verif_employee = employees.find(e => e.name === emp)
-        if (!verif_client || !verif_employee  ) {
+        if (!client || !emp) {
             alert('Rakez mlih aaych khoya')
             return
         }
-        const sess= {
-            clientId: clients.find(c => c.name === client).id ,
-            date:selectedDate,
-            employeeId:employees.find(e => e.name === emp).id
+        const sess = {
+            clientId: client,
+            date: selectedDate,
+            employeeId: emp,
         }
 
         if (type === 'p') {
@@ -150,23 +155,60 @@ const EditSession = () => {
         <div>
             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} >
                 <h1 style={{ color: '#3A506B' }}>Modification d'une séance:</h1>
-                <TextField id="Client" label="Client" onChange={handleClientChange} value={client} />
+                {client && <FormControl className={classes.formControl}>
+                    <InputLabel id="Client" label="Client" onChange={handleClientChange}>Client</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="papier"
+                        value={client}
+                        onChange={handleClientChange}
+                    >
+                        {clients.map(c =>
+                            <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>
+                        )}
+                    </Select>
+                </FormControl>}
                 <br />
-                <TextField id="Employee" label="Employee" onChange={handleEmpChange} value={emp} />
+                {emp && <FormControl className={classes.formControl}>
+                    <InputLabel id="Employé" label="Employé" onChange={handleEmpChange}>Client</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="papier"
+                        value={emp}
+                        onChange={handleEmpChange}
+                    >
+                        {employees.map(c =>
+                            <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>
+                        )}
+                    </Select>
+                </FormControl>}
                 <br />
-                {(type === 'p') ? <>
-                    <TextField id="Vehicule" label="Vehicule" onChange={handleVehChange} value={veh} /><br /> </> : ''}
-                <TextField
+                {((type === 'p') && vehicules) ? <>   <FormControl className={classes.formControl}>
+                    <InputLabel id="veh" label="Vehicule" onChange={handleVehChange}>Vehicule</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="papier"
+                        value={veh}
+                        onChange={handleVehChange}
+                    >
+                        {vehicules.filter(v => v.disponibilite === true).map(vehicule =>
+                            <MenuItem key={vehicule.id} value={vehicule.id}>{vehicule.marque} {vehicule.modele}</MenuItem>
+                        )}
+                    </Select>
+                </FormControl>
+                    <br />
+                </> : ''}
+                {selectedDate && <TextField
                     id="datetime-local"
                     label="Date De la séance"
                     type="datetime-local"
-                    defaultValue={session?generateDefaultdate(new Date(selectedDate)):generateDefaultdate(new Date())}
+                    defaultValue={selectedDate ? selectedDate.substring(0, 16) : ''}
                     className={classes.textField}
                     InputLabelProps={{
                         shrink: true,
                     }}
                     onChange={handleDateChange}
-                />
+                />}
                 <br />
                 <FormControl component="fieldset">
                     <FormLabel style={{ marginLeft: "-33vh" }} component="legend" >Type de séance:</FormLabel>

@@ -8,6 +8,9 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import axios from 'axios';
 import { useHistory } from 'react-router';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         },
         marginTop: '4vw',
         textAlign: 'center',
-        marginBottom:'20vh'
+        marginBottom: '20vh'
     },
 }));
 const AddSession = () => {
@@ -43,22 +46,35 @@ const AddSession = () => {
     const handleVehChange = (event) => {
         setveh(event.target.value)
     }
-    const [sessions,setsessions]=React.useState([{}])
-    const [clients,setclients]=React.useState([{}])
-    const [employees,setemployees]=React.useState([{}])
+    const [sessions, setsessions] = React.useState([{}])
+    const [clients, setclients] = React.useState([{}])
+    const [employees, setemployees] = React.useState([{}])
+    const [vehicules, setvehicules] = React.useState()
     React.useEffect(() => {
-        axios.get('http://localhost:3001/api/admin/session/sessions',{headers:{
-            "auth-token":localStorage.getItem('token')
-        }}).then((result)=>{ setsessions(result.data) })
-        .catch((err)=>console.log(err))
-        axios.get('http://localhost:3001/api/admin/clients',{headers:{
-            "auth-token":localStorage.getItem('token')
-        }}).then((result)=>{ setclients(result.data) })
-        .catch((err)=>console.log(err))
-        axios.get('http://localhost:3001/api/admin/employee/employees',{headers:{
-            "auth-token":localStorage.getItem('token')
-        }}).then((result)=>{ setemployees(result.data) })
-        .catch((err)=>console.log(err))
+        axios.get('http://localhost:3001/api/admin/session/sessions', {
+            headers: {
+                "auth-token": localStorage.getItem('token')
+            }
+        }).then((result) => { setsessions(result.data) })
+            .catch((err) => console.log(err))
+        axios.get('http://localhost:3001/api/admin/clients', {
+            headers: {
+                "auth-token": localStorage.getItem('token')
+            }
+        }).then((result) => { setclients(result.data) })
+            .catch((err) => console.log(err))
+        axios.get('http://localhost:3001/api/admin/employee/employees', {
+            headers: {
+                "auth-token": localStorage.getItem('token')
+            }
+        }).then((result) => { setemployees(result.data) })
+            .catch((err) => console.log(err))
+        axios.get('http://localhost:3001/api/admin/vehicule/vehicules', {
+            headers: {
+                "auth-token": localStorage.getItem('token')
+            }
+        }).then((result) => { setvehicules(result.data) })
+            .catch((err) => console.log(err))
     }, [])
     function createRef(data) {
         const last_ref = data[data.length - 1].ref
@@ -69,57 +85,86 @@ const AddSession = () => {
     }
     const handleSubmit = (event) => {
         event.preventDefault()
-        const verif_client = clients.find(c => c.name === client) //:o
-        const verif_employee = employees.find(e => e.name === emp)
-        // const verif_date = selectedDate > new Date()
-        if (!verif_client || !verif_employee) {
+        if (!client || !emp) {
             alert('Rakez mlih aaych khoya')
             return
         }
         const session = {
             ref: createRef(sessions),
-            clientId: clients.find(c => c.name === client) ? clients.find(c => c.name === client).id : 0,
+            clientId: client,
             date: selectedDate,
-            employeeId: employees.find(e => e.name === emp) ? employees.find(e => e.name === emp).id : 0,
-
+            employeeId: emp,
         }
         if (type === 'p') {
             session.vehiculeId = veh
         }
-        var clientvalue = document.querySelector('#Client')
-        var empvalue=document.querySelector('#Employee')
-        clientvalue.value=''
-        empvalue.value=''
-        setclient('')
-        setemp('')
-        axios.post('http://localhost:3001/api/admin/session/add',session,{headers:{
-            "auth-token":localStorage.getItem('token')
-        }}).then(()=>history.push('/Calendrier'))
-        .catch((err)=>console.log(err))
+        axios.post('http://localhost:3001/api/admin/session/add', session, {
+            headers: {
+                "auth-token": localStorage.getItem('token')
+            }
+        }).then(() => history.push('/Calendrier'))
+            .catch((err) => console.log(err))
     }
 
     return (
         <div>
             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} >
                 <h1 style={{ color: '#3A506B' }}>Ajout d'une séance:</h1>
-                <TextField id="Client" label="Client" onChange={handleClientChange}/>
+                <FormControl className={classes.formControl}>
+                    <InputLabel id="Client" label="Client" onChange={handleClientChange}>Client</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="papier"
+                        value={client}
+                        onChange={handleClientChange}
+                    >
+                        {clients.map(client =>
+                            <MenuItem key={client.id} value={client.id}>{client.name}</MenuItem>
+                        )}
+                    </Select>
+                </FormControl>
                 <br />
-                <TextField id="Employee" label="Employee" onChange={handleEmpChange} />
+                <FormControl className={classes.formControl}>
+                    <InputLabel id="Employé" label="Employé" onChange={handleEmpChange}>Employé</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="papier"
+                        value={emp}
+                        onChange={handleEmpChange}
+                    >
+                        {employees.map(employee =>
+                            <MenuItem key={employee.id} value={employee.id}>{employee.name}</MenuItem>
+                        )}
+                    </Select>
+                </FormControl>
                 <br />
-                {(type === 'p') ? <>
-                    <TextField id="Vehicule" label="Vehicule" onChange={handleVehChange} /><br /> </> : ''}
-                    <TextField
-                        id="datetime-local"
-                        label="Date De la séance"
-                        type="datetime-local"
-                        defaultValue="2017-05-24T10:30"
-                        className={classes.textField}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        onChange={handleDateChange}
-                    />
-                    <br/>
+                {(type === 'p')  ? <>   <FormControl className={classes.formControl}>
+                    <InputLabel id="veh" label="Vehicule" onChange={handleVehChange}>Vehicule</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="papier"
+                        value={veh}
+                        onChange={handleVehChange}
+                    >
+                        {vehicules.filter(v => v.disponibilite === true).map(vehicule =>
+                            <MenuItem key={vehicule.id} value={vehicule.id}>{vehicule.marque} {vehicule.modele}</MenuItem>
+                        )}
+                    </Select>
+                </FormControl>
+                    <br />
+                </> : ''}
+                <TextField
+                    id="datetime-local"
+                    label="Date De la séance"
+                    type="datetime-local"
+                    defaultValue="2017-05-24T10:30"
+                    className={classes.textField}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    onChange={handleDateChange}
+                />
+                <br />
                 <FormControl component="fieldset">
                     <FormLabel component="legend" >Type de séance:</FormLabel>
                     <RadioGroup aria-label="gender" name="gender1" value={type} onChange={handleTypeChange}>
