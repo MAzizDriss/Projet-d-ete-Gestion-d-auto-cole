@@ -13,13 +13,11 @@ import Box from '@material-ui/core/Box';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
-import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '60%',
-    marginBottom:'10%',
   },
   formControl: {
     margin: theme.spacing(1),
@@ -46,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.typography.pxToRem(15),
     flexBasis: '2.33%',
     flexShrink: 0,
-    marginTop: 50,
     right: 550
   },
   secondaryHeading2: {
@@ -62,40 +59,64 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: 'column',
   },
-  title: {
-    fontSize: 36,
-    color: '#f2f2f2',
-    marginLeft: '25%'
-  },
 }));
 
 
+function nextDate(date, jour, period) {
+  var months = 0
+  let years = (new Date()).getFullYear() - (date.getFullYear() + 1)
+  if (years < 0) {
+    years = 0;
+    months = (new Date()).getMonth() - date.getMonth() 
+  }
+  else { months += (12 - date.getMonth()) + (new Date()).getMonth() + 1 }
+  months += years * 12
+  if (jour > (new Date()).getDate()) {
+    months--
+  }
+  let next_month = 0
+  if (months % period === 0) {
+    next_month = new Date().getMonth()+1;
+    if (jour > (new Date()).getDate() || months === 0) {
+      next_month += period
+    }
+  }
+  else { next_month = period - (months % period) + (new Date()).getMonth() + 2 }
 
-export default function VehiculeDispo() {
+  if (next_month > 12) {
+   let month = next_month % 12
+
+    return ((new Date().getFullYear() + Math.floor(next_month / 12)) + '-' + month + '-' + jour)
+  }
+
+  return ((new Date().getFullYear()) + '-' + (next_month+1) + '-' + jour)
+
+}
+
+function closestE(date,ep,eg){
+  console.log('entred btw')
+  console.log(ep)
+  const dateP=new Date(nextDate(date, ep.jour, ep.periode))
+  const dateG=new Date(nextDate(date, eg.jour, eg.periode))
+  if (dateP<dateG) return{color:'#f5bd1f',date:dateP,name:'Petit entretien'}
+  else return{color:'red',date:dateG,name:'Grand entretien'}
+}
+
+export default function VehiculeDispo({car}) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
   const [cardata, setcardata] = useState()
-
+  const [Ent,setEnt]= useState(closestE(new Date(car.dateAchat),car.entretienP,car.entretienG))
 
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-  React.useEffect(()=>{
-    axios.get('http://localhost:3001/api/admin/vehicule/vehicules', {
-      headers: {
-          "auth-token": localStorage.getItem('token')
-      }
-  }).then((result) => { setcardata(result.data) })
-      .catch((err) => console.log(err))
-  },[])
+
 
   return (
     <div className={classes.root}>
-       <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Véhicules disponibles:
-        </Typography>
-      {cardata && cardata.map(car =>
+      {car && 
         <div>
         {(!car.disponibilite)? '' : 
         <div>
@@ -125,7 +146,12 @@ export default function VehiculeDispo() {
           </div>
           <div className={classes.entretien}>
             <Typography>
-              Date du prochain entretien : {car.dateEntretien.substring(0,16)}
+              Date du visite technique: {car.visiteTech.substring(0,16)}
+            </Typography >
+          </div>
+          <div className={classes.entretien}>
+            <Typography>
+             {Ent && <h3 style={{color:Ent.color}}>Date du prochaine entretien: {Ent.date.toString().substring(0,16)}</h3>}
             </Typography >
           </div>
           <div>
@@ -162,7 +188,7 @@ export default function VehiculeDispo() {
         </div>
         }
    </div>
-  )}
+  }
     </div>
   );
           

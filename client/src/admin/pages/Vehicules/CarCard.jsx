@@ -10,7 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import CardMedia from '@material-ui/core/CardMedia';
-
+import {FiAlertTriangle }from 'react-icons/fi'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -89,43 +89,43 @@ const useStyles = makeStyles((theme) => ({
   },
 
 }));
+
 function nextDate(date, jour, period) {
   var months = 0
   let years = (new Date()).getFullYear() - (date.getFullYear() + 1)
   if (years < 0) {
     years = 0;
-    months = (new Date()).getMonth() - date.getMonth()
-    console.log(months)}
-  else {months += 12 - date.getMonth() + (new Date()).getMonth() + 1}
-  months += years * 12
-  if (jour > (new Date()).getDate()) {
-    months--
+    months = (new Date()).getMonth() - date.getMonth() 
   }
+  else { months += (12 - date.getMonth()) + (new Date()).getMonth() + 1 }
+  months += years * 12
   let next_month = 0
-  if (months % period === 0 ) {
-    next_month =new Date().getMonth();
-    if (jour > (new Date()).getDate()||months===0) {
-      console.log('entred')
+  if (months % period === 0) {
+    next_month = new Date().getMonth()+1;
+    if (jour > (new Date()).getDate() || months === 0) {
       next_month += period
-      console.log(next_month)
     }
   }
-  else {next_month = period -(months % period) + new Date().getMonth() + 1}
+  else { next_month = period - (months % period) + (new Date()).getMonth() + 2 
+}
 
   if (next_month > 12) {
-    console.log(months)
-    next_month = next_month % 12
+   let month = next_month % 12
 
-    return ((new Date().getFullYear() + Math.floor(months/12)) + '-' + next_month + '-' + jour)
+    return ((new Date().getFullYear() + Math.floor(next_month / 12)) + '-' + month + '-' + jour)
   }
 
-  return ((new Date().getFullYear()) + '-' + next_month + '-' + jour)
+  return ((new Date().getFullYear()) + '-' + (next_month+1) + '-' + jour)
 
 }
 
 export default function CarCard({ car }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const [epthismonth,setepthismont]=React.useState(car.entretienP?nextDate(new Date(car.dateAchat), car.entretienP.jour, car.entretienP.periode).substring()
+  ===new Date().getMonth():'')
+  const [egthismonth,setgpthismont]=React.useState(car.entretienG?new Date(nextDate(new Date(car.dateAchat), car.entretienG.jour, car.entretienG.periode)).getMonth()
+  ===new Date().getMonth():'')
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
@@ -148,11 +148,11 @@ export default function CarCard({ car }) {
           </Typography>
           <div className={classes.date}>
             <Typography>
-              Date d'achat : {(car.dateAchat) &&  car.dateAchat.substring(0, 10) }
+              Date d'achat : {(car.dateAchat) && car.dateAchat.substring(0, 10)}
             </Typography>
-            <br/>
+            <br />
             <Typography>
-              Date de visite technique : {(car.visiteTech) &&  car.visiteTech.substring(0, 10) }
+              Date de visite technique : {(car.visiteTech) && car.visiteTech.substring(0, 10)}
             </Typography>
           </div>
 
@@ -168,10 +168,10 @@ export default function CarCard({ car }) {
           </div>
           <div className={classes.entretien}>
             <Typography>
-              <h3 style={{color:'#f5bd1f'}}>Date du prochain petit entretien : </h3> {car.entretienP &&  nextDate(new Date(car.dateAchat), car.entretienP.jour, car.entretienP.periode) }
+           {car.entretienP && epthismonth!=='' && <FiAlertTriangle/>}   Date du prochain petit entretien : <span style={{ color: '#f5bd1f',fontSize:'1.2rem' }}> {car.entretienP && nextDate(new Date(car.dateAchat), car.entretienP.jour, car.entretienP.periode)}</span>
             </Typography >
             <Typography>
-              <h3 style={{color:'red'}}>Date du prochain grand entretien : </h3> {car.entretienG ? nextDate(new Date(car.dateAchat), car.entretienG.jour, car.entretienG.periode) : 'nope'}
+              Date du prochain grand entretien :  <span style={{ color: 'red',fontSize:'1.2rem'  }}>{car.entretienG ? nextDate(new Date(car.dateAchat), car.entretienG.jour, car.entretienG.periode) : 'nope'}</span>
             </Typography >
           </div>
           <div>
@@ -189,7 +189,6 @@ export default function CarCard({ car }) {
             </FormControl>
           </div>
 
-          {car.entretienP ? console.log(nextDate(new Date(car.dateAchat), car.entretienP.jour, car.entretienP.periode)) : 'nope'}
           <div className={classes.icons}>
             <Button href={`/Vehicules/Formulaire/${car.id}`} variant="contained" color="secondary" style={{ marginLeft: '30%', width: '40%', marginTop: '-29%' }}>
               <center style={{ marginRight: '15%' }} >Modifier</center>
