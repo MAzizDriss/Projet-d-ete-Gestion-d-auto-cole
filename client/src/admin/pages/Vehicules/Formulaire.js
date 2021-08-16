@@ -46,6 +46,16 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Formulaire = () => {
+    const [errMarque, seterrMarque] = React.useState(false)
+    const [errModele, seterrModele] = React.useState(false)
+    const [errPPE, seterrPPE] = React.useState(false)
+    const [errJPE, seterrJPE] = React.useState(false)
+    const [errPGE, seterrPGE] = React.useState(false)
+    const [errJGE, seterrJGE] = React.useState(false)
+    const [ErrMessageDate, setErrMessageDate] = React.useState(false)
+    const [errDate, seterrDate] = React.useState(false)
+
+
     const { id } = useParams()
     const [disp, setdisp] = useState()
     const [car, setcar] = useState({})
@@ -84,28 +94,35 @@ const Formulaire = () => {
     };
     const handleMarqueChange = (event) => {
         setmarque(event.target.value);
+        seterrMarque(false)
     };
     const handleModeleChange = (event) => {
         setmodele(event.target.value)
+        seterrModele(false)
     }
     const handleDateChange = (event) => {
         setselectedDate(event.target.value)
+        seterrDate(false)
     }
     const [epp, setepp] = React.useState('');
     const handleEpPChange = (event) => {
         setepp(event.target.value);
+        seterrPPE(false)
     };
     const [epj, setepj] = React.useState('');
     const handleEpJChange = (event) => {
         setepj(event.target.value);
+        seterrJPE(false)
     };
     const [egp, setegp] = React.useState('');
     const handleEgPChange = (event) => {
         setegp(event.target.value);
+        seterrPGE(false)
     };
     const [egj, setegj] = React.useState('');
     const handleEgJChange = (event) => {
-        setegj(event.target.value==='true');
+        setegj(event.target.value === 'true');
+        seterrJGE(false)
     };
     const [vig, setvig] = React.useState('')
     const handleVigChange = (event) => {
@@ -113,7 +130,7 @@ const Formulaire = () => {
     };
     const [ass, setass] = React.useState('')
     const handleAssChange = (event) => {
-        setass(event.target.value==='true')
+        setass(event.target.value === 'true')
     };
     React.useEffect(() => {
         var marqueinput = document.querySelector('#marque')
@@ -122,17 +139,70 @@ const Formulaire = () => {
         var epjinput = document.querySelector('#E10')
         var egpinput = document.querySelector('#E2')
         var egjinput = document.querySelector('#E20')
-        
+
         marqueinput.value = marque
         modeleinput.value = modele
         eppinput.value = epp + ' '
         epjinput.value = epj + ' '
         egpinput.value = egp + ' '
         egjinput.value = egj + ' '
-    }, [marque, modele, disp,epp,epj,egp,egj])
+    }, [marque, modele, disp, epp, epj, egp, egj])
 
     const handleSubmit = (event) => {
         event.preventDefault()
+        var today = new Date();
+        const date = selectedDate.toString()
+        const year = parseInt(date.substring(0, 4), 10)
+        const month = parseInt(date.substring(6, 8))
+        const day = parseInt(date.substring(8, 11))
+        const monthToday = today.getUTCMonth() + 1
+        const compareY = today.getUTCFullYear() > year;
+        console.log(compareY);
+        const compareD = (today.getUTCDate() > day && (monthToday == month) && (today.getUTCFullYear() == year))
+        console.log(compareD);
+        const compareM = (monthToday > month && today.getUTCFullYear() == year);
+        console.log(compareM);
+        if (compareY) {
+            seterrDate(true)
+            setErrMessageDate("L'année choisie est dépassée")
+        }
+
+        if (compareM) {
+            seterrDate(true)
+            setErrMessageDate("Le mois choisi est dépassé")
+        }
+
+        if (compareD) {
+            setErrMessageDate("Le jour choisi est dépassé")
+            seterrDate(true)
+
+        }
+
+
+
+        if (!marque || !modele || !epp || !egp || !epj || !egj) {
+            alert('Rakez mlih aaych khoya')
+            if (modele == '') {
+                seterrModele(true)
+            }
+            if (!marque) {
+                seterrMarque(true)
+            }
+            if (!epp) {
+                seterrPPE(true)
+            }
+            if (!egp) {
+                seterrPGE(true)
+            }
+            if (!epj) {
+                seterrJPE(true)
+            }
+            if (!egj) {
+                seterrJGE(true)
+            }
+            return
+        }
+
         const data = {
             marque: marque,
             modele: modele,
@@ -173,17 +243,35 @@ const Formulaire = () => {
             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} >
                 <h1 style={{ color: '#3A506B' }}>Modifier les données de {marque} {modele} :</h1>
                 <br /><br /><br />
-                <TextField id="marque" label="Nom du candidat" onChange={handleMarqueChange} />
+                {errMarque ?
+                    <TextField error helperText="La marque du véhicule est obligatoire" id="marque" label="Marque du véhicule" onChange={handleMarqueChange} />
+                    :
+                    <TextField id="marque" label="Marque du véhicule" onChange={handleMarqueChange} />}
                 <br />
-                <TextField id="modele" label="Payement" onChange={handleModeleChange} />
+                {errModele ?
+                    <TextField error helperText="Le modèle du véhicule est obligatoire" id="marque" label="Marque du véhicule" onChange={handleMarqueChange} />
+                    :
+                    <TextField id="modele" label="Modèle du véhicule" onChange={handleModeleChange} />
+                }
                 <br />
-                <TextField  id="E1" label="periode de petit entretien" onChange={handleEpPChange} />
+                {errPPE ?
+                    <TextField error helperText="La période de petit entretien est obligatoire" id="E1" label="periode de petit entretien" onChange={handleEpPChange} />
+                    :
+                    <TextField id="E1" label="periode de petit entretien" onChange={handleEpPChange} />}
                 <br />
-                <TextField id="E10" label="Jour de moins de petit entretien" onChange={handleEpJChange} />
+                {errJPE ?
+                    <TextField error helperText="Le jour du mois du petit entretien est obligatoire" id="E10" label="Jour du mois du petit entretien" onChange={handleEpJChange} />
+                    :
+                    <TextField id="E10" label="Jour du mois du petit entretien" onChange={handleEpJChange} />}
                 <br />
-                <TextField id="E2" label="periode de grand entretien" onChange={handleEgPChange} />
+                {errPGE ?
+                    <TextField error helperText="La période du grand entretien est obligatoire" id="E2" label="periode du grand entretien" onChange={handleEgPChange} />
+                    :
+                    <TextField id="E2" label="periode du grand entretien" onChange={handleEgPChange} />}
                 <br />
-                <TextField id="E20" label="Jour de moins de grand entretien" onChange={handleEgJChange} />
+                {errJGE ?
+                <TextField error helperText="Le jour du mois du grand entretien est obligatoire" id="E20" label="Jour du mois du grand entretien" onChange={handleEgJChange} />:
+                <TextField id="E20" label="Jour du mois du grand entretien" onChange={handleEgJChange} />}
                 <br />
                 {value ? <div>
                     <FormControl className={classes.formControl} >
@@ -200,7 +288,7 @@ const Formulaire = () => {
                     </FormControl>
 
                 </div> : ''}
-                {value? <div>
+                {value ? <div>
                     <FormControl className={classes.formControl} >
                         <InputLabel >Vignettes</InputLabel>
                         <Select
@@ -215,7 +303,7 @@ const Formulaire = () => {
                     </FormControl>
 
                 </div> : ''}
-                {value? <div>
+                {value ? <div>
                     <FormControl className={classes.formControl} >
                         <InputLabel >Assurances</InputLabel>
                         <Select
@@ -243,8 +331,13 @@ const Formulaire = () => {
                     </Box>
 
                 </div> : ''}
-                {selectedDate ? <form className={classes.container} noValidate>
+                {selectedDate ? 
+                <>
+                {errDate ?
+                <form className={classes.container} noValidate>
                     <TextField
+                    error
+                    helperText={ErrMessageDate}
                         id="datetime-local"
                         label="Date de visite technique"
                         type="datetime-local"
@@ -257,7 +350,23 @@ const Formulaire = () => {
                     />
                     <br />
 
-                </form>
+                </form>:
+                <form className={classes.container} noValidate>
+                <TextField
+                    id="datetime-local"
+                    label="Date de visite technique"
+                    type="datetime-local"
+                    defaultValue={selectedDate}
+                    className={classes.date}
+                    onChange={handleDateChange}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                />
+                <br />
+
+            </form>}
+                </>
                     : ''}
                 <button variant="contained" color="secondary" style={{ marginTop: '3%', width: '20%' }}>
                     <center style={{ marginRight: '10%' }} >Enregistrer</center>

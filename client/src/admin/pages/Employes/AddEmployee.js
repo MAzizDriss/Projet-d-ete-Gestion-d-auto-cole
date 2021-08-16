@@ -15,25 +15,45 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         marginBottom: '36.2vh'
     },
+    
 }));
 const AddEmployee = () => {
     const history = useHistory();
     const classes = useStyles();
+    const [ErrName, setErrName] = React.useState(false)
+    const [ErrSalaire, setErrSalaire] = React.useState(false)
+    const [ErrJP, setErrJP] = React.useState(false)
     const [payday, setpayday] = React.useState(1);
     const handlePayDayChange = (event) => {
         setpayday(event.target.value);
+        setErrJP(false)
     };
     const [name, setname] = React.useState('')
     const handleNameChange = (event) => {
         setname(event.target.value)
+        setErrName(false)
     }
     const [salaire, setsalaire] = React.useState(200)
     const handleSalaireChange = (event) => {
         setsalaire(event.target.value)
+        setErrSalaire(false)
     }
     const handleSubmit = (event) => {
         event.preventDefault()
-        //verification
+        if (!name || !salaire || !payday) {
+            alert('ATTENTION! Verifiez les champs..')
+            if(!name){
+                setErrName(true)
+            }
+            if(salaire==200)
+            {
+                setErrSalaire(true)
+            }
+            if(payday==1){
+                setErrJP(true)
+            }
+            return
+        }        
         const emp = {
             name: name,
             salaire: salaire,
@@ -62,11 +82,40 @@ const AddEmployee = () => {
         <div>
             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} >
                 <h1 style={{ color: '#3A506B' }}>Ajout d'un Employé:</h1>
+                {ErrName ?
+                <TextField error id="Nom" label="Nom" helperText="Le nom de l'employé est obligatoire" onChange={handleNameChange} /> :
                 <TextField id="Nom" label="Nom" onChange={handleNameChange} />
+}
                 <br />
-                <TextField type='number' id="Salaire" label="Salaire" onChange={handleSalaireChange} />
+                {ErrSalaire ?
+                <TextField error type='number' id="Salaire" label="Salaire" helperText="Le salaire est obligatoire" 
+                inputProps={{
+                    min: 0, 
+                  }}
+                  onChange={handleSalaireChange} /> :
+                
+                <TextField type='number' id="Salaire" label="Salaire" 
+                  inputProps={{
+                    min: 0, 
+                  }}
+                onChange={handleSalaireChange} />
+                
+                }
                 <br />
-                <TextField type='number' id="payday" label="Jour de paiement" onChange={handlePayDayChange} />
+                {ErrJP ?
+                <TextField error type='number' id="payday" label="Jour de paiement" helperText="Le jour de payement est obligatoire"
+                inputProps={{
+                    min: 1, 
+max:31,
+                  }}
+                onChange={handlePayDayChange} />:
+                <TextField type='number' id="payday" label="Jour de paiement"
+                inputProps={{
+                    min: 1, 
+                    max:31,
+                  }}
+                onChange={handlePayDayChange} />
+                }
                 <br />
                 <button style={{ width: '18vw', marginLeft: '20vw', textAlign: 'center' }}>Ajouter</button>
             </form>

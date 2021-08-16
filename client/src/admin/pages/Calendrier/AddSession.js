@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 const AddSession = () => {
     const classes = useStyles();
+    const [ErrMessage, setErrMessage] = React.useState("")
+    const [errC, seterrC] = React.useState(false)
+    const [errE, seterrE] = React.useState(false)
+    const [errV, seterrV] = React.useState(false)
+    const [errDate, seterrDate] = React.useState(false)
     const history = useHistory();
     const [type, settype] = React.useState('c');
     const handleTypeChange = (event) => {
@@ -33,18 +38,22 @@ const AddSession = () => {
     const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
     const handleDateChange = (event) => {
         setSelectedDate(event.target.value);
+        seterrDate(false)
     };
     const [client, setclient] = React.useState('')
     const handleClientChange = (event) => {
         setclient(event.target.value)
+        seterrC(false)
     }
     const [emp, setemp] = React.useState('')
     const handleEmpChange = (event) => {
         setemp(event.target.value)
+        seterrE(false)
     }
     const [veh, setveh] = React.useState(0)
     const handleVehChange = (event) => {
         setveh(event.target.value)
+        seterrV(false)
     }
     const [sessions, setsessions] = React.useState([{}])
     const [clients, setclients] = React.useState([{}])
@@ -85,10 +94,50 @@ const AddSession = () => {
     }
     const handleSubmit = (event) => {
         event.preventDefault()
-        if (!client || !emp) {
+        var today = new Date();
+        const date = selectedDate.toString()
+        const year = parseInt(date.substring(0, 4), 10)
+        const month = parseInt(date.substring(6, 8))
+        const day = parseInt(date.substring(8, 11))
+        const monthToday = today.getUTCMonth() + 1
+        const compareY = today.getUTCFullYear() > year;
+        console.log(compareY);
+        const compareD = (today.getUTCDate() > day && (monthToday == month) && (today.getUTCFullYear() == year))
+        console.log(compareD);
+        const compareM = (monthToday > month && today.getUTCFullYear() == year);
+        console.log(compareM);
+        if (compareY) {
+            seterrDate(true)
+            setErrMessage("L'année choisie est dépassée")
+        }
+
+        if (compareM) {
+            seterrDate(true)
+            setErrMessage("Le mois choisi est dépassé")
+        }
+
+        if (compareD) {
+            setErrMessage("Le jour choisi est dépassé")
+            seterrDate(true)
+
+        }
+
+
+
+        if (!client || !emp || !veh) {
             alert('Rakez mlih aaych khoya')
+            if (client == '') {
+                seterrC(true)
+            }
+            if (!emp) {
+                seterrE(true)
+            }
+            if (!veh) {
+                seterrV(true)
+            }
             return
         }
+
         const session = {
             ref: createRef(sessions),
             clientId: client,
@@ -110,8 +159,8 @@ const AddSession = () => {
         <div>
             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} >
                 <h1 style={{ color: '#3A506B' }}>Ajout d'une séance:</h1>
-                <FormControl className={classes.formControl}>
-                    <InputLabel id="Client" label="Client" onChange={handleClientChange}>Client</InputLabel>
+                {errC ? <FormControl className={classes.formControl}>
+                    <InputLabel error id="Client" label="Client" onChange={handleClientChange}>Client</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="papier"
@@ -122,48 +171,113 @@ const AddSession = () => {
                             <MenuItem key={client.id} value={client.id}>{client.name}</MenuItem>
                         )}
                     </Select>
-                </FormControl>
+                </FormControl> :
+                    <>
+                        <FormControl className={classes.formControl}>
+                            <InputLabel id="Client" label="Client" onChange={handleClientChange}>Client</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="papier"
+                                value={client}
+                                onChange={handleClientChange}
+                            >
+                                {clients.map(client =>
+                                    <MenuItem key={client.id} value={client.id}>{client.name}</MenuItem>
+                                )}
+                            </Select>
+                        </FormControl>
+                    </>
+                }
                 <br />
-                <FormControl className={classes.formControl}>
-                    <InputLabel id="Employé" label="Employé" onChange={handleEmpChange}>Employé</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="papier"
-                        value={emp}
-                        onChange={handleEmpChange}
-                    >
-                        {employees.map(employee =>
-                            <MenuItem key={employee.id} value={employee.id}>{employee.name}</MenuItem>
-                        )}
-                    </Select>
-                </FormControl>
+                {errE ?
+                    <FormControl error className={classes.formControl}>
+                        <InputLabel id="Employé" label="Employé" onChange={handleEmpChange}>Employé</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="papier"
+                            value={emp}
+                            onChange={handleEmpChange}
+                        >
+                            {employees.map(employee =>
+                                <MenuItem key={employee.id} value={employee.id}>{employee.name}</MenuItem>
+                            )}
+                        </Select>
+                    </FormControl>
+
+                    :
+
+                    <FormControl className={classes.formControl}>
+                        <InputLabel id="Employé" label="Employé" onChange={handleEmpChange}>Employé</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="papier"
+                            value={emp}
+                            onChange={handleEmpChange}
+                        >
+                            {employees.map(employee =>
+                                <MenuItem key={employee.id} value={employee.id}>{employee.name}</MenuItem>
+                            )}
+                        </Select>
+                    </FormControl>}
                 <br />
-                {(type === 'p')  ? <>   <FormControl className={classes.formControl}>
-                    <InputLabel id="veh" label="Vehicule" onChange={handleVehChange}>Vehicule</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="papier"
-                        value={veh}
-                        onChange={handleVehChange}
-                    >
-                        {vehicules.filter(v => v.service === true).map(vehicule =>
-                            <MenuItem key={vehicule.id} value={vehicule.id}>{vehicule.marque} {vehicule.modele}</MenuItem>
-                        )}
-                    </Select>
-                </FormControl>
+                {(type === 'p') ? <>
+                    {errV ?
+
+                        <FormControl className={classes.formControl}>
+                            <InputLabel error id="veh" label="Vehicule" onChange={handleVehChange}>Vehicule</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="papier"
+                                value={veh}
+                                onChange={handleVehChange}
+                            >
+                                {vehicules.filter(v => v.service === true).map(vehicule =>
+                                    <MenuItem key={vehicule.id} value={vehicule.id}>{vehicule.marque} {vehicule.modele}</MenuItem>
+                                )}
+                            </Select>
+                        </FormControl>
+                        :
+
+                        <FormControl className={classes.formControl}>
+                            <InputLabel id="veh" label="Vehicule" onChange={handleVehChange}>Vehicule</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="papier"
+                                value={veh}
+                                onChange={handleVehChange}
+                            >
+                                {vehicules.filter(v => v.service === true).map(vehicule =>
+                                    <MenuItem key={vehicule.id} value={vehicule.id}>{vehicule.marque} {vehicule.modele}</MenuItem>
+                                )}
+                            </Select>
+                        </FormControl>}
                     <br />
                 </> : ''}
-                <TextField
-                    id="datetime-local"
-                    label="Date De la séance"
-                    type="datetime-local"
-                    defaultValue="2017-05-24T10:30"
-                    className={classes.textField}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    onChange={handleDateChange}
-                />
+                {errDate ?
+                    <TextField error
+                        id="datetime-local"
+                        label="Date De la séance"
+                        type="datetime-local"
+                        defaultValue={"2021-05-24T10:30"}
+                        helperText={ErrMessage}
+                        className={classes.textField}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={handleDateChange}
+                    />
+                    :
+                    <TextField
+                        id="datetime-local"
+                        label="Date De la séance"
+                        type="datetime-local"
+                        defaultValue={"2021-05-24T10:30"}
+                        className={classes.textField}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={handleDateChange}
+                    />}
                 <br />
                 <FormControl component="fieldset">
                     <FormLabel component="legend" >Type de séance:</FormLabel>

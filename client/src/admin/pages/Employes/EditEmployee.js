@@ -24,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
 const EditEmployee = () => {
     const history = useHistory();
     const { id } = useParams()
+    const [nameerr, setnameerr] = React.useState(false)
+    const [salaireerr, setsalaireerr] = React.useState(false)
     const classes = useStyles();
     const [emp, setemp] = React.useState({})
     const [paid, setpaid] = React.useState(false)
@@ -56,7 +58,17 @@ const EditEmployee = () => {
     }
     const handleSubmit = (event) => {
         event.preventDefault()
-        //verification
+        if (!name || !salaire ) {
+            alert('Attention! Veulliez verifier les champs..')
+            if(!name)
+            {
+                setnameerr(true)
+            }
+            if(!salaire){
+                setsalaireerr(true)
+            }
+            return
+        }
         const emplo = {
             name: name,
             salaire: salaire,
@@ -75,9 +87,24 @@ const EditEmployee = () => {
         <div>
             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} >
                 <h1 style={{ color: '#3A506B' }}>Modification d'un Employé:</h1>
-                <TextField id="Nom" label="Nom" value={name} onChange={handleNameChange} />
+                {nameerr ?
+                <TextField error id="Nom" label="Nom" value={name}           
+                helperText="Le nom de l'employé est obligatoire."
+                onChange={handleNameChange} /> :
+                <TextField id="Nom" label="Nom" value={name} onChange={handleNameChange} /> }
                 <br />
-                <TextField type='number' id="Salaire" label="Salaire" value={salaire} onChange={handleSalaireChange} />
+                {salaireerr ?
+                <TextField error type='number' id="Salaire" label="Salaire" value={salaire}
+                inputProps={{
+                    min: 0, 
+                  }}
+                helperText="Le salaire est obligatoire."
+                onChange={handleSalaireChange} /> :
+                <TextField type='number' id="Salaire" label="Salaire" value={salaire}
+                inputProps={{
+                    min: 0, 
+                  }}
+                onChange={handleSalaireChange} />}
                 <br />
                 <FormControl component="fieldset">
                     <FormLabel component="legend" >{`a reçu le paiement le ${emp.dayofpayment}/${new Date().getMonth()+1}`}</FormLabel>

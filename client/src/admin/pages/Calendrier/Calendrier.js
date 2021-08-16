@@ -102,9 +102,9 @@ const Calendrier = () => {
             textColor="primary"
             centered
           >
-            <Tab label="Toute les séances" />
-            <Tab label="Séance prochaines" />
-            <Tab label="Séeance précidentes" />
+            <Tab label="Toutes les séances" />
+            <Tab label="Séances prochaines" />
+            <Tab label="Séances précédentes" />
           </Tabs>
           <TabPanel value={value} index={0} >
             <SessionCard sessions={sessions} clients={clients} employees={employees} vehicules={vehicules}/>

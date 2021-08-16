@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 const Formulaire = () => {
     const { id } = useParams()
     const [candidat, setcandidat] = useState({})
+    const [ErrName, setErrName] = useState(false)
     const [name, setname] = useState('');
     const [payement, setpayement] = useState('')
     const classes = useStyles();
@@ -43,6 +44,7 @@ const Formulaire = () => {
     }, [])
     const handleNameChange = (event) => {
         setname(event.target.value);
+        setErrName(false)
     };
     const handleSwitchChange = (event) => {
         setpayement((event.target.value === 'true'))
@@ -51,6 +53,11 @@ const Formulaire = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
+        if (!name) {
+            alert('Attention! Verifez le nom.')
+            setErrName(true)
+            return
+        }
         const info = {
             name: name,
             payment: payement
@@ -69,11 +76,14 @@ const Formulaire = () => {
             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} >
                 <h1 style={{ color: '#3A506B' }}>Modifier les données  :</h1>
                 <br /><br /><br /><br /><br></br><br />
+                {ErrName ?
+                <TextField error id="name" label="Nom du candidat" helperText="Le nom du candidat est obligatoire" onChange={handleNameChange} value={name} /> :
                 <TextField id="name" label="Nom du candidat" onChange={handleNameChange} value={name} />
+                }
                 <br />
                 <br />
                 <FormControl component="fieldset">
-                    <FormLabel component="legend" >Paiement:</FormLabel>
+                    <FormLabel component="legend" >Payement:</FormLabel>
                     <br />
                     <RadioGroup aria-label="gender" id='type' name="paiement" value={payement} onChange={handleSwitchChange}>
                         <FormControlLabel value={true} control={<Radio />} label="Oui" />
