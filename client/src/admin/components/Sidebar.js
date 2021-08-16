@@ -33,7 +33,7 @@ function Sidebar({sidebar, setSidebar}) {
             <div style={{marginTop:'30px'}}>
             {SidebarData.map((item, index) => {
               return (
-                <li key={index} className={item.cName} onClick={showSidebar}>
+                <li key={index} className={item.cName} >
                   <Link to={item.path} >
                     {item.icon}
                     <span>{item.title}</span>

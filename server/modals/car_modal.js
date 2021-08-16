@@ -17,7 +17,7 @@ const vehiculeSchema = new schema({
     },
     serie:{
         unique:true,
-        type:Number,
+        type:String,
         required:true,
     },
     etat:{
@@ -30,12 +30,20 @@ const vehiculeSchema = new schema({
         type:Date,
         required:true,
     },
-    dateEntretien:{
-        type:Date,
+    entretienP:{
+        type:Object,
         required:true,
     },
-    papier:{
-        type:Boolean,
+    entretienG:{
+        type:Object,
+        required:true,
+    },
+    visiteTech:{
+        type:Date,
+        required:true
+    },
+    papiers:{
+        type:Object,
         required:true
     },
     disponibilite:{
@@ -48,6 +56,9 @@ const vehiculeSchema = new schema({
     },
     imageLink:{
         type:String,
+    },
+    service:{
+        type:Boolean,
     }
 
 },{timestamps:true})

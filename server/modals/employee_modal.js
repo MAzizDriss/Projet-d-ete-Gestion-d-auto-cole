@@ -18,6 +18,7 @@ const employeeSchema = new schema({
     },
     salaire:{
         type:Number,
+        min:0,
         required:true,
     },
     payment:{
@@ -26,6 +27,8 @@ const employeeSchema = new schema({
     },
     dayofpayment:{
         type:Number,
+        min:1,
+        max:30,
         required:true
     }
 

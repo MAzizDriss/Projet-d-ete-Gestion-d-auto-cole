@@ -22,14 +22,19 @@ router.get('/:id', verify, async (req, res) => {
 
 function car_validation(data, res) {
     const schema = Joi.object({
-        marque: Joi.string().required(),
-        modele: Joi.string().required(),
-        serie:Joi.number().required(),
+        marque: Joi.string().min(2).required(),
+        modele: Joi.string().min(1).required(),
+        serie:Joi.string().required(),
         etat:Joi.number().required(),
         dateAchat:Joi.date().required(),
-        dateEntretien:Joi.date().required(),
+        visiteTech:Joi.date().required(),
+        periodeP:Joi.number().max(24).min(1).required(),
+        periodeG:Joi.number().max(48).min(6).required(),
+        jourP:Joi.number().max(31).min(1).required(),
+        jourG:Joi.number().max(31).min(1).required(),
         disponibilite:Joi.required(),
-        papier:Joi.required(),
+        vignettes:Joi.boolean().required(),
+        assurances:Joi.boolean().required(),
         imageLink:Joi.string()
     })
     const { error } = schema.validate(data)
@@ -51,10 +56,21 @@ router.post('/add', verify, async (req, res) => {
         serie:req.body.serie,
         etat:req.body.etat,
         dateAchat:req.body.dateAchat,
-        dateEntretien:req.body.dateEntretien,
+        visiteTech:req.body.visiteTech,
+        entretienP:{
+            periode:req.body.periodeP,
+            jour:req.body.jourP
+        },
+        entretienG:{
+            periode:req.body.periodeG,
+            jour:req.body.jourG
+        },
         disponibilite:req.body.disponibilite,
-        papier:req.body.papier,
-        service:true,
+        papiers:{
+            vignettes:req.body.vignettes,
+            assurances:req.body.assurances
+        },
+        service:req.body.disponibilite,
     })
     if(req.body.imageLink) vehicule.imageLink =req.body.imageLink
    vehicule.save()
@@ -67,8 +83,14 @@ function car_update_validation(data, res) {
         marque: Joi.string().required(),
         modele: Joi.string().required(),
         etat:Joi.number().required(),
-        dateEntretien:Joi.date().required(),
-        service:Joi.required(),
+        periodeP:Joi.number().max(24).min(1).required(),
+        periodeG:Joi.number().max(48).min(6).required(),
+        jourP:Joi.number().max(31).min(1).required(),
+        jourG:Joi.number().max(31).min(1).required(),
+        vignettes:Joi.boolean().required(),
+        assurances:Joi.boolean().required(),
+        disponibilite:Joi.required(),
+        visiteTech:Joi.date().required(),
     })
     const { error } = schema.validate(data)
     if (error) {
@@ -90,8 +112,21 @@ router.put('/:id', verify, async (req, res) => {
                 marque: req.body.marque,
                 modele: req.body.modele,
                 etat:   req.body.etat,
-                dateEntretien:req.body.dateEntretien,
-                service:    req.body.service,
+                entretienP:{
+                    periode:req.body.periodeP,
+                    jour:req.body.jourP
+                },
+                entretienG:{
+                    periode:req.body.periodeG,
+                    jour:req.body.jourG
+                },
+                papiers:{
+                    vignettes:req.body.vignettes,
+                    assurances:req.body.assurances
+                },
+                visiteTech:req.body.visiteTech,
+                disponibilite: req.body.disponibilite,
+                
             }
         }
     )

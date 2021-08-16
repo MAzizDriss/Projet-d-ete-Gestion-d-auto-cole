@@ -54,12 +54,11 @@ const Ajout = () => {
     const handleEtatChange = (event) => {
         setetat(event.target.value);
     };
-    const [selectedDateE, setSelectedDateE] = React.useState(new Date('2014-08-18T21:11:54'));
+    const [selectedDateV, setSelectedDateV] = React.useState(new Date());
     const handleDateEChange = (event) => {
-        setSelectedDateE(event.target.value);
-        console.log(selectedDateE)
+        setSelectedDateV(event.target.value);
     };
-    const [selectedDateA, setSelectedDateA] = React.useState(new Date('2014-08-18T21:11:54'));
+    const [selectedDateA, setSelectedDateA] = React.useState(new Date());
     const handleDateAChange = (event) => {
         setSelectedDateA(event.target.value);
         console.log(selectedDateA)
@@ -68,15 +67,34 @@ const Ajout = () => {
     const handleDisponibiliteChange = (event) => {
         setdisponibilite(event.target.value)
     };
-    const [papier, setpapier] = React.useState('')
-    const handlePapierChange = (event) => {
-        setpapier(event.target.value)
+    const [vig, setvig] = React.useState('')
+    const handleVigChange = (event) => {
+        setvig(event.target.value)
+    };
+    const [ass, setass] = React.useState('')
+    const handleAssChange = (event) => {
+        setass(event.target.value)
     };
     const [imageLink, setimageLink] = React.useState('')
     const handleLinkChange = (event) => {
         setimageLink(event.target.value)
     }
-
+    const [epp, setepp] = React.useState();
+    const handleEpPChange = (event) => {
+        setepp(event.target.value);
+    };
+    const [epj, setepj] = React.useState();
+    const handleEpJChange = (event) => {
+        setepj(event.target.value);
+    };
+    const [egp, setegp] = React.useState();
+    const handleEgPChange = (event) => {
+        setegp(event.target.value);
+    };
+    const [egj, setegj] = React.useState();
+    const handleEgJChange = (event) => {
+        setegj(event.target.value);
+    };
     const handleSubmit = (event) => {
         event.preventDefault()
         const vehicule = {
@@ -85,11 +103,16 @@ const Ajout = () => {
             serie: serie,
             disponibilite: disponibilite,
             etat: etat,
-            dateEntretien: selectedDateE,
+            visiteTech: selectedDateV,
             dateAchat: selectedDateA,
-            papier: papier,
-            imageLink: imageLink
+            vignettes:vig,
+            assurances:ass,
+            periodeP:parseInt(epp),
+            periodeG:parseInt(egp),
+            jourP:parseInt(epj),
+            jourG:parseInt(egj),
         }
+        if (imageLink!=='')vehicule.imageLink=imageLink
         console.log(vehicule)
 
         axios.post('http://localhost:3001/api/admin/vehicule/add', vehicule, {
@@ -98,27 +121,7 @@ const Ajout = () => {
             }
         }).then(() => { history.push('/Vehicules'); })
             .catch((err) => console.log(err))
-        const marquevalue=document.querySelector('#Marque')
-        const modelevalue=document.querySelector('#Modele')
-        const serievalue=document.querySelector('#Serie')
-        const etatvalue=document.querySelector('#Etat')
-        const dispovalue=document.querySelector('#Disponibilite')
-        const papiervalue=document.querySelector('#Papier')
 
-        marquevalue.value=''
-        modelevalue.value=''
-        serievalue.value=''
-        etatvalue.value=''
-        dispovalue.value=''
-        papiervalue.value=''
-
-        setmarque('')
-        setmodele('')
-        setpapier('')
-        setserie(0)
-        setetat('')
-        setdisponibilite('')
-        //history.push('/Vehicules')
 
     }
     return (
@@ -130,6 +133,18 @@ const Ajout = () => {
                 <TextField id="Modele" label="modele" onChange={handleModeleChange} />
                 <br />
                 <TextField id="Serie" label="serie" onChange={handleSerieChange} />
+                <br />
+                <TextField
+                    id="datetime-local-Achat"
+                    label="Date D'achat"
+                    type="datetime-local"
+                    defaultValue="2022-01-01T10:30"
+                    className={classes.textField}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    onChange={handleDateAChange}
+                />
                 <br />
                 <TextField id="Link" label="imageLink" onChange={handleLinkChange} />
                 <br />
@@ -147,12 +162,25 @@ const Ajout = () => {
                 </Box>
                 <br />
                 <FormControl className={classes.formControl}>
-                    <InputLabel id="Papier" label="papier" onChange={handlePapierChange}>Papier</InputLabel>
+                    <InputLabel id="vig" label="Vignettes" onChange={handleVigChange}>Vignettes</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="papier"
-                        value={papier}
-                        onChange={handlePapierChange}
+                        value={vig}
+                        onChange={handleVigChange}
+                    >
+                        <MenuItem value={true}>Vérifiées</MenuItem>
+                        <MenuItem value={false}>Non vérifiées</MenuItem>
+                    </Select>
+                </FormControl>
+                <br />
+                <FormControl className={classes.formControl}>
+                    <InputLabel id="ass" label="Assurances" onChange={handleAssChange}>Assurances</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="papier"
+                        value={ass}
+                        onChange={handleAssChange}
                     >
                         <MenuItem value={true}>Vérifiées</MenuItem>
                         <MenuItem value={false}>Non vérifiées</MenuItem>
@@ -172,24 +200,20 @@ const Ajout = () => {
                     </Select>
                 </FormControl>
                 <br />
+                <TextField id="E1" label="periode de petit entretien" onChange={handleEpPChange} />
+                <br />
+                <TextField id="E10" label="Jour de moins de petit entretien" onChange={handleEpJChange} />
+                <br />
+                <TextField id="E2" label="periode de grand entretien" onChange={handleEgPChange} />
+                <br />
+                <TextField id="E20" label="Jour de moins de grand entretien" onChange={handleEgJChange} />
+                <br />
 
                 <TextField
-                    id="datetime-local-Achat"
-                    label="Date D'achat"
-                    type="datetime-local"
-                    defaultValue="2020-01-07T10:30"
-                    className={classes.textField}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    onChange={handleDateAChange}
-                />
-                <br />
-                <TextField
                     id="datetime-local-Entretien"
-                    label="Date D'entretien"
+                    label="Date de visite technique"
                     type="datetime-local"
-                    defaultValue="2022-01-07T10:30"
+                    defaultValue="2022-01-01T10:30"
                     className={classes.textField}
                     InputLabelProps={{
                         shrink: true,

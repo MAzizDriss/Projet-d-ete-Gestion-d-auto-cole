@@ -22,13 +22,13 @@
   justify-content: center;
   position: fixed;
   top: 0;
-  transition: 850ms ease ease-in-out;
+  transition: all 0.1s;
   margin-left: -100%;
 }
 
 .nav-menu.active {
   left: 0;
-  transition: 750ms ease-in-out;
+  transition: all 0.1s ;
   margin-left: 0%;
 }
 

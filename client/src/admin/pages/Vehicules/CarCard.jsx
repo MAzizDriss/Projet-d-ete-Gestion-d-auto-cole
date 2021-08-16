@@ -61,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
 
   },
   entretien: {
+    top: -100,
     fontSize: theme.typography.pxToRem(15),
     flexBasis: '99.33%',
     flexShrink: 0,
@@ -86,20 +87,51 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
     right: 250,
   },
- 
+
 }));
+function nextDate(date, jour, period) {
+  var months = 0
+  let years = (new Date()).getFullYear() - (date.getFullYear() + 1)
+  if (years < 0) {
+    years = 0;
+    months = (new Date()).getMonth() - date.getMonth()
+    console.log(months)}
+  else {months += 12 - date.getMonth() + (new Date()).getMonth() + 1}
+  months += years * 12
+  if (jour > (new Date()).getDate()) {
+    months--
+  }
+  let next_month = 0
+  if (months % period === 0 ) {
+    next_month =new Date().getMonth();
+    if (jour > (new Date()).getDate()||months===0) {
+      console.log('entred')
+      next_month += period
+      console.log(next_month)
+    }
+  }
+  else {next_month = period -(months % period) + new Date().getMonth() + 1}
+
+  if (next_month > 12) {
+    console.log(months)
+    next_month = next_month % 12
+
+    return ((new Date().getFullYear() + Math.floor(months/12)) + '-' + next_month + '-' + jour)
+  }
+
+  return ((new Date().getFullYear()) + '-' + next_month + '-' + jour)
+
+}
 
 export default function CarCard({ car }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-
   return (
 
-    <Card className={classes.root} variant="outlined" key = {car.id}> 
+    <Card className={classes.root} variant="outlined" key={car.id}>
       <div>
         <CardContent>
           <CardMedia
@@ -107,7 +139,7 @@ export default function CarCard({ car }) {
           >
             <img src={car.imageLink} width='250px' />
           </CardMedia>
-          <br/><br/>
+          <br /><br />
           <Typography className={classes.heading}> {car.marque} {car.modele}</Typography>
           <Typography className={classes.secondaryHeading}>{car.disponibilite}</Typography>
 
@@ -116,43 +148,48 @@ export default function CarCard({ car }) {
           </Typography>
           <div className={classes.date}>
             <Typography>
-              Date d'achat : {(car.dateAchat)?car.dateAchat.substring(0,10):''}
-
+              Date d'achat : {(car.dateAchat) &&  car.dateAchat.substring(0, 10) }
+            </Typography>
+            <br/>
+            <Typography>
+              Date de visite technique : {(car.visiteTech) &&  car.visiteTech.substring(0, 10) }
             </Typography>
           </div>
-          <div className={classes.entretien}>
-            <Typography>
-              Date du prochain entretien : {(car.dateEntretien)?car.dateEntretien.substring(0,10):''}
-            </Typography >
-          </div>
+
           <div>
-            {console.log(car.modele)}
-            {console.log(car.etat)}
-            {console.log(car.service)}
             <Box className={classes.etat} component="fieldset" mb={3} borderColor="transparent">
               <Typography component="legend">Etat du véhicule</Typography>
               <Rating
                 name="disabled"
-                value={car?car.etat:2}
+                value={car ? car.etat : 2}
                 disabled
               />
             </Box>
+          </div>
+          <div className={classes.entretien}>
+            <Typography>
+              <h3 style={{color:'#f5bd1f'}}>Date du prochain petit entretien : </h3> {car.entretienP &&  nextDate(new Date(car.dateAchat), car.entretienP.jour, car.entretienP.periode) }
+            </Typography >
+            <Typography>
+              <h3 style={{color:'red'}}>Date du prochain grand entretien : </h3> {car.entretienG ? nextDate(new Date(car.dateAchat), car.entretienG.jour, car.entretienG.periode) : 'nope'}
+            </Typography >
           </div>
           <div>
             <FormControl className={classes.formControl} disabled>
               <InputLabel htmlFor="name-native-disabled"></InputLabel>
               <NativeSelect
-                value={(car.serivce===true)? 'En service':'Hors Service'}
                 onChange={handleChange}
                 inputProps={{
                   name: car.service,
                   id: 'name-native-disabled',
                 }}
               >
-                <option value="">{(car.service)? 'En service':'Hors Service'}</option>
+                <option value="">{(car.disponibilite) ? 'Disponible' : 'Non Disponible'}</option>
               </NativeSelect>
             </FormControl>
           </div>
+
+          {car.entretienP ? console.log(nextDate(new Date(car.dateAchat), car.entretienP.jour, car.entretienP.periode)) : 'nope'}
           <div className={classes.icons}>
             <Button href={`/Vehicules/Formulaire/${car.id}`} variant="contained" color="secondary" style={{ marginLeft: '30%', width: '40%', marginTop: '-29%' }}>
               <center style={{ marginRight: '15%' }} >Modifier</center>
