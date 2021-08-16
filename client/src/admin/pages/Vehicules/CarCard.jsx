@@ -10,7 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import CardMedia from '@material-ui/core/CardMedia';
-import {FiAlertTriangle }from 'react-icons/fi'
+import {GoAlert} from 'react-icons/go'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -118,12 +118,17 @@ function nextDate(date, jour, period) {
   return ((new Date().getFullYear()) + '-' + (next_month+1) + '-' + jour)
 
 }
+function isThisMonth(nextDate){
+  let date = new Date(nextDate)
+  date.setDate(date.getDate()-30)
+  return (date<= new Date())
+}
 
 export default function CarCard({ car }) {
+  {console.log(isThisMonth('2'))}
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [epthismonth,setepthismont]=React.useState(car.entretienP?nextDate(new Date(car.dateAchat), car.entretienP.jour, car.entretienP.periode).substring()
-  ===new Date().getMonth():'')
+  const [epthismonth,setepthismont]=React.useState()
   const [egthismonth,setgpthismont]=React.useState(car.entretienG?new Date(nextDate(new Date(car.dateAchat), car.entretienG.jour, car.entretienG.periode)).getMonth()
   ===new Date().getMonth():'')
   const handleChange = (panel) => (event, isExpanded) => {
@@ -168,9 +173,11 @@ export default function CarCard({ car }) {
           </div>
           <div className={classes.entretien}>
             <Typography>
-           {car.entretienP && epthismonth!=='' && <FiAlertTriangle/>}   Date du prochain petit entretien : <span style={{ color: '#f5bd1f',fontSize:'1.2rem' }}> {car.entretienP && nextDate(new Date(car.dateAchat), car.entretienP.jour, car.entretienP.periode)}</span>
+           {car.entretienP && isThisMonth(nextDate(new Date(car.dateAchat), car.entretienP.jour, car.entretienP.periode))&& <GoAlert style={{fill:'red' ,marginRight:'2%'}}/>} 
+              Date du prochain petit entretien : <span style={{ color: '#f5bd1f',fontSize:'1.2rem' }}> {car.entretienP && nextDate(new Date(car.dateAchat), car.entretienP.jour, car.entretienP.periode)}</span>
             </Typography >
             <Typography>
+            {car.entretienG && isThisMonth(nextDate(new Date(car.dateAchat), car.entretienG.jour, car.entretienG.periode))&& <GoAlert style={{fill:'red' ,marginRight:'2%'}}/>} 
               Date du prochain grand entretien :  <span style={{ color: 'red',fontSize:'1.2rem'  }}>{car.entretienG ? nextDate(new Date(car.dateAchat), car.entretienG.jour, car.entretienG.periode) : 'nope'}</span>
             </Typography >
           </div>

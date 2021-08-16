@@ -69,6 +69,7 @@ const Formulaire = () => {
                 "auth-token": localStorage.getItem('token')
             }
         }).then((result) => {
+            setlanding(true)
             setdisp(result.data.disponibilite)
             setepp(result.data.entretienP.periode)
             setepj(result.data.entretienP.jour)
@@ -128,6 +129,7 @@ const Formulaire = () => {
     const handleVigChange = (event) => {
         setvig(event.target.value)
     };
+    const [landing,setlanding]=React.useState()
     const [ass, setass] = React.useState('')
     const handleAssChange = (event) => {
         setass(event.target.value === 'true')
@@ -135,18 +137,10 @@ const Formulaire = () => {
     React.useEffect(() => {
         var marqueinput = document.querySelector('#marque')
         var modeleinput = document.querySelector('#modele')
-        var eppinput = document.querySelector('#E1')
-        var epjinput = document.querySelector('#E10')
-        var egpinput = document.querySelector('#E2')
-        var egjinput = document.querySelector('#E20')
-
+        console.log('is it changing')
         marqueinput.value = marque
         modeleinput.value = modele
-        eppinput.value = epp + ' '
-        epjinput.value = epj + ' '
-        egpinput.value = egp + ' '
-        egjinput.value = egj + ' '
-    }, [marque, modele, disp, epp, epj, egp, egj])
+    }, [landing])
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -246,32 +240,32 @@ const Formulaire = () => {
                 {errMarque ?
                     <TextField error helperText="La marque du véhicule est obligatoire" id="marque" label="Marque du véhicule" onChange={handleMarqueChange} />
                     :
-                    <TextField id="marque" label="Marque du véhicule" onChange={handleMarqueChange} />}
+                    <TextField id="marque" label="Marque du véhicule" onChange={handleMarqueChange} value={marque}/>}
                 <br />
                 {errModele ?
                     <TextField error helperText="Le modèle du véhicule est obligatoire" id="marque" label="Marque du véhicule" onChange={handleMarqueChange} />
                     :
-                    <TextField id="modele" label="Modèle du véhicule" onChange={handleModeleChange} />
+                    <TextField id="modele" label="Modèle du véhicule" onChange={handleModeleChange} value={modele} />
                 }
                 <br />
                 {errPPE ?
                     <TextField error helperText="La période de petit entretien est obligatoire" id="E1" label="periode de petit entretien" onChange={handleEpPChange} />
                     :
-                    <TextField id="E1" label="periode de petit entretien" onChange={handleEpPChange} />}
+                    <TextField id="E1" label="periode de petit entretien" onChange={handleEpPChange} value={epp} />}
                 <br />
                 {errJPE ?
                     <TextField error helperText="Le jour du mois du petit entretien est obligatoire" id="E10" label="Jour du mois du petit entretien" onChange={handleEpJChange} />
                     :
-                    <TextField id="E10" label="Jour du mois du petit entretien" onChange={handleEpJChange} />}
+                    <TextField id="E10" label="Jour du mois du petit entretien" onChange={handleEpJChange} value={epj} />}
                 <br />
                 {errPGE ?
                     <TextField error helperText="La période du grand entretien est obligatoire" id="E2" label="periode du grand entretien" onChange={handleEgPChange} />
                     :
-                    <TextField id="E2" label="periode du grand entretien" onChange={handleEgPChange} />}
+                    <TextField id="E2" label="periode du grand entretien" onChange={handleEgPChange} value={egp} />}
                 <br />
                 {errJGE ?
                 <TextField error helperText="Le jour du mois du grand entretien est obligatoire" id="E20" label="Jour du mois du grand entretien" onChange={handleEgJChange} />:
-                <TextField id="E20" label="Jour du mois du grand entretien" onChange={handleEgJChange} />}
+                <TextField id="E20" label="Jour du mois du grand entretien" onChange={handleEgJChange} value={egj}/>}
                 <br />
                 {value ? <div>
                     <FormControl className={classes.formControl} >
