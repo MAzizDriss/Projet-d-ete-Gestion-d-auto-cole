@@ -287,7 +287,7 @@ const Ajout = () => {
                     />}
                 <br />
                 {errLink ?
-                    <TextField id="Link" label="imageLink" onChange={handleLinkChange} /> :
+                    <TextField error helperText="Le lien de la photo est obligatoire" id="Link" label="imageLink" onChange={handleLinkChange} /> :
                     <TextField id="Link" label="imageLink" onChange={handleLinkChange} />}
                 <br />
 
@@ -383,23 +383,39 @@ const Ajout = () => {
                     </FormControl>}
                 <br />
                 {errPPE ?
-                                <TextField id="E1" label="periode du petit entretien" onChange={handleEpPChange} />
-:
-                <TextField id="E1" label="periode du petit entretien" onChange={handleEpPChange} />}
+                    <TextField error helperText="La période du petit entretien est obligatoire" id="E1" label="periode du petit entretien" onChange={handleEpPChange} />
+                    :
+                    <TextField id="E1" label="periode du petit entretien" onChange={handleEpPChange} />}
                 <br />
                 {errPGE ?
-                                <TextField error helperText="Le jour de mois du petit entretien est obligatoire" id="E10" label="Jour de mois du petit entretien" onChange={handleEpJChange} />
-:
-                <TextField id="E10" label="Jour de mois du petit entretien" onChange={handleEpJChange} />}
+                    <TextField error helperText="Le jour de mois du petit entretien est obligatoire" id="E10" label="Jour de mois du petit entretien" onChange={handleEpJChange} />
+                    :
+                    <TextField id="E10" label="Jour de mois du petit entretien" onChange={handleEpJChange} />}
                 <br />
                 {errJPE ?
-                                <TextField error helperText="La période de grand entretien" id="E2" label="periode de grand entretien" onChange={handleEgPChange} />
+                    <TextField error helperText="La période de grand entretien est obligatoire" id="E2" label="periode de grand entretien" onChange={handleEgPChange} />
+                    :
+                    <TextField id="E2" label="periode de grand entretien" onChange={handleEgPChange} />}
+                <br />
+                {errJGE ?
+                                <TextField error helperText="Le jour du grand entretien est obligatoire" id="E20" label="Jour de mois du grand entretien" onChange={handleEgJChange} />
 :
-                <TextField id="E2" label="periode de grand entretien" onChange={handleEgPChange} />}
+                <TextField id="E20" label="Jour de mois du grand entretien" onChange={handleEgJChange} />}
                 <br />
-                <TextField id="E20" label="Jour de mois du grand entretien" onChange={handleEgJChange} />
-                <br />
-
+{errDate ?
+    <TextField
+    error
+    helperText={ErrMessageDate}
+                    id="datetime-local-Entretien"
+                    label="Date de visite technique"
+                    type="datetime-local"
+                    defaultValue="2022-01-01T10:30"
+                    className={classes.textField}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    onChange={handleDateEChange}
+                /> :
                 <TextField
                     id="datetime-local-Entretien"
                     label="Date de visite technique"
@@ -410,7 +426,7 @@ const Ajout = () => {
                         shrink: true,
                     }}
                     onChange={handleDateEChange}
-                />
+                />}
                 <br />
                 <button style={{ width: '18vw', marginLeft: '20vw', textAlign: 'center' }} onSubmit={handleSubmit}>Ajouter</button>
             </form>

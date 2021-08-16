@@ -160,7 +160,7 @@ const AddSession = () => {
             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} >
                 <h1 style={{ color: '#3A506B' }}>Ajout d'une séance:</h1>
                 {errC ? <FormControl className={classes.formControl}>
-                    <InputLabel error id="Client" label="Client" onChange={handleClientChange}>Client</InputLabel>
+                    <InputLabel error id="Client" helperText="Le nom du client est obligatoire" label="Client" onChange={handleClientChange}>Client</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="papier"
@@ -190,8 +190,8 @@ const AddSession = () => {
                 }
                 <br />
                 {errE ?
-                    <FormControl error className={classes.formControl}>
-                        <InputLabel id="Employé" label="Employé" onChange={handleEmpChange}>Employé</InputLabel>
+                    <FormControl  className={classes.formControl}>
+                        <InputLabel error helperText="Le nom de l'employé est obligatoire" id="Employé" label="Employé" onChange={handleEmpChange}>Employé</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="papier"
@@ -224,7 +224,7 @@ const AddSession = () => {
                     {errV ?
 
                         <FormControl className={classes.formControl}>
-                            <InputLabel error id="veh" label="Vehicule" onChange={handleVehChange}>Vehicule</InputLabel>
+                            <InputLabel error helperText="Le véhicule utilisé est obligatoire" id="veh" label="Vehicule" onChange={handleVehChange}>Vehicule</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="papier"
