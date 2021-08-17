@@ -20,6 +20,7 @@ import { Tooltip } from '@material-ui/core'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import { useHistory } from 'react-router';
+import {GoAlert} from 'react-icons/go'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -163,7 +164,7 @@ export default function CandidatCard({ candidats }) {
             id="panel1bh-header"
           >
             <Typography className={classes.heading}>Nom du candidat : </Typography>
-            <Typography className={classes.secondaryHeading}>{candidat.name}</Typography>
+            <Typography className={classes.secondaryHeading}>{!candidat.payment&&<GoAlert style={{marginLeft:'0',color:'red'}}/>} {candidat.name} </Typography>
 
           </AccordionSummary>
           <br />

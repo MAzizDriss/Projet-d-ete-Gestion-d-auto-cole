@@ -13,6 +13,7 @@ import Box from '@material-ui/core/Box';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import {MdExpandMore }from 'react-icons/md'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -122,7 +123,7 @@ export default function VehiculeDispo({car}) {
         <div>
       <Accordion className={ classes.cards } expanded={expanded === car.id} onChange={handleChange(car.id)} key={car.id}>
         <AccordionSummary
-          expandIcon={<CgMoreVertical />}
+          expandIcon={<MdExpandMore />}
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
@@ -178,7 +179,7 @@ export default function VehiculeDispo({car}) {
           <div className={classes.icons}>
           <Typography >
               <IconButton className={classes.buttonM} >
-              <Button href={`/Vehicules/Formulaire/${car.id}`} variant="outlined" color="primary"  >Modifier</Button>
+              <Button href={`/Vehicules/Formulaire/${car.id}`}  variant="outlined" color="primary"  >Modifier</Button>
               </IconButton>
             </Typography>
           </div>
