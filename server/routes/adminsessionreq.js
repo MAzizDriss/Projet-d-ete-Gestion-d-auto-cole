@@ -136,7 +136,6 @@ router.put('/:ref', verify, async (req, res) => {
         
     }
     if (session.clientId !== req.body.clientId) {
-        console.log('do i even enter here')
         let action2 = await User.updateOne({ id: session.clientId }, {
             $pull: { sessions: session.ref }
         })
@@ -146,11 +145,9 @@ router.put('/:ref', verify, async (req, res) => {
     }
     else {
         if (req.body.ref !== session.ref) {
-            console.log('removing the old session')
             let action = await User.updateOne({ id: session.clientId }, {
                 $push: { sessions: req.body.ref }
             })
-            console.log('addiding the new')
             action = await User.updateOne({ id: session.clientId }, {
                 $pull: { sessions: session.ref }
             })
