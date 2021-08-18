@@ -19,6 +19,8 @@ router.post('/register', async (req, res) => {
         payment: false,
         finished: false,
         sessions: [],
+        code_exam:false,
+        conduite_exam:false,
         exams: [],
     })
     try {

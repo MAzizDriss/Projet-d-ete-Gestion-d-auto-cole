@@ -29,19 +29,19 @@ const useStyles = makeStyles({
   },
 });
 
-const relativedate = new Date() 
+const relativedate = new Date()
 
 function closestsession(arr) {
   let datesArr1 = arr.map(item => new Date(item.date).toString())
   const datesArr = arr.map(item => new Date(item.date))
-  let dates=datesArr.sort(function (a, b) {
+  let dates = datesArr.sort(function (a, b) {
     var distancea = Math.abs(relativedate - a);
     var distanceb = Math.abs(relativedate - b);
     return distancea - distanceb;
   })
   dates = dates.filter(d => d > relativedate)
-  const date=datesArr.find(d=>d===dates[0])
-  const index=datesArr1.indexOf(new Date(date).toString())
+  const date = datesArr.find(d => d === dates[0])
+  const index = datesArr1.indexOf(new Date(date).toString())
   return arr[index]
 }
 
@@ -49,6 +49,7 @@ const ProchaineSeance = () => {
   const [client, setclient] = React.useState({})
   const [Nextsession, setNextsession] = React.useState({})
   const [emp, setemp] = React.useState({})
+  const [veh, setveh] = React.useState({})
 
   React.useEffect(() => {
     axios.get('http://localhost:3001/api/admin/session/sessions', {
@@ -61,21 +62,26 @@ const ProchaineSeance = () => {
       .catch((err) => console.log(err))
   }, [])
   React.useEffect(() => {
-    if(Nextsession && typeof(Nextsession.employeeId)===typeof(5)
-    &&typeof(Nextsession.clientId)===typeof(5))
-    { console.log(Nextsession.employeeId)
+    if (Nextsession 
+      && typeof (Nextsession.clientId) === typeof (5)) {
       axios.get(`http://localhost:3001/api/admin/employee/${Nextsession.employeeId}`, {
+        headers: {
+          "auth-token": localStorage.getItem('token')
+        }
+      }).then((result) => {
+        setemp(result.data)
+      })
+      axios.get(`http://localhost:3001/api/admin/client/${Nextsession.clientId}`, {
+        headers: {
+          "auth-token": localStorage.getItem('token')
+        }
+      }).then((result) => setclient(result.data))
+    }
+    if (Nextsession.employeeId){axios.get(`http://localhost:3001/api/admin/vehicule/${Nextsession.vehiculeId}`, {
       headers: {
         "auth-token": localStorage.getItem('token')
       }
-    }).then((result) => {
-      setemp(result.data)
-    })
-    axios.get(`http://localhost:3001/api/admin/client/${Nextsession.clientId}`, {
-      headers: {
-        "auth-token": localStorage.getItem('token')
-      }
-    }).then((result) => setclient(result.data))}
+    }).then((result) => setveh(result.data))}
 
   }, [Nextsession])
 
@@ -95,11 +101,11 @@ const ProchaineSeance = () => {
         <Typography className={classes.pos} color="textSecondary">
           {Nextsession.ref}
         </Typography>
-        <Typography variant="body2" component="p">
+        {Nextsession.ref && Nextsession.ref[0] !== 'f' && <Typography variant="body2" component="p">
           Teacher : {emp.name}
           <br />
-          {(Nextsession.vehiculeId != null) ? `véhicule :${Nextsession.vehiculeId}` : ''}
-        </Typography>
+          {(Nextsession.vehiculeId != null) ? `véhicule :${veh.marque + ' ' + veh.modele}` : ''}
+        </Typography>}
       </CardContent>
       <CardActions>
         <Button href='/Sessions/add' variant="contained" color="secondary" style={{ marginLeft: '80%', width: '40%' }}>

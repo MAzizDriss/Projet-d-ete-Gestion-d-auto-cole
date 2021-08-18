@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const verify = require('./verifyToken')
 const User = require('../modals/user_modal')
+const Joi = require('@hapi/joi')
 //get all the clients data
 
 router.get('/clients', verify, (req, res) => {
@@ -33,7 +34,10 @@ router.delete('/client/:id', verify, async (req, res) => {
 function update_validation(data, res) {
     const schema = Joi.object({
         name: Joi.string().min(4).required(),
-        payment: Joi.required()
+        payment: Joi.required(),
+        code_exam:Joi.boolean().required(),
+        conduite_exam:Joi.boolean().required(),
+        finished:Joi.boolean()
     })
     const { error } = schema.validate(data)
     if (error) {
@@ -45,13 +49,16 @@ function update_validation(data, res) {
 router.put('/client/:id', verify, async (req, res) => {
     const role = req.user.userData.role
     if (role !== "Admin") return res.status(401).send('bad request')
-    if(!update_validation) {return}
+    if(!update_validation(req.body,res)) {return}
     User.updateOne(
         { id: req.params.id },
         {
             $set: {
                 name: req.body.name,
                 payment: req.body.payment,
+                code_exam:req.body.code_exam,
+                conduite_exam:req.body.conduite_exam,
+                finished:req.body.finished
             }
 
         }

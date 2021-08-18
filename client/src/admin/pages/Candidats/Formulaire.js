@@ -9,6 +9,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import axios from 'axios'
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import { MenuItem } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,8 +26,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Formulaire = () => {
     const { id } = useParams()
-    const [candidat, setcandidat] = useState({})
+    const [candidat, setcandidat] = useState()
     const [ErrName, setErrName] = useState(false)
+    const [code, setcode] = useState()
+    const [conduite, setconduite] = useState()
     const [name, setname] = useState('');
     const [payement, setpayement] = useState('')
     const classes = useStyles();
@@ -38,6 +43,8 @@ const Formulaire = () => {
             setcandidat(result.data)
             setname(result.data.name)
             setpayement(result.data.payment)
+            setcode(result.data.code_exam)
+            setconduite(result.data.conduite_exam)
         }
         )
             .catch((err) => console.log(err))
@@ -48,6 +55,12 @@ const Formulaire = () => {
     };
     const handleSwitchChange = (event) => {
         setpayement((event.target.value === 'true'))
+    }
+    const handleCodeChange = (event) => {
+        setcode(event.target.value)
+    }
+    const handleConduiteChange = (event) => {
+        setconduite(event.target.value)
     }
 
 
@@ -60,13 +73,20 @@ const Formulaire = () => {
         }
         const info = {
             name: name,
-            payment: payement
+            payment: payement,
+            code_exam: code,
+            conduite_exam: conduite,
+            finished: (code && conduite)
         }
-        axios.put(`http://localhost:3001/api/admin/client/${id}`, info,{headers: {
-            "auth-token": localStorage.getItem('token')
-        } })
-            .then(() => { console.log(info)
-                        history.push('/candidats')}
+        axios.put(`http://localhost:3001/api/admin/client/${id}`, info, {
+            headers: {
+                "auth-token": localStorage.getItem('token')
+            }
+        })
+            .then(() => {
+                console.log(info)
+                history.push('/candidats')
+            }
             ).catch(err => console.log(err))
 
     }
@@ -77,11 +97,40 @@ const Formulaire = () => {
                 <h1 style={{ color: '#3A506B' }}>Modifier les données  :</h1>
                 <br /><br /><br /><br /><br></br><br />
                 {ErrName ?
-                <TextField error id="name" label="Nom du candidat" helperText="Le nom du candidat est obligatoire" onChange={handleNameChange} value={name} /> :
-                <TextField id="name" label="Nom du candidat" onChange={handleNameChange} value={name} />
+                    <TextField error id="name" label="Nom du candidat" helperText="Le nom du candidat est obligatoire" onChange={handleNameChange} value={name} /> :
+                    <TextField id="name" label="Nom du candidat" onChange={handleNameChange} value={name} />
                 }
                 <br />
-                <br />
+                {candidat && typeof (code) === typeof (true) && typeof (conduite) === typeof (true) && <>
+                    <FormControl className={classes.formControl} >
+                        <InputLabel >A passé l'examen de code</InputLabel>
+                        <Select
+                            value={code}
+                            labelId="demo-simple-select-label"
+                            id='Disp'
+                            onChange={handleCodeChange}
+                        >
+                            <MenuItem value={true}>Oui</MenuItem>
+                            <MenuItem value={false}>Non</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <br />
+                    <FormControl className={classes.formControl} >
+                        <InputLabel >A passé l'examen de conduite</InputLabel>
+                        <Select
+                            value={conduite}
+                            labelId="demo-simple-select-label"
+                            id='e'
+                            onChange={handleConduiteChange}
+                        >
+                            <MenuItem value={true}>Oui</MenuItem>
+                            <MenuItem value={false}>Non</MenuItem>
+                        </Select>
+
+                    </FormControl>
+                    <br />
+                </>}
+
                 <FormControl component="fieldset">
                     <FormLabel component="legend" >Payement:</FormLabel>
                     <br />

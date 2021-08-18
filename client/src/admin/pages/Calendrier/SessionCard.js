@@ -35,7 +35,7 @@ export default function SessionCard({ sessions, clients, employees, vehicules })
   const [sessdata, setsessdata] = useState(sessions)
   const [clientdata, setclientdata] = useState(clients)
   const [empdata, setempdata] = useState(employees)
-  const [vehdata,setvehdata]=useState(vehicules)
+  const [vehdata, setvehdata] = useState(vehicules)
   React.useEffect(
     () => {
       setsessdata(sessions)
@@ -51,11 +51,11 @@ export default function SessionCard({ sessions, clients, employees, vehicules })
       setempdata(employees)
     }
     , [employees])
-    React.useEffect(
-      () => {
-        setvehdata(vehicules)
-      }
-      , [vehicules])
+  React.useEffect(
+    () => {
+      setvehdata(vehicules)
+    }
+    , [vehicules])
 
 
   return (
@@ -77,12 +77,17 @@ export default function SessionCard({ sessions, clients, employees, vehicules })
               {s.ref}
             </Typography>
             <br />
-            <Typography className={classes.secondaryHeading}>
+            {s.ref && s.ref[0] !== 'f' && <Typography className={classes.secondaryHeading}>
               Teacher : {(empdata[s.employeeId - 1]) ? empdata[s.employeeId - 1].name : ''}
+            </Typography>}
+            <Typography className={classes.secondaryHeading} style={{ marginLeft: '4%' }} >
+              {(s.vehiculeId != null) ? `véhicule :${(vehdata[s.vehiculeId - 1]) ? (vehdata[s.vehiculeId - 1].marque + ' ' + vehdata[s.vehiculeId - 1].modele) : ''}` : ''}
             </Typography>
-            <Typography className={classes.secondaryHeading} style={{marginLeft:'4%'}} >
-              {(s.vehiculeId != null) ? `véhicule :${(vehdata[s.vehiculeId - 1]) ?( vehdata[s.vehiculeId - 1].marque +' '+ vehdata[s.vehiculeId - 1].modele ): ''}` : ''}
-            </Typography>
+            {s.ref && (s.ref[0] === 'e' || s.ref[0] === 'f') &&
+              <Typography className={classes.secondaryHeading} style={{ marginLeft: '4%' }} >
+                {s.ref[0] === 'f' ? 'examen de code' : 'exmen de conduite'}
+              </Typography>
+            }
             <Link to={`/Sessions/edit/${s.ref}`} style={{ position: 'absolute', left: '94.6%' }} ><BsPencilSquare style={{ fill: '#3A506B' }} /></Link>
           </AccordionDetails>
         </Accordion>)}

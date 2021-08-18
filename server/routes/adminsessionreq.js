@@ -7,19 +7,19 @@ const Joi = require('@hapi/joi')
 
 //get all sessions 
 
-router.get('/sessions',verify, (req,res)=>{
+router.get('/sessions', verify, (req, res) => {
     const role = req.user.userData.role
     if (role !== "Admin") return res.status(401).send('bad request')
-    Session.find().then(result=>res.send(result))
-                   .catch(err=>console.log(err))
+    Session.find().then(result => res.send(result))
+        .catch(err => console.log(err))
 })
 
 //get one session
 
-router.get('/:ref',verify, async (req,res)=>{
+router.get('/:ref', verify, async (req, res) => {
     const role = req.user.userData.role
     if (role !== "Admin") return res.status(401).send('bad request')
-    const session = await Session.findOne({ref:req.params.ref})
+    const session = await Session.findOne({ ref: req.params.ref })
     if (!session) res.status(404).send('session not found')
     res.send(session)
 })
@@ -29,9 +29,9 @@ function session_validation(data, res) {
     const schema = Joi.object({
         ref: Joi.string().required(),
         clientId: Joi.number().required(),
-        employeeId: Joi.number().required(), 
-        vehiculeId:Joi.number(),
-        date:Joi.required()
+        employeeId: Joi.number(),
+        vehiculeId: Joi.number(),
+        date: Joi.required()
     })
     const { error } = schema.validate(data)
     if (error) {
@@ -40,100 +40,122 @@ function session_validation(data, res) {
     return (!error)
 }
 
-router.post('/add',verify,async (req,res)=>{
+router.post('/add', verify, async (req, res) => {
     const role = req.user.userData.role
     if (role !== "Admin") return res.status(401).send('bad request')
-    if(!session_validation(req.body,res)) {return}
-    const session = await Session.findOne({ref:req.body.ref})
-    if(session) return res.status(400).send('ref already exists')
-    const sess = new Session ({
-        ref:req.body.ref,
-        clientId:req.body.clientId,
-        employeeId:req.body.employeeId,
-        date:req.body.date,
+    if (!session_validation(req.body, res)) { return }
+    const session = await Session.findOne({ ref: req.body.ref })
+    if (session) return res.status(400).send('ref already exists')
+    const sess = new Session({
+        ref: req.body.ref,
+        clientId: req.body.clientId,
+        date: req.body.date,
     })
-    if (req.body.vehiculeId) sess.vehiculeId=req.body.vehiculeId
-    const client = await User.findOne({id:req.body.clientId})
-    const emp = await Employee.findOne({id:req.body.employeeId})
-    if(!client)return res.status(400).send('client ID doesnt exist')
-    if(!emp)return res.status(400).send('Employee ID doesnt exist')
-    const action1= await User.updateOne({id:req.body.clientId},{
-        $push:{
-            'sessions':req.body.ref
+    if (req.body.vehiculeId) sess.vehiculeId = req.body.vehiculeId
+    if (req.body.employeeId) sess.employeeId = req.body.employeeId
+    const client = await User.findOne({ id: req.body.clientId })
+    if (!client) return res.status(400).send('client ID doesnt exist')
+    const action1 = await User.updateOne({ id: req.body.clientId }, {
+        $push: {
+            'sessions': req.body.ref
         }
     })
-    const action2=await Employee.updateOne({id:req.body.employeeId},{
-        $push:{
-           'sessions':req.body.ref
-        }
-    })
+    if (req.body.employeeId) {
+        const emp = await Employee.findOne({ id: req.body.employeeId })
+        if (!emp) return res.status(400).send('Employee ID doesnt exist')
+        const action2 = await Employee.updateOne({ id: req.body.employeeId }, {
+            $push: {
+                'sessions': req.body.ref
+            }
+        })
+    }
     sess.save()
         .then(result => res.send(result))
-        .catch(err=>res.status(400).send(err.message))
+        .catch(err => res.status(400).send(err.message))
 })
 
 //put a session 
-router.put('/:ref',verify,async (req,res)=>{
+router.put('/:ref', verify, async (req, res) => {
     const role = req.user.userData.role
     if (role !== "Admin") return res.status(401).send('bad request')
-    if(!session_validation(req.body,res)) {return}
-    const session = await Session.findOne({ref:req.params.ref})
-    if(!session) return res.status(400).send('session doesnt exist')
-    let sess= await Session.updateOne(
+    if (!session_validation(req.body, res)) { return }
+    const session = await Session.findOne({ ref: req.params.ref })
+    if (!session) return res.status(400).send('session doesnt exist')
+    let sess = await Session.updateOne(
         { ref: req.params.ref },
         {
             $set: {
-                ref:req.body.ref,
+                ref: req.body.ref,
                 clientId: req.body.clientId,
-                employeeId:req.body.employeeId,
-                date:req.body.date,
+                date: req.body.date,
             },
-            $unset:{
-                vehiculeId :1
+            $unset: {
+                vehiculeId: 1
             }
 
         }
     )
     if (req.body.vehiculeId) sess = await Session.updateOne(
-        {ref:req.body.ref},
-        {  
-            $set:{
-                vehiculeId:req.body.vehiculeId
+        { ref: req.body.ref },
+        {
+            $set: {
+                vehiculeId: req.body.vehiculeId
             }
         }
     )
-    if (session.employeeId!==req.body.employeeId){
-        let action = await Employee.updateOne({id:session.employeeId},{
-            $pull:{sessions:session.ref}
-        })
-        action = await Employee.updateOne({id:req.body.employeeId},{
-            $push:{sessions:req.body.ref}
-        })
-    }
-    else{ if(req.body.ref!==req.params.ref){
-        let action = await Employee.updateOne({id:session.employeeId},{
-            $push:{sessions:req.body.ref}
-        })
-        action = await Employee.updateOne({id:session.employeeId},{
-            $pull:{sessions:session.ref}
-        })
-    }}
-    if (session.clientId!==req.body.clientID){
-        let action2 = await User.updateOne({id:session.clientId},{
-            $pull:{sessions:session.ref}
-        })
-        action = await User.updateOne({id:req.body.clientId},{
-            $push:{sessions:session.ref}
+    if (req.body.employeeId) sess = await Session.updateOne(
+        { ref: req.body.ref },
+        {
+            $set: {
+                employeeId: req.body.employeeId
+            }
+        }
+    )
+    if (!req.body.employeeId && req.params.ref[0] !== 'f' && req.body.ref[0] === 'f') {
+        let action = await Employee.updateOne({ id: session.employeeId }, {
+            $pull: { sessions: session.ref }
         })
     }
-    else{ if(req.body.ref!==session.ref){
-        let action = await User.updateOne({id:session.clientId},{
-            $push:{sessions:req.body.ref}
+    else if (session.employeeId !== req.body.employeeId && req.body.employeeId) {
+        let action = await Employee.updateOne({ id: session.employeeId }, {
+            $pull: { sessions: session.ref }
         })
-        action = await User.updateOne({id:session.clientId},{
-            $pull:{sessions:session.ref}
+        action = await Employee.updateOne({ id: req.body.employeeId }, {
+            $push: { sessions: req.body.ref }
         })
-    }}
+    }
+
+    else if (req.body.ref !== req.params.ref)
+         {
+            let action = await Employee.updateOne({ id: session.employeeId }, {
+                $push: { sessions: req.body.ref }
+            })
+            action = await Employee.updateOne({ id: session.employeeId }, {
+                $pull: { sessions: session.ref }
+            })
+        
+    }
+    if (session.clientId !== req.body.clientId) {
+        console.log('do i even enter here')
+        let action2 = await User.updateOne({ id: session.clientId }, {
+            $pull: { sessions: session.ref }
+        })
+        action = await User.updateOne({ id: req.body.clientId }, {
+            $push: { sessions: req.body.ref }
+        })
+    }
+    else {
+        if (req.body.ref !== session.ref) {
+            console.log('removing the old session')
+            let action = await User.updateOne({ id: session.clientId }, {
+                $push: { sessions: req.body.ref }
+            })
+            console.log('addiding the new')
+            action = await User.updateOne({ id: session.clientId }, {
+                $pull: { sessions: session.ref }
+            })
+        }
+    }
     res.send('updated')
 
 })
@@ -145,18 +167,19 @@ router.delete('/:ref', verify, async (req, res) => {
     if (role !== "Admin") return res.status(401).send('bad request')
     const session = await Session.findOne({ ref: req.params.ref })
     if (!session) return res.status(404).send('session not found!')
-    const ref=session.ref
-    const employeeId=session.employeeId
-    const clientId=session.clientId
-    let action1=await Employee.updateOne({id:employeeId},
+    const ref = session.ref
+    const employeeId = session.employeeId
+    const clientId = session.clientId
+    if (employeeId) 
+    {let action1 = await Employee.updateOne({ id: employeeId },
         {
-            $pull:  {sessions:ref}
+            $pull: { sessions: ref }
+        })}
+    let action1 = await User.updateOne({ id: clientId },
+        {
+            $pull: { 'sessions': ref }
         })
-    action1=await User.updateOne({id:clientId},
-         {
-               $pull:{'sessions':ref}
-          })
-    Session.deleteOne({ref: req.params.ref }).then(() => res.send(session))
+    Session.deleteOne({ ref: req.params.ref }).then(() => res.send(session))
 })
 
-module.exports=router
+module.exports = router

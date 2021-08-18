@@ -11,6 +11,7 @@ import { useHistory } from 'react-router';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import Switch from '@material-ui/core/Switch';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -55,6 +56,9 @@ const AddSession = () => {
         setveh(event.target.value)
         seterrV(false)
     }
+    const [exam, setexam] = React.useState(false)
+    const handleExamChange = (event) => { setexam(event.target.value) }
+
     const [sessions, setsessions] = React.useState([{}])
     const [clients, setclients] = React.useState([{}])
     const [employees, setemployees] = React.useState([{}])
@@ -89,8 +93,11 @@ const AddSession = () => {
         const last_ref = data[data.length - 1].ref
         const last_ref_id = parseInt(last_ref.substring(1, last_ref.length))
         const current_id = last_ref_id + 1
-        const ref = type + String(current_id)
-        return ref
+        if (!exam) { return type + String(current_id) }
+        else {
+            if (type === 'c') return 'f' + String(current_id)
+            if (type === 'p') return 'e' + String(current_id)
+        }
     }
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -124,16 +131,10 @@ const AddSession = () => {
 
 
 
-        if (!client || !emp || !veh) {
+        if (!client) {
             alert('Rakez mlih aaych khoya')
             if (client == '') {
                 seterrC(true)
-            }
-            if (!emp) {
-                seterrE(true)
-            }
-            if (!veh) {
-                seterrV(true)
             }
             return
         }
@@ -146,6 +147,9 @@ const AddSession = () => {
         }
         if (type === 'p') {
             session.vehiculeId = veh
+        }
+        if (session.ref[0] === 'f') {
+            delete session.employeeId
         }
         axios.post('http://localhost:3001/api/admin/session/add', session, {
             headers: {
@@ -181,7 +185,7 @@ const AddSession = () => {
                                 value={client}
                                 onChange={handleClientChange}
                             >
-                                {clients.map(client =>
+                                {clients.filter(client=>client.finished===false).map(client =>
                                     <MenuItem key={client.id} value={client.id}>{client.name}</MenuItem>
                                 )}
                             </Select>
@@ -190,7 +194,7 @@ const AddSession = () => {
                 }
                 <br />
                 {errE ?
-                    <FormControl  className={classes.formControl}>
+                    <FormControl className={classes.formControl}>
                         <InputLabel error helperText="Le nom de l'employé est obligatoire" id="Employé" label="Employé" onChange={handleEmpChange}>Employé</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
@@ -206,7 +210,7 @@ const AddSession = () => {
 
                     :
 
-                    <FormControl className={classes.formControl}>
+                    <>  {!(exam && type === 'c') && <FormControl className={classes.formControl}>
                         <InputLabel id="Employé" label="Employé" onChange={handleEmpChange}>Employé</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
@@ -218,7 +222,7 @@ const AddSession = () => {
                                 <MenuItem key={employee.id} value={employee.id}>{employee.name}</MenuItem>
                             )}
                         </Select>
-                    </FormControl>}
+                    </FormControl>}</>}
                 <br />
                 {(type === 'p') ? <>
                     {errV ?
@@ -253,6 +257,20 @@ const AddSession = () => {
                         </FormControl>}
                     <br />
                 </> : ''}
+                <FormControl className={classes.formControl} >
+                    <InputLabel >Nature de séance:</InputLabel>
+                    <Select
+                        value={exam}
+                        labelId="demo-simple-select-label"
+                        id='e'
+                        onChange={handleExamChange}
+                    >
+                        <MenuItem value={false}>Séance Normale</MenuItem>
+                        <MenuItem value={true}>Examen</MenuItem>
+                    </Select>
+
+                </FormControl>
+                <br />
                 {errDate ?
                     <TextField error
                         id="datetime-local"
@@ -289,6 +307,7 @@ const AddSession = () => {
                 <br />
                 <button style={{ width: '18vw', marginLeft: '20vw', textAlign: 'center' }} onSubmit={handleSubmit}>Ajouter</button>
             </form>
+
         </div>
     )
 }

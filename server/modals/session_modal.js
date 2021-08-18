@@ -13,7 +13,6 @@ const sessionSchema = new schema({
     },
     employeeId:{
         type:Number,
-        required:true,
     },
     vehiculeId:{
         type:Number,

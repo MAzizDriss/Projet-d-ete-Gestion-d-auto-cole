@@ -25,14 +25,6 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '19vh'
     },
 }));
-const generateDefaultdate = (selectedDate) => {
-    const month = (String(selectedDate.getMonth()).length === 1) ? '0' + selectedDate.getMonth() : selectedDate.getMonth()
-    const day = (String(selectedDate.getDay()).length === 1) ? '0' + selectedDate.getDay() : selectedDate.getDay()
-    const hours = (String(selectedDate.getHours()).length === 1) ? '0' + selectedDate.getHours() : selectedDate.getHours()
-    const mins = (String(selectedDate.getMinutes()).length === 1) ? '0' + selectedDate.getMinutes() : selectedDate.getMinutes()
-    return (selectedDate.getFullYear() + '-' + month + '-' + day + 'T' + hours + ':' + mins)
-
-}
 
 const EditSession = () => {
     const { ref } = useParams()
@@ -74,7 +66,7 @@ const EditSession = () => {
             .catch((err) => console.log(err))
     }, [])
     const classes = useStyles();
-    const [type, settype] = React.useState('c');
+    const [type, settype] = React.useState();
 
     const handleTypeChange = (event) => {
         settype(event.target.value);
@@ -95,14 +87,31 @@ const EditSession = () => {
     const handleVehChange = (event) => {
         setveh(event.target.value)
     }
+    const [exam, setexam] = React.useState(false)
+    const handleExamChange = (event) => { setexam(event.target.value) }
     React.useEffect(() => {
-        if (session) setSelectedDate(session.date)
-        settype(session ? session.ref[0] : 'c')
+        if (session) {setSelectedDate(session.date)
+            if(session.ref[0]=="e") {
+                settype('p')
+                setexam(true)}
+            else if (session.ref[0]=='f') {
+                console.log('fired')
+                settype('c')
+                    setexam(true)}
+            else {
+                settype(session.ref[0])}
+        }
+
         if (session) {
             if (clients) setclient(clients[session.clientId - 1].id)
-            if (employees) setemp(employees[session.employeeId - 1].id)
+            if (employees) {
+                if((type==='c'&&exam===true) ) {
+                if(session.ref[0]==='f') setemp(1)
+                }
+                else {console.log('else')
+                    setemp(employees[session.employeeId - 1].id)}}
         }
-        if (type === 'p') {
+        if (type === 'p'|| type==='e') {
             setveh(session.vehiculeId)
         }
 
@@ -121,7 +130,7 @@ const EditSession = () => {
     }
     const handleSubmit = (event) => {
         event.preventDefault()
-        if (!client || !emp) {
+        if (!client ) {
             alert('Rakez mlih aaych khoya')
             return
         }
@@ -137,8 +146,15 @@ const EditSession = () => {
         }
         if (type === 'c') {
             sess.ref = 'c' + session.ref.substring(1, session.ref.length)
-            if (session.veh)
-                delete session[veh]
+        }
+        if (type === 'c' && exam) {
+            sess.ref = 'f' + session.ref.substring(1, session.ref.length)
+            if(session.ref[0]!=='f')
+                delete sess.employeeId
+        }
+        if (type === 'p' && exam) {
+            sess.vehiculeId = veh
+            sess.ref = 'e' + session.ref.substring(1, session.ref.length)
         }
         axios.put(`http://localhost:3001/api/admin/session/${ref}`, sess, {
             headers: {
@@ -153,6 +169,8 @@ const EditSession = () => {
 
     return (
         <div>
+            {console.log(`exam ${exam} and the condition : ${(type==='c')}`)}
+            {console.log(`emp: ${emp}`)}
             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} >
                 <h1 style={{ color: '#3A506B' }}>Modification d'une séance:</h1>
                 {client && <FormControl className={classes.formControl}>
@@ -169,8 +187,8 @@ const EditSession = () => {
                     </Select>
                 </FormControl>}
                 <br />
-                {emp && <FormControl className={classes.formControl}>
-                    <InputLabel id="Employé" label="Employé" onChange={handleEmpChange}>Client</InputLabel>
+                {client && !(type==='c'&&exam)&& emp && <FormControl className={classes.formControl}>
+                    <InputLabel id="Employé" label="Employé" onChange={handleEmpChange}>Employé</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="papier"
@@ -198,6 +216,19 @@ const EditSession = () => {
                 </FormControl>
                     <br />
                 </> : ''}
+                <FormControl className={classes.formControl} >
+                    <InputLabel >Nature de séance:</InputLabel>
+                    <Select
+                        value={exam}
+                        labelId="demo-simple-select-label"
+                        id='e'
+                        onChange={handleExamChange}
+                    >
+                        <MenuItem value={false}>Séance Normale</MenuItem>
+                        <MenuItem value={true}>Examen</MenuItem>
+                    </Select>
+                </FormControl>
+                <br/>
                 {selectedDate && <TextField
                     id="datetime-local"
                     label="Date De la séance"
@@ -210,13 +241,14 @@ const EditSession = () => {
                     onChange={handleDateChange}
                 />}
                 <br />
-                <FormControl component="fieldset">
+                {console.log(type)}
+{           type&&     <FormControl component="fieldset">
                     <FormLabel style={{ marginLeft: "-33vh" }} component="legend" >Type de séance:</FormLabel>
                     <RadioGroup aria-label="gender" id='type' name="gender1" value={type} onChange={handleTypeChange}>
                         <FormControlLabel value="c" control={<Radio />} label="Code" />
                         <FormControlLabel value="p" control={<Radio />} label="Conduite" />
                     </RadioGroup>
-                </FormControl>
+                </FormControl>}
                 <br />
                 <div style={{ display: "flex", direction: "column", marginLeft: "65vh" }}>
                     <button style={{ width: '18vw', marginLeft: '20vw', textAlign: 'center' }} onSubmit={handleSubmit} >Enregistrer</button>

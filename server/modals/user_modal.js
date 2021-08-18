@@ -46,6 +46,14 @@ const userSchema = new schema({
         type:Array,
         required:true
     },
+    code_exam:{
+        type:Boolean,
+        required:true
+    },
+    conduite_exam:{
+        type:Boolean,
+        required:true
+    },
     photo:String,
 
 },{timestamps:true})
