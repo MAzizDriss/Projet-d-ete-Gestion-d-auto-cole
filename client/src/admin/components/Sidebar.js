@@ -5,17 +5,34 @@ import { SidebarData } from './SidebarData';
 import './Navbar.css';
 import { IconContext } from 'react-icons';
 import logo from './logo.png';
-
+import {BiLogInCircle} from 'react-icons/bi';
+import axios from 'axios';
+import {useHistory} from 'react-router'
 
 function Sidebar({sidebar, setSidebar}) {
-  
-  const showSidebar = () => setSidebar(!sidebar);
+  const history = useHistory();
 
+  const showSidebar = () => setSidebar(!sidebar);
+  const [user, setuser] = React.useState({})
+  React.useEffect(() => {
+      axios.get('http://localhost:3001/api/auth',{headers:{
+          "auth-token":localStorage.getItem('token')
+      }}).then((result)=>{ 
+                          setuser(result.data.userData)
+                              })
+      .catch((err)=>console.log(err))
+  }, [])
+  const Disconnect = ()=>{
+    localStorage.setItem('isAuth',false)
+    history.push("/login")
+    setuser({})
+    localStorage.setItem('token','')
+  }
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-          <ul className='nav-menu-items'>
+          <ul >
             <li className='navbar-toggle'>
               <Link to='#' className='menu-bars'>
                 <div style={{marginLeft:'150px'}}><FaIcons.FaBars className='bars' onClick={showSidebar} /></div>
@@ -34,9 +51,9 @@ function Sidebar({sidebar, setSidebar}) {
             {SidebarData.map((item, index) => {
               return (
                 <li key={index} className={item.cName} >
-                  <Link to={item.path} >
+                  <Link to={item.path}  onClick={showSidebar}>
                     {item.icon}
-                    <span>{item.title}</span>
+                    <span >{item.title}</span>
                   </Link>
                 </li>
               );
@@ -44,9 +61,10 @@ function Sidebar({sidebar, setSidebar}) {
             </div>
           </ul>
           <div className="side-menu-footer">
+            <BiLogInCircle style={{width: 25, height:25, marginLeft:20, marginRight:-10, marginBottom:5, marginTop:15}} className='logo' onClick={Disconnect} />
             <div className="user-info">
-              <h5>Ines Essetti</h5>
-              <p>inesessetti99@gmail.com</p>
+            <h5><div className='footer-link'>{user.name}</div> </h5>
+             <p>{user.role}</p>
             </div>
           </div>
         </nav>

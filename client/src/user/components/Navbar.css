@@ -60,6 +60,7 @@
 
 .nav-menu-items {
   width: 100%;
+  margin-top: 16vh
 }
 
 .navbar-toggle {
@@ -113,7 +114,7 @@ span {
   box-sizing: border-box;
   float:right;
   margin-right: 10vh; /*6vh*/
-  margin-top: 5vh ;
+  margin-top: 4vh ;
   color: #f2e9e4;
 }
 .Title :hover {
@@ -130,8 +131,8 @@ span {
   color: #f2e9e4;
 }
 hr{
-  margin-top: 38%;
-
+  margin-top: 37%;
+  background-color: #52ab98;
   width: 80%;
   margin-left: 8%;
   opacity: 0.8 ;

@@ -11,7 +11,7 @@ import { useHistory } from 'react-router';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import Switch from '@material-ui/core/Switch';
+import './Calendrier.css'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -305,7 +305,7 @@ const AddSession = () => {
                     </RadioGroup>
                 </FormControl>
                 <br />
-                <button style={{ width: '18vw', marginLeft: '20vw', textAlign: 'center' }} onSubmit={handleSubmit}>Ajouter</button>
+                <button className="button" style={{ width: '9vw', marginLeft: '20vw', textAlign: 'center',  fontFamily:"Avanta Garde" }} onSubmit={handleSubmit}>Ajouter</button>
             </form>
 
         </div>

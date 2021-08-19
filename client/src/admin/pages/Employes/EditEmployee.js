@@ -9,6 +9,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { Button } from '@material-ui/core';
 import axios from 'axios';
+import'../Vehicules/Vehicules.css'
 import { useHistory } from 'react-router';
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -114,8 +115,8 @@ const EditEmployee = () => {
                     </RadioGroup>
                 </FormControl>
                 <br />
-                <button color="secondary" variant="contained" style={{marginLeft:'59.7vw', marginRight:'30%', width:'10vw'}}><div style={{marginRight:'15%'}} >Enregistrer </div></button>
-                <Button color="secondary" variant="contained" style={{marginLeft:'30%',  width:'10vw'}}><div style={{marginRight:'15%'}} onClick={handleDelete}>supprimer</div></Button>
+                <button className="button" style={{marginLeft:'59.7vw', marginRight:'30%', width:'8vw'}}><div >Enregister </div></button>
+                <button className="button" style={{marginLeft:'30.7vw',  width:'8vw'}}><div onClick={handleDelete}>Supprimer</div></button>
 
             </form>
 

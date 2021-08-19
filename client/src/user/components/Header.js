@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appbar: {
     background: '#060b26',
+    height: "9vh"
   },
   appbarWrapper: {
     width: '80%',
@@ -24,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
   },
   appbarTitle: {
     flexGrow: '1',
-    marginLeft: 450
+    marginLeft: 450,
+   marginTop: 35
   },
   icon: {
     color: '#f2f2f2',
@@ -71,7 +73,7 @@ export default function Header({ sidebar, setSidebar }) {
       <AppBar className={classes.appbar} >
         <Toolbar className={classes.appbarWrapper}>
           <IconButton>
-            <FaBars onClick={showSidebar} className={classes.icon} className="bars" />
+            <FaBars onClick={showSidebar} className="bars" />
           </IconButton>
           <div className={classes.navbarItems}>
             <h1 className={classes.appbarTitle}>

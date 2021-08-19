@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, rgbToHex } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import cars from '../Data/CarData';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
-import { Button } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -12,17 +10,18 @@ import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
-import { HiViewGrid } from 'react-icons/hi';
-
+import './Vehicules.css'
 
 const useStyles = makeStyles((theme) => ({
     root: {
         '& > *': {
             margin: theme.spacing(1),
             width: '75ch',
+            
         },
         marginTop: '6vw',
         textAlign: 'center',
+     
     },
     entretien: {
         marginLeft: 240,
@@ -235,7 +234,7 @@ const Formulaire = () => {
         <div className={classes.page}>
             {console.log(epj)}
             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} >
-                <h1 style={{ color: '#3A506B' }}>Modifier les données de {marque} {modele} :</h1>
+                <h1 style={{ color: '#3A506B', marginLeft: 150 }}>Modifier les données de {marque} {modele} :</h1>
                 <br /><br /><br />
                 {errMarque ?
                     <TextField error helperText="La marque du véhicule est obligatoire" id="marque" label="Marque du véhicule" onChange={handleMarqueChange} />
@@ -362,11 +361,11 @@ const Formulaire = () => {
             </form>}
                 </>
                     : ''}
-                <button variant="contained" color="secondary" style={{ marginTop: '3%', width: '20%' }}>
+                <button variant="contained" className="button" style={{ marginTop: '4%', width: '20%', marginLeft: '30%' }}>
                     <center style={{ marginRight: '10%' }} >Enregistrer</center>
                 </button>
             </form>
-            <center><button variant="contained" color="secondary" style={{ marginTop: '3%', width: '20%' }} onClick={handleDelete}>
+            <center><button variant="contained" className="button" style={{ marginTop: '1%', width: '20%', marginLeft: '29.5%' }} onClick={handleDelete}>
                 <center style={{ marginRight: '10%' }} >Supprimer</center>
             </button></center>
         </div>

@@ -10,10 +10,9 @@ const useStyles = makeStyles((theme) => ({
  seance: {
 marginLeft:450,
 marginTop:'-50%',
-marginBottom:'-30px'
  },
   root:{
-marginBottom:'-1vh',
+marginBottom:'vh',
     backgroundColor: "#060b26"
   },
   close: {
@@ -27,7 +26,7 @@ left:1300,
   title: {
     fontSize: 36,
     color: '#f2f2f2',
-    marginLeft: '25%'
+    marginLeft: '13%'
   },
 }));
 

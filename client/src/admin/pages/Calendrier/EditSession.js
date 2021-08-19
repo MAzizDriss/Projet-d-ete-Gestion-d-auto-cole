@@ -13,6 +13,7 @@ import { useHistory } from 'react-router';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import './Calendrier.css'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -251,8 +252,8 @@ const EditSession = () => {
                 </FormControl>}
                 <br />
                 <div style={{ display: "flex", direction: "column", marginLeft: "65vh" }}>
-                    <button style={{ width: '18vw', marginLeft: '20vw', textAlign: 'center' }} onSubmit={handleSubmit} >Enregistrer</button>
-                    <Button color="secondary" variant="contained" style={{ marginLeft: '1%', width: '15vw' }}><div style={{ marginRight: '15%' }} onClick={handleDelete}>supprimer</div></Button>
+                    <button className="button" style={{ width: '18vw', marginLeft: '20vw' , fontFamily:'Avanta Garde' }} onSubmit={handleSubmit} >Enregistrer</button>
+                    <button className="button" style={{ marginLeft: '1%', width: '15vw' }}><div style={{ marginRight: '15%' }} onClick={handleDelete}>Supprimer</div></button>
                 </div>
             </form>
 

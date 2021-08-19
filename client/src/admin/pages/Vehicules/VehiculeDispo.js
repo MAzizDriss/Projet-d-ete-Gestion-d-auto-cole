@@ -14,11 +14,12 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import {MdExpandMore }from 'react-icons/md'
-
+import './Vehicules.css'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '60%',
+    marginBottom:5
   },
   formControl: {
     margin: theme.spacing(1),
@@ -178,9 +179,8 @@ export default function VehiculeDispo({car}) {
       </div>
           <div className={classes.icons}>
           <Typography >
-              <IconButton className={classes.buttonM} >
-              <Button href={`/Vehicules/Formulaire/${car.id}`}  variant="outlined" color="primary"  >Modifier</Button>
-              </IconButton>
+          <button href={`/Vehicules/Formulaire/${car.id}`}  className="button" style={{fontFamily:"Avanta Garde", width:'8vw', marginLeft:490, fontSize:'1.1rem'}} >Modifier</button>
+   
             </Typography>
           </div>
         </AccordionDetails>

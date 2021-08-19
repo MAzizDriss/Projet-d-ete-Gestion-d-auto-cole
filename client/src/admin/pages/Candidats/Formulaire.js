@@ -141,7 +141,7 @@ const Formulaire = () => {
                 </FormControl>
                 <br />
                 <br />
-                <button onSubmit={handleSubmit} variant="contained" color="secondary" style={{ marginTop: '3%', width: '20%' }}>
+                <button className="button" onSubmit={handleSubmit} style={{ marginTop: '3%', width: '15%', marginLeft:'25vw' }}>
                     <center style={{ marginRight: '10%' }} >Enregistrer</center>
                 </button>
             </form>

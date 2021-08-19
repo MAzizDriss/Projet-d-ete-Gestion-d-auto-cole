@@ -5,6 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import './Calendrier.css'
 import axios from 'axios'
 const useStyles = makeStyles({
   root: {
@@ -108,9 +109,9 @@ const ProchaineSeance = () => {
         </Typography>}
       </CardContent>
       <CardActions>
-        <Button href='/Sessions/add' variant="contained" color="secondary" style={{ marginLeft: '80%', width: '40%' }}>
-          <center style={{ marginRight: '15%' }} >Ajouter une séance</center>
-        </Button>
+        <button className="button" href='/Sessions/add' style={{ marginLeft: '70%', width: '40%' }}>
+          <center style={{ fontSize:'1.1rem' }} >Ajouter une séance</center>
+        </button>
       </CardActions>
     </Card>
   );

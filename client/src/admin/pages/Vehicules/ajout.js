@@ -11,7 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import axios from 'axios'
-
+import './Vehicules.css'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -428,7 +428,7 @@ const Ajout = () => {
                     onChange={handleDateEChange}
                 />}
                 <br />
-                <button style={{ width: '18vw', marginLeft: '20vw', textAlign: 'center' }} onSubmit={handleSubmit}>Ajouter</button>
+                <button className="button" style={{ width: '10vw', marginLeft: '30vw', textAlign: 'center', marginBottom: '3vh', fontFamily:"Avanta Garde" }} onSubmit={handleSubmit}>Ajouter</button>
             </form>
         </div>
     )

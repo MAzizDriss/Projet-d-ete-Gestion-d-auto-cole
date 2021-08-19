@@ -28,7 +28,7 @@ export default function Vehicules() {
 
   return (
     <div>
-         <h1 style={{marginLeft:'95vh', marginTop:'4vh'}} >Véhicules</h1>
+         <h1 className="title" >Véhicules</h1>
     <Button href='/Vehicules/ajouter' variant="contained" color="secondary" style={{marginLeft:'45%',width:'10%', marginTop:'2%'}}>
    <center style={{marginRight:'15%'}} >Ajouter</center>
   </Button>

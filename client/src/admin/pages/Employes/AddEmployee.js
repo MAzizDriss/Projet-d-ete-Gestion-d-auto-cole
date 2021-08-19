@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios'
 import { useHistory } from 'react-router';
-
+import '../Vehicules/Vehicules.css'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -117,7 +117,7 @@ max:31,
                 onChange={handlePayDayChange} />
                 }
                 <br />
-                <button style={{ width: '18vw', marginLeft: '20vw', textAlign: 'center' }}>Ajouter</button>
+                <button className="button" style={{ width: '9vw', marginLeft: '30vw', textAlign: 'center', fontFamily:"Avanta Garde", marginTop:'5vh' }}>Ajouter</button>
             </form>
         </div>
     )

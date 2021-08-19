@@ -21,6 +21,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'
 import { useHistory } from 'react-router';
 import {GoAlert} from 'react-icons/go'
+import './Candidats.css'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -190,15 +191,15 @@ export default function CandidatCard({ candidats }) {
           <div className={classes.icons}>
             <Tooltip title="Modifier" >
 
-              <IconButton className={classes.icon1} >
-                <Link to={`/Candidats/Formulaire/${candidat.id}`} style={{ position: 'absolute', left: '94.6%' }} ><BsPencilSquare style={{ fill: '#3A506B' }} /></Link>
+              <div className="UpdateButton" >
+                <Link to={`/Candidats/Formulaire/${candidat.id}`} ><BsPencilSquare style={{ fill: '#3A506B' }} /></Link>
 
-              </IconButton>
+              </div>
             </Tooltip>
             <Typography >
               <Tooltip title="Supprimer" >
                 <IconButton className={classes.icon2} >
-                  <ButtonDelete candidat={candidat} style={{ position: 'absolute' }} ><BsPencilSquare style={{ fill: '#3A506B' }} /></ButtonDelete>
+                  <ButtonDelete candidat={candidat} style={{ position: 'absolute' }} ><MdDelete style={{ fill: '#3A506B' }} /></ButtonDelete>
 
                 </IconButton>
               </Tooltip>
