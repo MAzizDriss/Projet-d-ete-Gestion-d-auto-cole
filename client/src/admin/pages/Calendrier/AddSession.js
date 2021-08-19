@@ -132,7 +132,7 @@ const AddSession = () => {
 
 
         if (!client) {
-            alert('Rakez mlih aaych khoya')
+            alert('ATTENTION! Veuillez vérifier les champs')
             if (client == '') {
                 seterrC(true)
             }

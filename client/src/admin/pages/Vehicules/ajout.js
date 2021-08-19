@@ -180,7 +180,7 @@ const Ajout = () => {
         }
 
         if (!marque || !modele || !serie || !disponibilite || !vig || !ass || !epp || !egp || !epj || !egj) {
-            alert('Rakez mlih aaych khoya')
+            alert('ATTENTION! Veuillez vérifier les champs')
             if (modele == '') {
                 seterrModele(true)
             }

@@ -60,7 +60,7 @@ const EditEmployee = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
         if (!name || !salaire ) {
-            alert('Attention! Veulliez verifier les champs..')
+            alert('ATTENTION! Veuillez vérifier les champs')
             if(!name)
             {
                 setnameerr(true)

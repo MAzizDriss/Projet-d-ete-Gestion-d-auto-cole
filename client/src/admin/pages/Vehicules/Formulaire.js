@@ -121,7 +121,7 @@ const Formulaire = () => {
     };
     const [egj, setegj] = React.useState('');
     const handleEgJChange = (event) => {
-        setegj(event.target.value === 'true');
+        setegj(event.target.value);
         seterrJGE(false)
     };
     const [vig, setvig] = React.useState('')
@@ -174,7 +174,7 @@ const Formulaire = () => {
 
 
         if (!marque || !modele || !epp || !egp || !epj || !egj) {
-            alert('Rakez mlih aaych khoya')
+            alert('ATTENTION! Veuillez vérifier les champs')
             if (modele == '') {
                 seterrModele(true)
             }

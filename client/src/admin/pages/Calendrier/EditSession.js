@@ -132,7 +132,7 @@ const EditSession = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
         if (!client ) {
-            alert('Rakez mlih aaych khoya')
+            alert('ATTENTION! Veuillez vérifier les champs')
             return
         }
         const sess = {
