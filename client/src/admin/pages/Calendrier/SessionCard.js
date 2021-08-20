@@ -32,10 +32,12 @@ export default function SessionCard({ sessions, clients, employees, vehicules })
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
   const [sessdata, setsessdata] = useState(sessions)
   const [clientdata, setclientdata] = useState(clients)
   const [empdata, setempdata] = useState(employees)
   const [vehdata, setvehdata] = useState(vehicules)
+
   React.useEffect(
     () => {
       setsessdata(sessions)
@@ -61,13 +63,12 @@ export default function SessionCard({ sessions, clients, employees, vehicules })
   return (
 
     <div className={classes.root}>
-      {sessdata.map(s =>
-        <Accordion expanded={expanded === s.ref} onChange={handleChange(s.ref)} key={s.ref}>
+      {sessdata.map((s,i) =>
+        <Accordion expanded={expanded === s.ref} onChange={handleChange(s.ref)} key={s.ref} index={i}>
           <AccordionSummary
             expandIcon={<MdExpandMore />}
             aria-controls="panel1bh-content"
             id="panel1bh-header"
-
           >
             <Typography className={classes.heading}> {(clientdata[s.clientId - 1]) ? clientdata[s.clientId - 1].name : ''}</Typography>
             <Typography className={classes.secondaryHeading} >{new Date(s.date).toString().substring(0, 21)}</Typography>

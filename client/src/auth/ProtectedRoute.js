@@ -2,9 +2,11 @@ import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import axios from 'axios';
 const ProtectedAdminRoute = ({ component: Component, ...rest }) => {
+    
     const [role, setrole] = React.useState("")
     const [isAuth, setisAuth] = React.useState(localStorage.getItem('isAuth'))
     const [user, setuser] = React.useState({})
+
     React.useEffect(() => {
         axios.get('http://localhost:3001/api/auth', {
             headers: {
@@ -17,9 +19,11 @@ const ProtectedAdminRoute = ({ component: Component, ...rest }) => {
         })
             .catch((err) => console.log(err))
     }, [])
+
     React.useEffect(() =>
         setisAuth(localStorage.getItem("isAuth"))
         , [isAuth])
+
     return (
         <Route {...rest}
             render={(props) => {
@@ -32,7 +36,6 @@ const ProtectedAdminRoute = ({ component: Component, ...rest }) => {
                         return <div>
                         </div>
                     }
-
                 }
                 else {
                     return <Redirect from="/protected" to="/login" />

@@ -42,10 +42,6 @@ const userSchema = new schema({
         type:Array,
         required:true,
     },
-    exams:{
-        type:Array,
-        required:true
-    },
     code_exam:{
         type:Boolean,
         required:true

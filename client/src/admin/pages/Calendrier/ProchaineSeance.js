@@ -3,10 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom'
 import Typography from '@material-ui/core/Typography';
 import './Calendrier.css'
 import axios from 'axios'
+
 const useStyles = makeStyles({
   root: {
     width: '60%',
@@ -32,6 +33,7 @@ const useStyles = makeStyles({
 
 const relativedate = new Date()
 
+//fonction pour retourner la seance la plus proche: 
 function closestsession(arr) {
   let datesArr1 = arr.map(item => new Date(item.date).toString())
   const datesArr = arr.map(item => new Date(item.date))
@@ -45,6 +47,7 @@ function closestsession(arr) {
   const index = datesArr1.indexOf(new Date(date).toString())
   return arr[index]
 }
+
 
 const ProchaineSeance = () => {
   const [client, setclient] = React.useState({})
@@ -62,8 +65,9 @@ const ProchaineSeance = () => {
     })
       .catch((err) => console.log(err))
   }, [])
+
   React.useEffect(() => {
-    if (Nextsession 
+    if (Nextsession
       && typeof (Nextsession.clientId) === typeof (5)) {
       axios.get(`http://localhost:3001/api/admin/employee/${Nextsession.employeeId}`, {
         headers: {
@@ -78,11 +82,13 @@ const ProchaineSeance = () => {
         }
       }).then((result) => setclient(result.data))
     }
-    if (Nextsession.employeeId){axios.get(`http://localhost:3001/api/admin/vehicule/${Nextsession.vehiculeId}`, {
-      headers: {
-        "auth-token": localStorage.getItem('token')
-      }
-    }).then((result) => setveh(result.data))}
+    if (Nextsession.employeeId) {
+      axios.get(`http://localhost:3001/api/admin/vehicule/${Nextsession.vehiculeId}`, {
+        headers: {
+          "auth-token": localStorage.getItem('token')
+        }
+      }).then((result) => setveh(result.data))
+    }
 
   }, [Nextsession])
 
@@ -109,8 +115,8 @@ const ProchaineSeance = () => {
         </Typography>}
       </CardContent>
       <CardActions>
-        <button className="button" href='/Sessions/add' style={{ marginLeft: '70%', width: '40%' }}>
-          <center style={{ fontSize:'1.1rem' }} >Ajouter une séance</center>
+        <button className="button" style={{ marginLeft: '70%', width: '40%' }}>
+          <Link style={{ textDecoration: 'none', color: 'white' }} to='/Sessions/add'> <center style={{ fontSize: '1.1rem' }} >Ajouter une séance</center></Link>
         </button>
       </CardActions>
     </Card>

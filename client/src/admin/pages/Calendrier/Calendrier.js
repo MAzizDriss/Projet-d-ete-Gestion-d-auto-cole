@@ -68,10 +68,12 @@ const Calendrier = () => {
           "auth-token":localStorage.getItem('token')
       }}).then((result)=>{ setclients(result.data) })
       .catch((err)=>console.log(err))
+
       axios.get('http://localhost:3001/api/admin/employee/employees',{headers:{
           "auth-token":localStorage.getItem('token')
       }}).then((result)=>{ setemployees(result.data) })
       .catch((err)=>console.log(err))
+
       axios.get('http://localhost:3001/api/admin/vehicule/vehicules',{headers:{
         "auth-token":localStorage.getItem('token')
     }}).then((result)=>{ setvehicules(result.data) })
@@ -85,7 +87,6 @@ const Calendrier = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
 
   return (
     <div>

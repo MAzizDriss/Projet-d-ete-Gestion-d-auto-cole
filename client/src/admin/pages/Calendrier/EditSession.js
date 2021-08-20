@@ -7,7 +7,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { useParams } from 'react-router-dom';
-import { Button } from '@material-ui/core';
 import axios from 'axios'
 import { useHistory } from 'react-router';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -30,11 +29,15 @@ const useStyles = makeStyles((theme) => ({
 const EditSession = () => {
     const { ref } = useParams()
     const history = useHistory();
+    const classes = useStyles();
+
+    //Fetching the Data
     const [session, setsession] = React.useState()
     const [sessions, setsessions] = React.useState([{}])
     const [vehicules, setvehicules] = React.useState()
     const [clients, setclients] = React.useState()
     const [employees, setemployees] = React.useState()
+
     React.useEffect(() => {
         axios.get(`http://localhost:3001/api/admin/session/sessions`, {
             headers: {
@@ -66,57 +69,68 @@ const EditSession = () => {
         }).then((result) => { setvehicules(result.data) })
             .catch((err) => console.log(err))
     }, [])
-    const classes = useStyles();
-    const [type, settype] = React.useState();
 
+    const [type, settype] = React.useState();
     const handleTypeChange = (event) => {
         settype(event.target.value);
     };
+
     const [selectedDate, setSelectedDate] = React.useState();
     const handleDateChange = (event) => {
         setSelectedDate(event.target.value);
     };
+
     const [client, setclient] = React.useState()
     const handleClientChange = (event) => {
         setclient(event.target.value)
     }
+
     const [emp, setemp] = React.useState()
     const handleEmpChange = (event) => {
         setemp(event.target.value)
     }
+
     const [veh, setveh] = React.useState()
     const handleVehChange = (event) => {
         setveh(event.target.value)
     }
+
     const [exam, setexam] = React.useState(false)
     const handleExamChange = (event) => { setexam(event.target.value) }
-    React.useEffect(() => {
-        if (session) {setSelectedDate(session.date)
-            if(session.ref[0]=="e") {
-                settype('p')
-                setexam(true)}
-            else if (session.ref[0]=='f') {
-                console.log('fired')
-                settype('c')
-                    setexam(true)}
-            else {
-                settype(session.ref[0])}
-        }
 
+    //using the useEffect again to update the late chanes due to the time the back takes
+    React.useEffect(() => {
+        if (session) {
+            setSelectedDate(session.date)
+            if (session.ref[0] == "e") {
+                settype('p')
+                setexam(true)
+            }
+            else if (session.ref[0] == 'f') {
+                settype('c')
+                setexam(true)
+            }
+            else {
+                settype(session.ref[0])
+            }
+        }
         if (session) {
             if (clients) setclient(clients[session.clientId - 1].id)
             if (employees) {
-                if((type==='c'&&exam===true) ) {
-                if(session.ref[0]==='f') setemp(1)
+                if ((type === 'c' && exam === true)) {
+                    if (session.ref[0] === 'f') setemp(1)
                 }
-                else {console.log('else')
-                    setemp(employees[session.employeeId - 1].id)}}
+                else {
+                    setemp(employees[session.employeeId - 1].id)
+                }
+            }
         }
-        if (type === 'p'|| type==='e') {
+        if (type === 'p' || type === 'e') {
             setveh(session.vehiculeId)
         }
 
     }, [session, clients, employees])
+
 
     const handleDelete = () => {
         axios.delete(`http://localhost:3001/api/admin/session/${ref}`, {
@@ -129,9 +143,10 @@ const EditSession = () => {
             history.push('/Calendrier')
         })
     }
+
     const handleSubmit = (event) => {
         event.preventDefault()
-        if (!client ) {
+        if (!client) {
             alert('ATTENTION! Veuillez vérifier les champs')
             return
         }
@@ -140,7 +155,6 @@ const EditSession = () => {
             date: selectedDate,
             employeeId: emp,
         }
-
         if (type === 'p') {
             sess.vehiculeId = veh
             sess.ref = 'p' + session.ref.substring(1, session.ref.length)
@@ -150,7 +164,7 @@ const EditSession = () => {
         }
         if (type === 'c' && exam) {
             sess.ref = 'f' + session.ref.substring(1, session.ref.length)
-            if(session.ref[0]!=='f')
+            if (session.ref[0] !== 'f')
                 delete sess.employeeId
         }
         if (type === 'p' && exam) {
@@ -170,8 +184,6 @@ const EditSession = () => {
 
     return (
         <div>
-            {console.log(`exam ${exam} and the condition : ${(type==='c')}`)}
-            {console.log(`emp: ${emp}`)}
             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} >
                 <h1 style={{ color: '#3A506B' }}>Modification d'une séance:</h1>
                 {client && <FormControl className={classes.formControl}>
@@ -188,7 +200,7 @@ const EditSession = () => {
                     </Select>
                 </FormControl>}
                 <br />
-                {client && !(type==='c'&&exam)&& emp && <FormControl className={classes.formControl}>
+                {client && !(type === 'c' && exam) && emp && <FormControl className={classes.formControl}>
                     <InputLabel id="Employé" label="Employé" onChange={handleEmpChange}>Employé</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
@@ -229,7 +241,7 @@ const EditSession = () => {
                         <MenuItem value={true}>Examen</MenuItem>
                     </Select>
                 </FormControl>
-                <br/>
+                <br />
                 {selectedDate && <TextField
                     id="datetime-local"
                     label="Date De la séance"
@@ -242,8 +254,7 @@ const EditSession = () => {
                     onChange={handleDateChange}
                 />}
                 <br />
-                {console.log(type)}
-{           type&&     <FormControl component="fieldset">
+                {type && <FormControl component="fieldset">
                     <FormLabel style={{ marginLeft: "-33vh" }} component="legend" >Type de séance:</FormLabel>
                     <RadioGroup aria-label="gender" id='type' name="gender1" value={type} onChange={handleTypeChange}>
                         <FormControlLabel value="c" control={<Radio />} label="Code" />
@@ -252,7 +263,7 @@ const EditSession = () => {
                 </FormControl>}
                 <br />
                 <div style={{ display: "flex", direction: "column", marginLeft: "65vh" }}>
-                    <button className="button" style={{ width: '18vw', marginLeft: '20vw' , fontFamily:'Avanta Garde' }} onSubmit={handleSubmit} >Enregistrer</button>
+                    <button className="button" style={{ width: '18vw', marginLeft: '20vw', fontFamily: 'Avanta Garde' }} onSubmit={handleSubmit} >Enregistrer</button>
                     <button className="button" style={{ marginLeft: '1%', width: '15vw' }}><div style={{ marginRight: '15%' }} onClick={handleDelete}>Supprimer</div></button>
                 </div>
             </form>

@@ -46,6 +46,7 @@ function update_validation(data, res) {
     return (!error)
 }
 
+//update the client
 router.put('/client/:id', verify, async (req, res) => {
     const role = req.user.userData.role
     if (role !== "Admin") return res.status(401).send('bad request')

@@ -24,41 +24,47 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '20vh'
     },
 }));
+
+
 const AddSession = () => {
     const classes = useStyles();
-    const [ErrMessage, setErrMessage] = React.useState("")
-    const [errC, seterrC] = React.useState(false)
-    const [errE, seterrE] = React.useState(false)
-    const [errV, seterrV] = React.useState(false)
-    const [errDate, seterrDate] = React.useState(false)
     const history = useHistory();
+
+    //States and the handle changes
     const [type, settype] = React.useState('c');
     const handleTypeChange = (event) => {
         settype(event.target.value);
     };
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+
+    const [selectedDate, setSelectedDate] = React.useState(new Date());
     const handleDateChange = (event) => {
         setSelectedDate(event.target.value);
         seterrDate(false)
     };
+
     const [client, setclient] = React.useState('')
     const handleClientChange = (event) => {
         setclient(event.target.value)
         seterrC(false)
     }
+
     const [emp, setemp] = React.useState('')
     const handleEmpChange = (event) => {
         setemp(event.target.value)
         seterrE(false)
     }
+
     const [veh, setveh] = React.useState(0)
     const handleVehChange = (event) => {
         setveh(event.target.value)
         seterrV(false)
     }
+
     const [exam, setexam] = React.useState(false)
     const handleExamChange = (event) => { setexam(event.target.value) }
 
+
+    //Fetching the Data 
     const [sessions, setsessions] = React.useState([{}])
     const [clients, setclients] = React.useState([{}])
     const [employees, setemployees] = React.useState([{}])
@@ -89,6 +95,16 @@ const AddSession = () => {
         }).then((result) => { setvehicules(result.data) })
             .catch((err) => console.log(err))
     }, [])
+
+
+    //error handling states
+    const [ErrMessage, setErrMessage] = React.useState("")
+    const [errC, seterrC] = React.useState(false)
+    const [errE, seterrE] = React.useState(false)
+    const [errV, seterrV] = React.useState(false)
+    const [errDate, seterrDate] = React.useState(false)
+
+    //Function to create the ref of the session 
     function createRef(data) {
         const last_ref = data[data.length - 1].ref
         const last_ref_id = parseInt(last_ref.substring(1, last_ref.length))
@@ -99,6 +115,8 @@ const AddSession = () => {
             if (type === 'p') return 'e' + String(current_id)
         }
     }
+
+    //Sending and verfying the Data
     const handleSubmit = (event) => {
         event.preventDefault()
         var today = new Date();
@@ -108,11 +126,10 @@ const AddSession = () => {
         const day = parseInt(date.substring(8, 11))
         const monthToday = today.getUTCMonth() + 1
         const compareY = today.getUTCFullYear() > year;
-        console.log(compareY);
         const compareD = (today.getUTCDate() > day && (monthToday == month) && (today.getUTCFullYear() == year))
-        console.log(compareD);
         const compareM = (monthToday > month && today.getUTCFullYear() == year);
-        console.log(compareM);
+        const ref = createRef(sessions)
+
         if (compareY) {
             seterrDate(true)
             setErrMessage("L'année choisie est dépassée")
@@ -128,9 +145,6 @@ const AddSession = () => {
             seterrDate(true)
 
         }
-
-
-
         if (!client) {
             alert('ATTENTION! Veuillez vérifier les champs')
             if (client == '') {
@@ -138,9 +152,14 @@ const AddSession = () => {
             }
             return
         }
-
+        if (!emp && (ref[0] !== 'e')) {
+            alert('ATTENTION! Veuillez vérifier les champs')
+            if (emp === '') {
+                seterrE(true)
+            }
+        }
         const session = {
-            ref: createRef(sessions),
+            ref: ref,
             clientId: client,
             date: selectedDate,
             employeeId: emp,
@@ -185,7 +204,7 @@ const AddSession = () => {
                                 value={client}
                                 onChange={handleClientChange}
                             >
-                                {clients.filter(client=>client.finished===false).map(client =>
+                                {clients.filter(client => client.finished === false).map(client =>
                                     <MenuItem key={client.id} value={client.id}>{client.name}</MenuItem>
                                 )}
                             </Select>
@@ -289,7 +308,7 @@ const AddSession = () => {
                         id="datetime-local"
                         label="Date De la séance"
                         type="datetime-local"
-                        defaultValue={"2021-05-24T10:30"}
+                        defaultValue={"2021-08-24T10:30"}
                         className={classes.textField}
                         InputLabelProps={{
                             shrink: true,
@@ -305,7 +324,7 @@ const AddSession = () => {
                     </RadioGroup>
                 </FormControl>
                 <br />
-                <button className="button" style={{ width: '9vw', marginLeft: '20vw', textAlign: 'center',  fontFamily:"Avanta Garde" }} onSubmit={handleSubmit}>Ajouter</button>
+                <button className="button" style={{ width: '9vw', marginLeft: '20vw', textAlign: 'center', fontFamily: "Avanta Garde" }} onSubmit={handleSubmit}>Ajouter</button>
             </form>
 
         </div>

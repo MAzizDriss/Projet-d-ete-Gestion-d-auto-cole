@@ -21,7 +21,6 @@ router.post('/register', async (req, res) => {
         sessions: [],
         code_exam:false,
         conduite_exam:false,
-        exams: [],
     })
     try {
         user.save()

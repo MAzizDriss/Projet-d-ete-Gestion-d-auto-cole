@@ -15,45 +15,49 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         marginBottom: '36.2vh'
     },
-    
+
 }));
+
 const AddEmployee = () => {
+
     const history = useHistory();
     const classes = useStyles();
-    const [ErrName, setErrName] = React.useState(false)
-    const [ErrSalaire, setErrSalaire] = React.useState(false)
-    const [ErrJP, setErrJP] = React.useState(false)
-    const [payday, setpayday] = React.useState(1);
+
+
+    const [payday, setpayday] = React.useState(-1);
     const handlePayDayChange = (event) => {
         setpayday(event.target.value);
         setErrJP(false)
     };
+
     const [name, setname] = React.useState('')
     const handleNameChange = (event) => {
         setname(event.target.value)
         setErrName(false)
     }
-    const [salaire, setsalaire] = React.useState(200)
+
+    const [salaire, setsalaire] = React.useState(-200)
     const handleSalaireChange = (event) => {
         setsalaire(event.target.value)
         setErrSalaire(false)
     }
+
+
     const handleSubmit = (event) => {
         event.preventDefault()
         if (!name || !salaire || !payday) {
             alert('ATTENTION! Verifiez les champs..')
-            if(!name){
+            if (!name) {
                 setErrName(true)
             }
-            if(salaire==200)
-            {
+            if (salaire === -200) {
                 setErrSalaire(true)
             }
-            if(payday==1){
+            if (payday === -1) {
                 setErrJP(true)
             }
             return
-        }        
+        }
         const emp = {
             name: name,
             salaire: salaire,
@@ -78,46 +82,50 @@ const AddEmployee = () => {
         setpayday(0)
     }
 
+    //error handling
+    const [ErrName, setErrName] = React.useState(false)
+    const [ErrSalaire, setErrSalaire] = React.useState(false)
+    const [ErrJP, setErrJP] = React.useState(false)
+
     return (
         <div>
             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} >
                 <h1 style={{ color: '#3A506B' }}>Ajout d'un Employé:</h1>
                 {ErrName ?
-                <TextField error id="Nom" label="Nom" helperText="Le nom de l'employé est obligatoire" onChange={handleNameChange} /> :
-                <TextField id="Nom" label="Nom" onChange={handleNameChange} />
-}
+                    <TextField error id="Nom" label="Nom" helperText="Le nom de l'employé est obligatoire" onChange={handleNameChange} /> :
+                    <TextField id="Nom" label="Nom" onChange={handleNameChange} />
+                }
                 <br />
                 {ErrSalaire ?
-                <TextField error type='number' id="Salaire" label="Salaire" helperText="Le salaire est obligatoire" 
-                inputProps={{
-                    min: 0, 
-                  }}
-                  onChange={handleSalaireChange} /> :
-                
-                <TextField type='number' id="Salaire" label="Salaire" 
-                  inputProps={{
-                    min: 0, 
-                  }}
-                onChange={handleSalaireChange} />
-                
+                    <TextField error type='number' id="Salaire" label="Salaire" helperText="Le salaire est obligatoire"
+                        inputProps={{
+                            min: 0,
+                        }}
+                        onChange={handleSalaireChange} /> :
+
+                    <TextField type='number' id="Salaire" label="Salaire"
+                        inputProps={{
+                            min: 0,
+                        }}
+                        onChange={handleSalaireChange} />
                 }
                 <br />
                 {ErrJP ?
-                <TextField error type='number' id="payday" label="Jour de paiement" helperText="Le jour de payement est obligatoire"
-                inputProps={{
-                    min: 1, 
-max:31,
-                  }}
-                onChange={handlePayDayChange} />:
-                <TextField type='number' id="payday" label="Jour de paiement"
-                inputProps={{
-                    min: 1, 
-                    max:31,
-                  }}
-                onChange={handlePayDayChange} />
+                    <TextField error type='number' id="payday" label="Jour de paiement" helperText="Le jour de payement est obligatoire"
+                        inputProps={{
+                            min: 1,
+                            max: 31,
+                        }}
+                        onChange={handlePayDayChange} /> :
+                    <TextField type='number' id="payday" label="Jour de paiement"
+                        inputProps={{
+                            min: 1,
+                            max: 31,
+                        }}
+                        onChange={handlePayDayChange} />
                 }
                 <br />
-                <button className="button" style={{ width: '9vw', marginLeft: '30vw', textAlign: 'center', fontFamily:"Avanta Garde", marginTop:'5vh' }}>Ajouter</button>
+                <button className="button" style={{ width: '9vw', marginLeft: '30vw', textAlign: 'center', fontFamily: "Avanta Garde", marginTop: '5vh' }}>Ajouter</button>
             </form>
         </div>
     )
