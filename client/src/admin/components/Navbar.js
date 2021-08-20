@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as FaIcons from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
@@ -30,8 +30,8 @@ const logout = () => {
     </>
   );
 }
-   //       <img className="avatar" src={avatar} className="avatar"/>  
-     //       <Avatar alt="Remy Sharp" src={avatar.png} />
+   /*       <img className="avatar" src={avatar} className="avatar"/>  
+            <Avatar alt="Remy Sharp" src={avatar.png} /> */
 
  
 

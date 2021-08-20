@@ -7,21 +7,12 @@ import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
- seance: {
-marginLeft:450,
-marginTop:'-50%',
- },
-  root:{
-marginBottom:'vh',
+  seance: {
+    marginLeft: 450,
+    marginTop: '-50%',
+  },
+  root: {
     backgroundColor: "#060b26"
-  },
-  close: {
-    padding: theme.spacing(0.5),
-  },
-  buttonNotif:{
-bottom:810,
-left:1300,
-
   },
   title: {
     fontSize: 36,
@@ -30,39 +21,41 @@ left:1300,
   },
 }));
 
-function Home(props) {
- 
+function Home() {
+
   const classes = useStyles();
+
   const [cardata, setcardata] = React.useState()
-  React.useEffect(()=>{
+
+  React.useEffect(() => {
     axios.get('http://localhost:3001/api/admin/vehicule/vehicules', {
       headers: {
-          "auth-token": localStorage.getItem('token')
+        "auth-token": localStorage.getItem('token')
       }
-  }).then((result) => { setcardata(result.data)
-                         })
+    }).then((result) => { setcardata(result.data) })
       .catch((err) => console.log(err))
-  },[])
-
+  }, [])
 
   return (
 
     <div className={classes.root}>
 
-      <Particles/>
-      <div  className={classes.seance}>
-        
-          <div ><ProchaineSeance  className={classes.card} /></div>
-          <Typography className={classes.title} color="textSecondary" gutterBottom>
+      <Particles />
+
+      <div className={classes.seance}>
+
+        <div>
+          <ProchaineSeance className={classes.card} />
+        </div>
+        <Typography className={classes.title} gutterBottom>
           Véhicules disponibles:
         </Typography>
-          {cardata&&cardata.map(car=><div ><VehiculeDispo car={car} className={classes.card} /></div>)}
-         <br/><br/>         <br/><br/>
-         <br/><br/>         <br/><br/>
-          </div>
-      
-        </div>
-        
+
+        {cardata && cardata.map(car => <div ><VehiculeDispo car={car} className={classes.card} /></div>)}
+        <br /> <br /> <br /> <br /> <br /> <br />
+
+      </div>
+    </div>
   );
 }
 

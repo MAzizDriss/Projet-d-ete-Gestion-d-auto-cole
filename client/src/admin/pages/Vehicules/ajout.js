@@ -1,18 +1,15 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import './Vehicules.css'
-import Rating from '@material-ui/lab/Rating';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import {
+    TextField, Typography, Box, InputLabel, makeStyles,
+    MenuItem, FormControl, Select
+} from '@material-ui/core';
+import { Rating } from '@material-ui/lab';
 import { useHistory } from 'react-router';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import validator from 'validator';
 import axios from 'axios'
 import './Vehicules.css'
 
+// CSS
 const useStyles = makeStyles((theme) => ({
     root: {
         '& > *': {
@@ -22,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
         },
         marginTop: '3vw',
         textAlign: 'center'
-
     },
     Rating: {
         marginLeft: 450,
@@ -36,14 +32,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 const Ajout = () => {
-    const history = useHistory();
-    const classes = useStyles();
+    const history = useHistory(); //Router
+    const classes = useStyles();  //Pour utiliser les css au dessus
+
+    //La vérification des champs
     const [errMarque, seterrMarque] = React.useState(false)
     const [errModele, seterrModele] = React.useState(false)
     const [errSerie, seterrSerie] = React.useState(false)
+    const [errLink, seterrLink] = React.useState(false)
     const [errDA, seterrDA] = React.useState(false)
     const [ErrMessageDA, setErrMessageDA] = React.useState(false)
-    const [errLink, seterrLink] = React.useState(false)
     const [errVignette, seterrVignette] = React.useState(false)
     const [errAssurance, seterrAssurance] = React.useState(false)
     const [errDispo, seterrDispo] = React.useState(false)
@@ -53,6 +51,8 @@ const Ajout = () => {
     const [errJGE, seterrJGE] = React.useState(false)
     const [ErrMessageDate, setErrMessageDate] = React.useState(false)
     const [errDate, seterrDate] = React.useState(false)
+
+    //Le remplissage des champs
     const [marque, setmarque] = React.useState('');
     const handleMarqueChange = (event) => {
         setmarque(event.target.value);
@@ -88,7 +88,7 @@ const Ajout = () => {
         setdisponibilite(event.target.value)
         seterrDispo(false)
     };
-    const [vig, setvig] = React.useState('')
+    const [vignette, setvig] = React.useState('')
     const handleVigChange = (event) => {
         setvig(event.target.value)
         seterrVignette(false)
@@ -123,25 +123,31 @@ const Ajout = () => {
         setegj(event.target.value);
         seterrJGE(false)
     };
+
+    //Submit
     const handleSubmit = (event) => {
         event.preventDefault()
+        //Date instantanée pour comparer
         var today = new Date();
-        const date1 = selectedDateV.toString()
-        const year = parseInt(date1.substring(0, 4), 10)
-        const month = parseInt(date1.substring(6, 8))
-        const day = parseInt(date1.substring(8, 11))
+        //toString : convertir la date selectionné en String pour une manipulation plus facile
+        const dateVselected = selectedDateV.toString()
+        const year = parseInt(dateVselected.substring(0, 4), 10)
+        const month = parseInt(dateVselected.substring(6, 8))
+        const day = parseInt(dateVselected.substring(8, 11))
         const monthToday = today.getUTCMonth() + 1
-        const compareY = today.getUTCFullYear() > year;
+        const compareY = today.getUTCFullYear() > year; //L'année aujourd'hui est elle plus grande que celle sélectionnée ?
         console.log(compareY);
         const compareD = (today.getUTCDate() > day && (monthToday == month) && (today.getUTCFullYear() == year))
+        /*Le jour aujourd'hui est il plus grande que celui sélectionné ? tout en vérifiant qu'il s'agit de la même année et le même mois*/
         console.log(compareD);
         const compareM = (monthToday > month && today.getUTCFullYear() == year);
         console.log(compareM);
+        //Le mois aujourd'hui est il plus grande que celui sélectionné ? Tout en vérifiant qu'il s'agit de la même année
         if (compareY) {
             seterrDate(true)
             setErrMessageDate("L'année choisie est dépassée")
         }
-
+        //Si l'année est dépassée, errer de sélection
         if (compareM) {
             seterrDate(true)
             setErrMessageDate("Le mois choisi est dépassé")
@@ -150,19 +156,19 @@ const Ajout = () => {
         if (compareD) {
             setErrMessageDate("Le jour choisi est dépassé")
             seterrDate(true)
-
         }
-
-        const date2 = selectedDateA.toString()
-        const year2 = parseInt(date2.substring(0, 4), 10)
-        const month2 = parseInt(date2.substring(6, 8))
-        const day2 = parseInt(date2.substring(8, 11))
-        const compareYear = today.getUTCFullYear() > year2;
+        //Même résonnement pour le jour d'achat..
+        const selectedDayA = selectedDateA.toString()
+        const yearDA = parseInt(selectedDayA.substring(0, 4), 10)
+        const monthDA = parseInt(selectedDayA.substring(6, 8))
+        const dayDA = parseInt(selectedDayA.substring(8, 11))
+        const compareYear = today.getUTCFullYear() > yearDA;
         console.log(compareYear);
-        const compareDays = (today.getUTCDate() > day2 && (monthToday == month2) && (today.getUTCFullYear() == year2))
+        const compareDays = (today.getUTCDate() > dayDA && (monthToday == monthDA) && (today.getUTCFullYear() == yearDA))
         console.log(compareDays);
-        const compareMonths = (monthToday > month2 && today.getUTCFullYear() == year2);
+        const compareMonths = (monthToday > monthDA && today.getUTCFullYear() == yearDA);
         console.log(compareMonths);
+
         if (compareYear) {
             seterrDA(true)
             setErrMessageDA("L'année choisie est dépassée")
@@ -176,10 +182,17 @@ const Ajout = () => {
         if (compareDays) {
             setErrMessageDA("Le jour choisi est dépassé")
             seterrDA(true)
-
         }
 
-        if (!marque || !modele || !serie || !disponibilite || !vig || !ass || !epp || !egp || !epj || !egj) {
+        if(imageLink != ''){
+            if(!validator.isURL(imageLink))
+            {
+                seterrLink(true)
+            }
+        }
+
+        if (!marque || !modele || !serie || !disponibilite || vignette=="" || !ass || !epp || !egp || !epj || !egj) {
+            //champs vides
             alert('ATTENTION! Veuillez vérifier les champs')
             if (modele == '') {
                 seterrModele(true)
@@ -190,7 +203,7 @@ const Ajout = () => {
             if (!serie) {
                 seterrSerie(true)
             }
-            if (!vig) {
+            if (vignette == "") {
                 seterrVignette(true)
             }
             if (!ass) {
@@ -222,13 +235,14 @@ const Ajout = () => {
             etat: etat,
             visiteTech: selectedDateV,
             dateAchat: selectedDateA,
-            vignettes: vig,
+            vignettes: vignette,
             assurances: ass,
             periodeP: parseInt(epp),
             periodeG: parseInt(egp),
             jourP: parseInt(epj),
             jourG: parseInt(egj),
         }
+
         if (imageLink !== '') vehicule.imageLink = imageLink
         console.log(vehicule)
 
@@ -238,7 +252,6 @@ const Ajout = () => {
             }
         }).then(() => { history.push('/Vehicules'); })
             .catch((err) => console.log(err))
-
 
     }
     return (
@@ -287,7 +300,7 @@ const Ajout = () => {
                     />}
                 <br />
                 {errLink ?
-                    <TextField error helperText="Le lien de la photo est obligatoire" id="Link" label="imageLink" onChange={handleLinkChange} /> :
+                    <TextField error helperText="Le lien de la photo est invalide" id="Link" label="imageLink" onChange={handleLinkChange} /> :
                     <TextField id="Link" label="imageLink" onChange={handleLinkChange} />}
                 <br />
 
@@ -305,11 +318,11 @@ const Ajout = () => {
                 <br />
                 {errVignette ?
                     <FormControl className={classes.formControl}>
-                        <InputLabel error helperText="L'état des vignettes est obligatoire" id="vig" label="Vignettes" onChange={handleVigChange}>Vignettes</InputLabel>
+                        <InputLabel error helperText="L'état des vignettes est obligatoire" id="vignette" label="Vignettes" onChange={handleVigChange}>Vignettes</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="papier"
-                            value={vig}
+                            value={vignette}
                             onChange={handleVigChange}
                         >
                             <MenuItem value={true}>Vérifiées</MenuItem>
@@ -317,11 +330,11 @@ const Ajout = () => {
                         </Select>
                     </FormControl> :
                     <FormControl className={classes.formControl}>
-                        <InputLabel id="vig" label="Vignettes" onChange={handleVigChange}>Vignettes</InputLabel>
+                        <InputLabel id="vignette" label="Vignettes" onChange={handleVigChange}>Vignettes</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="papier"
-                            value={vig}
+                            value={vignette}
                             onChange={handleVigChange}
                         >
                             <MenuItem value={true}>Vérifiées</MenuItem>
@@ -398,37 +411,37 @@ const Ajout = () => {
                     <TextField id="E2" label="periode de grand entretien" onChange={handleEgPChange} />}
                 <br />
                 {errJGE ?
-                                <TextField error helperText="Le jour du grand entretien est obligatoire" id="E20" label="Jour de mois du grand entretien" onChange={handleEgJChange} />
-:
-                <TextField id="E20" label="Jour de mois du grand entretien" onChange={handleEgJChange} />}
+                    <TextField error helperText="Le jour du grand entretien est obligatoire" id="E20" label="Jour de mois du grand entretien" onChange={handleEgJChange} />
+                    :
+                    <TextField id="E20" label="Jour de mois du grand entretien" onChange={handleEgJChange} />}
                 <br />
-{errDate ?
-    <TextField
-    error
-    helperText={ErrMessageDate}
-                    id="datetime-local-Entretien"
-                    label="Date de visite technique"
-                    type="datetime-local"
-                    defaultValue="2022-01-01T10:30"
-                    className={classes.textField}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    onChange={handleDateEChange}
-                /> :
-                <TextField
-                    id="datetime-local-Entretien"
-                    label="Date de visite technique"
-                    type="datetime-local"
-                    defaultValue="2022-01-01T10:30"
-                    className={classes.textField}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    onChange={handleDateEChange}
-                />}
+                {errDate ?
+                    <TextField
+                        error
+                        helperText={ErrMessageDate}
+                        id="datetime-local-Entretien"
+                        label="Date de visite technique"
+                        type="datetime-local"
+                        defaultValue="2022-01-01T10:30"
+                        className={classes.textField}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={handleDateEChange}
+                    /> :
+                    <TextField
+                        id="datetime-local-Entretien"
+                        label="Date de visite technique"
+                        type="datetime-local"
+                        defaultValue="2022-01-01T10:30"
+                        className={classes.textField}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={handleDateEChange}
+                    />}
                 <br />
-                <button className="button" style={{ width: '10vw', marginLeft: '30vw', textAlign: 'center', marginBottom: '3vh', fontFamily:"Avanta Garde" }} onSubmit={handleSubmit}>Ajouter</button>
+                <button className="button" style={{ width: '10vw', marginLeft: '30vw', textAlign: 'center', marginBottom: '3vh', fontFamily: "Avanta Garde" }} onSubmit={handleSubmit}>Ajouter</button>
             </form>
         </div>
     )

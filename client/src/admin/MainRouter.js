@@ -6,7 +6,6 @@ import Employes from './pages/Employes/Employes';
 import Candidats from './pages/Candidats/Candidats';
 import Calendrier from './pages/Calendrier/Calendrier';
 import Vehicules from './pages/Vehicules/Vehicules';
-import Tests from './pages/Candidats/tests';
 import AddSession from './pages/Calendrier/AddSession';
 import Formulaire from './pages/Candidats/Formulaire';
 import EditSession from './pages/Calendrier/EditSession';
@@ -35,7 +34,6 @@ function MainRouter() {
           <Route exact path='/login' component={Signin} />
           <Route exact path='/test' component={Test} />
           <ProtectedAdminRoute exact path='/Calendrier' component={Calendrier} />
-          <ProtectedAdminRoute exact path='/Candidats/Tests' component={Tests} />
           <ProtectedAdminRoute exact path='/Candidats' component={Candidats} />
           <ProtectedAdminRoute exact path='/Employes' component={Employes} />
           <ProtectedAdminRoute exact path='/Vehicules' component={Vehicules} />

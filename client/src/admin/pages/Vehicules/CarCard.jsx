@@ -1,16 +1,10 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
+import React from "react";
+import {
+  makeStyles, Card, CardContent, Button, Typography, Box,
+  InputLabel, FormControl, NativeSelect, CardMedia
+} from "@material-ui/core";
 import Rating from '@material-ui/lab/Rating';
-import Box from '@material-ui/core/Box';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import CardMedia from '@material-ui/core/CardMedia';
-import {GoAlert} from 'react-icons/go'
+import { GoAlert } from 'react-icons/go'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -95,45 +89,47 @@ function nextDate(date, jour, period) {
   let years = (new Date()).getFullYear() - (date.getFullYear() + 1)
   if (years < 0) {
     years = 0;
-    months = (new Date()).getMonth() - date.getMonth() 
+    months = (new Date()).getMonth() - date.getMonth()
   }
   else { months += (12 - date.getMonth()) + (new Date()).getMonth() + 1 }
   months += years * 12
   let next_month = 0
   if (months % period === 0) {
-    next_month = new Date().getMonth()+1;
+    next_month = new Date().getMonth() + 1;
     if (jour > (new Date()).getDate() || months === 0) {
       next_month += period
     }
   }
-  else { next_month = period - (months % period) + (new Date()).getMonth() + 2 
-}
+  else {
+    next_month = period - (months % period) + (new Date()).getMonth() + 2
+  }
 
   if (next_month > 12) {
-   let month = next_month % 12
+    let month = next_month % 12
 
     return ((new Date().getFullYear() + Math.floor(next_month / 12)) + '-' + month + '-' + jour)
   }
 
-  return ((new Date().getFullYear()) + '-' + (next_month+1) + '-' + jour)
+  return ((new Date().getFullYear()) + '-' + (next_month + 1) + '-' + jour)
 
 }
-function isThisMonth(nextDate){
+function isThisMonth(nextDate) {
   let date = new Date(nextDate)
-  date.setDate(date.getDate()-30)
-  return (date<= new Date())
+  date.setDate(date.getDate() - 30)
+  return (date <= new Date())
 }
 
 export default function CarCard({ car }) {
-  {console.log(isThisMonth('2'))}
+  { console.log(isThisMonth('2')) }
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [epthismonth,setepthismont]=React.useState()
-  const [egthismonth,setgpthismont]=React.useState(car.entretienG?new Date(nextDate(new Date(car.dateAchat), car.entretienG.jour, car.entretienG.periode)).getMonth()
-  ===new Date().getMonth():'')
+  const [epthismonth, setepthismont] = React.useState()
+  const [egthismonth, setgpthismont] = React.useState(car.entretienG ? new Date(nextDate(new Date(car.dateAchat), car.entretienG.jour, car.entretienG.periode)).getMonth()
+    === new Date().getMonth() : '')
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
   return (
 
     <Card className={classes.root} variant="outlined" key={car.id}>
@@ -147,10 +143,6 @@ export default function CarCard({ car }) {
           <br /><br />
           <Typography className={classes.heading}> {car.marque} {car.modele}</Typography>
           <Typography className={classes.secondaryHeading}>{car.disponibilite}</Typography>
-
-          <Typography variant="h5" component="h2">
-
-          </Typography>
           <div className={classes.date}>
             <Typography>
               Date d'achat : {(car.dateAchat) && car.dateAchat.substring(0, 10)}
@@ -160,7 +152,6 @@ export default function CarCard({ car }) {
               Date de visite technique : {(car.visiteTech) && car.visiteTech.substring(0, 10)}
             </Typography>
           </div>
-
           <div>
             <Box className={classes.etat} component="fieldset" mb={3} borderColor="transparent">
               <Typography component="legend">Etat du véhicule</Typography>
@@ -173,12 +164,12 @@ export default function CarCard({ car }) {
           </div>
           <div className={classes.entretien}>
             <Typography>
-           {car.entretienP && isThisMonth(nextDate(new Date(car.dateAchat), car.entretienP.jour, car.entretienP.periode))&& <GoAlert style={{fill:'red' ,marginRight:'2%'}}/>} 
-              Date du prochain petit entretien : <span style={{ color: '#f5bd1f',fontSize:'1.2rem' }}> {car.entretienP && nextDate(new Date(car.dateAchat), car.entretienP.jour, car.entretienP.periode)}</span>
+              {car.entretienP && isThisMonth(nextDate(new Date(car.dateAchat), car.entretienP.jour, car.entretienP.periode)) && <GoAlert style={{ fill: 'red', marginRight: '2%' }} />}
+              Date du prochain petit entretien : <span style={{ color: '#f5bd1f', fontSize: '1.2rem' }}> {car.entretienP && nextDate(new Date(car.dateAchat), car.entretienP.jour, car.entretienP.periode)}</span>
             </Typography >
             <Typography>
-            {car.entretienG && isThisMonth(nextDate(new Date(car.dateAchat), car.entretienG.jour, car.entretienG.periode))&& <GoAlert style={{fill:'red' ,marginRight:'2%'}}/>} 
-              Date du prochain grand entretien :  <span style={{ color: 'red',fontSize:'1.2rem'  }}>{car.entretienG ? nextDate(new Date(car.dateAchat), car.entretienG.jour, car.entretienG.periode) : 'nope'}</span>
+              {car.entretienG && isThisMonth(nextDate(new Date(car.dateAchat), car.entretienG.jour, car.entretienG.periode)) && <GoAlert style={{ fill: 'red', marginRight: '2%' }} />}
+              Date du prochain grand entretien :  <span style={{ color: 'red', fontSize: '1.2rem' }}>{car.entretienG ? nextDate(new Date(car.dateAchat), car.entretienG.jour, car.entretienG.periode) : 'nope'}</span>
             </Typography >
           </div>
           <div>
@@ -195,16 +186,13 @@ export default function CarCard({ car }) {
               </NativeSelect>
             </FormControl>
           </div>
-
           <div className={classes.icons}>
             <Button href={`/Vehicules/Formulaire/${car.id}`} variant="contained" color="secondary" style={{ marginLeft: '30%', width: '40%', marginTop: '-29%' }}>
               <center style={{ marginRight: '15%' }} >Modifier</center>
             </Button>
           </div>
         </CardContent>
-
       </div>
-
     </Card>
   );
 }

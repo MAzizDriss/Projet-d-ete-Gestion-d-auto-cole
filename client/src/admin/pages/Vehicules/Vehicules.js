@@ -1,10 +1,8 @@
 import React from "react";
 import "./Vehicules.css";
 import Card from "./CarCard";
-import cars from "../Data/CarData";
-import { Grid } from "@material-ui/core";
+import { Grid, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import axios from "axios";
 
 const useStyles = makeStyles({

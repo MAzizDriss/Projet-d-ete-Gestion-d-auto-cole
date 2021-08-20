@@ -1,7 +1,5 @@
 import React from 'react';
-import { AppBar } from '@material-ui/core';
-import { Container } from '@material-ui/core';
-import { Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Container, Toolbar, Typography } from '@material-ui/core';
 export default function Footer() {
     return (
         <AppBar position="static" style={{backgroundColor: "#060b26"}}>

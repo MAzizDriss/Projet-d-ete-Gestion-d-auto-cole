@@ -25,6 +25,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 const Formulaire = () => {
+    const classes = useStyles();
+    const history = useHistory();
     const { id } = useParams()
     const [candidat, setcandidat] = useState()
     const [ErrName, setErrName] = useState(false)
@@ -32,8 +34,7 @@ const Formulaire = () => {
     const [conduite, setconduite] = useState()
     const [name, setname] = useState('');
     const [payement, setpayement] = useState('')
-    const classes = useStyles();
-    const history = useHistory();
+
     React.useEffect(() => {
         axios.get(`http://localhost:3001/api/admin/client/${id}`, {
             headers: {
@@ -88,7 +89,6 @@ const Formulaire = () => {
                 history.push('/candidats')
             }
             ).catch(err => console.log(err))
-
     }
 
     return (
@@ -141,7 +141,7 @@ const Formulaire = () => {
                 </FormControl>
                 <br />
                 <br />
-                <button className="button" onSubmit={handleSubmit} style={{ marginTop: '3%', width: '15%', marginLeft:'25vw' }}>
+                <button className="button" onSubmit={handleSubmit} style={{ marginTop: '3%', width: '15%', marginLeft: '25vw' }}>
                     <center style={{ marginRight: '10%' }} >Enregistrer</center>
                 </button>
             </form>

@@ -45,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Formulaire = () => {
+    const classes = useStyles();
+    const history = useHistory();
+    const { id } = useParams();
     const [errMarque, seterrMarque] = React.useState(false)
     const [errModele, seterrModele] = React.useState(false)
     const [errPPE, seterrPPE] = React.useState(false)
@@ -53,9 +56,6 @@ const Formulaire = () => {
     const [errJGE, seterrJGE] = React.useState(false)
     const [ErrMessageDate, setErrMessageDate] = React.useState(false)
     const [errDate, seterrDate] = React.useState(false)
-
-
-    const { id } = useParams()
     const [disp, setdisp] = useState()
     const [car, setcar] = useState({})
     const [modele, setmodele] = useState()
@@ -84,10 +84,6 @@ const Formulaire = () => {
         })
             .catch((err) => console.log(err))
     }, [])
-    const classes = useStyles();
-    const history = useHistory();
-
-
 
     const handleClicked = (event) => {
         setdisp(event.target.value === 'true')
@@ -170,8 +166,6 @@ const Formulaire = () => {
             seterrDate(true)
 
         }
-
-
 
         if (!marque || !modele || !epp || !egp || !epj || !egj) {
             alert('ATTENTION! Veuillez vérifier les champs')
@@ -268,7 +262,7 @@ const Formulaire = () => {
                 <br />
                 {value ? <div>
                     <FormControl className={classes.formControl} >
-                        <InputLabel >Disponabilte</InputLabel>
+                        <InputLabel >Disponibilité</InputLabel>
                         <Select
                             value={disp}
                             native
@@ -322,8 +316,8 @@ const Formulaire = () => {
                             }}
                         />
                     </Box>
-
-                </div> : ''}
+                </div>
+                : ''}
                 {selectedDate ? 
                 <>
                 {errDate ?
