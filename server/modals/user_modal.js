@@ -30,6 +30,16 @@ const userSchema = new schema({
         lowercase:true,
         validate:[validator.isEmail,'Entrer un e_mail valide']
     },
+    CIN:{
+        type:Number,
+        unique:true,
+        required:true
+    },
+    telephone:{
+        type:Number,
+        unique:true,
+        required:true
+    },
     payment:{
         type:Boolean,
         required:true,
@@ -49,6 +59,9 @@ const userSchema = new schema({
     conduite_exam:{
         type:Boolean,
         required:true
+    },
+    reclamations:{
+        type:Array
     },
     photo:String,
 

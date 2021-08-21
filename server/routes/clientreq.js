@@ -20,6 +20,8 @@ function update_validation(data, res) {
         name: Joi.string().min(4).required(),
         password: Joi.string().min(6),
         e_mail: Joi.string().min(6).required().email(), 
+        CIN:Joi.number().required(),
+        telephone:Joi.number().required()
     })
     const { error } = schema.validate(data)
     if (error) {
@@ -36,7 +38,9 @@ router.put('/update/:id',verify,async(req,res)=>{
     const action = await User.updateOne({id:id},{
         $set:{
             name:req.body.name,
-            e_mail:req.body.e_mail
+            e_mail:req.body.e_mail,
+            CIN:req.body.CIN,
+            telephone:req.body.telephone
         }
     })
     if(req.body.password){

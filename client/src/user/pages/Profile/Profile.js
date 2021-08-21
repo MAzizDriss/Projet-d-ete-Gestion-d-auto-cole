@@ -86,7 +86,7 @@ const Profile = () => {
 
           <div style={{ marginLeft: 50 }}>
 
-            <br /><br />
+            <br /><br /><br/>
             <h3>
               Nombre total de séances : <span className={classes.colorText}>{size} séances</span>
             </h3>
@@ -104,9 +104,19 @@ const Profile = () => {
             <br/><br/>
             {(user.payment) ? <>
                     <h3 style={{color:"green"}}><FcCheckmark/> Vous avez payé tout vos séances.</h3>
-                    <br /> </> : 
-                    <h3 style={{color:"red",fontFamily:"Gill Sans", textAlign:"center"}}><IoMdAlert/> Vous avez des séances non payés! Veuillez vérifier votre compte.</h3>
+                    <br /> </> : <>
+                    <h3 style={{color:"red",fontFamily:"Gill Sans",fontSize:'1.2rem', textAlign:"left",marginRight:'5%' }}><IoMdAlert/> Vous avez des séances non payés! Veuillez vérifier votre compte.</h3>
+                    </>
                     }
+          </div>
+          <br/>
+          <div style={{display:'inline-block',marginTop:'5%',marginLeft:'50%' ,width:'100%'}}>
+            <button className='button2' style={{width:'20%',marginLeft:'3%'}}>
+              Modifier
+            </button>
+            <button className='button2' style={{width:'20%',marginLeft:'3%'}}>
+              Paiement
+            </button>
           </div>
         </Box>
       </Grid>

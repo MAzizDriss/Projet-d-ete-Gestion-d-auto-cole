@@ -14,11 +14,14 @@ router.post('/register', async (req, res) => {
         id: (result.length>0 )?result[0].id+1: 1,
         name: req.body.name,
         password: hashedPassword,
+        CIN:req.body.cin,
+        telephone:req.body.telephone,
         role: (req.body.role)?req.body.role:'User',
         e_mail: req.body.e_mail,
         payment: false,
         finished: false,
         sessions: [],
+        reclamations:[],
         code_exam:false,
         conduite_exam:false,
     })
@@ -57,7 +60,9 @@ function register_validation(data, res) {
         name: Joi.string().min(4).required(),
         password: Joi.string().min(6).required(),
         e_mail: Joi.string().min(6).required().email(), 
-        role:Joi.string() 
+        role:Joi.string(),
+        CIN:Joi.number().required(),
+        telephone:Joi.number().required()
     })
     const { error } = schema.validate(data)
     if (error) {

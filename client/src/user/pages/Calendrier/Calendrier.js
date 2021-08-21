@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { Container } from "@material-ui/core";
+import Examen from "./Examen";
 
 function TabPanel(props) {
   const { children, value, index } = props;
@@ -37,7 +38,7 @@ const useStyles = makeStyles({
   },
 });
 
-const relativedate = new Date() 
+const relativedate = new Date()
 
 const Calendrier = () => {
 
@@ -47,7 +48,7 @@ const Calendrier = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  
+
   const [user, setuser] = React.useState()
   const [sessions, setsessions] = React.useState()
 
@@ -72,10 +73,14 @@ const Calendrier = () => {
 
   return (
     <div>
-      {console.log(sessions)}
-      <h1>HIIIIIIIIIII</h1>
-      {sessions && <center><ProchaineSession sessions={sessions}/></center>}
-{   sessions &&   <Container fixed>
+      <h1 className="title">Séances</h1>
+      <div style={{textAlign:'center'}}>
+      {sessions && user && <Examen user={user} sessions={sessions} type='f'/>}
+      {sessions && user && <Examen user={user} sessions={sessions} type='e'/>}
+      </div>
+      {sessions && <center><ProchaineSession sessions={sessions} /></center>}
+
+      {sessions && <Container fixed>
         <Paper className={classes.root}>
           <Tabs
             value={value}
@@ -89,7 +94,7 @@ const Calendrier = () => {
             <Tab label="Séances précédentes" />
           </Tabs>
           <TabPanel value={value} index={0} >
-            <SessionCard sessions={sessions}/>
+            <SessionCard sessions={sessions} />
           </TabPanel>
           <TabPanel value={value} index={1} >
             <SessionCard sessions={sessions.filter(s => new Date(s.date) > relativedate)} />

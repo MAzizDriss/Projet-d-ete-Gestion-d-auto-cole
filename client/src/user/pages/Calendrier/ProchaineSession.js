@@ -45,19 +45,16 @@ function closestsession(arr) {
   dates = dates.filter(d => d > relativedate)
   const date = datesArr.find(d => d === dates[0])
   const index = datesArr1.indexOf(new Date(date).toString())
-  console.log(index)
   return arr[index]
 }
 
 
 const ProchaineSeance = ({ sessions }) => {
-  console.log(sessions)
   const [client, setclient] = React.useState({})
   const [Nextsession, setNextsession] = React.useState(closestsession(sessions))
   const classes = useStyles();
   return (
     <>
-    {console.log(Nextsession)}
 {    Nextsession &&   <Card className={classes.root} variant="outlined">
         <CardContent>
           <Typography className={classes.title} color="textSecondary" gutterBottom>
