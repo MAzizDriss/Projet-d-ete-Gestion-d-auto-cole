@@ -3,6 +3,7 @@ import { Bubble } from 'tsparticles/Options/Classes/Interactivity/Modes/Bubble';
 import MainRouter from './admin/MainRouter';
 import MainRouterUser from './user/MainRouterUser';
 import axios from 'axios'
+import MainRouterVisiteur from './auth/MainRouterVisiteur';
 function App() {
   const [user, setuser] = React.useState({})
   React.useEffect(() => {
@@ -17,7 +18,13 @@ function App() {
   }, [])
   return (
     <div>
+      {console.log(user.role)}
+      {!(user.role) ? <MainRouterVisiteur/> :
+      <>
       {(user.role==="Admin")?<MainRouter/>:<MainRouterUser/>}
+      </>
+  }
+
     </div>
   );
 };
