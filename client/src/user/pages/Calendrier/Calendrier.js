@@ -53,7 +53,6 @@ const Calendrier = () => {
   const [sessions, setsessions] = React.useState()
 
   React.useEffect(() => {
-    var client
     axios.get('http://localhost:3001/api/auth', {
       headers: {
         "auth-token": localStorage.getItem('token')

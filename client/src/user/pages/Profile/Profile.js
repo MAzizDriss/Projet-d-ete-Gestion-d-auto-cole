@@ -14,6 +14,7 @@ import bg2 from './images/bg2.jpg'
 import bg3 from './images/bg3.jpg'
 import bg4 from './images/bg4.jpg'
 import Particles from 'react-particles-js';
+import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -104,19 +105,19 @@ const Profile = () => {
             <br/><br/>
             {(user.payment) ? <>
                     <h3 style={{color:"green"}}><FcCheckmark/> Vous avez payé tout vos séances.</h3>
-                    <br /> </> : <>
+                    <br /> </> :
                     <h3 style={{color:"red",fontFamily:"Gill Sans",fontSize:'1.2rem', textAlign:"left",marginRight:'5%' }}><IoMdAlert/> Vous avez des séances non payés! Veuillez vérifier votre compte.</h3>
-                    </>
+            
                     }
           </div>
           <br/>
           <div style={{display:'inline-block',marginTop:'5%',marginLeft:'50%' ,width:'100%'}}>
-            <button className='button2' style={{width:'20%',marginLeft:'3%'}}>
+            <Link to="/user/Profile/edit" style={{textDecoration:'none',}}><button href="/user/Profile/edit" className='button2' style={{width:'20%',marginLeft:'3%'}}>
               Modifier
-            </button>
-            <button className='button2' style={{width:'20%',marginLeft:'3%'}}>
+            </button></Link>
+            <Link to="/user/paiement" style={{textDecoration:'none',}}> <button className='button2' style={{width:'20%',marginLeft:'3%'}}>
               Paiement
-            </button>
+            </button></Link>
           </div>
         </Box>
       </Grid>

@@ -53,6 +53,23 @@ router.put('/update/:id',verify,async(req,res)=>{
     res.send('updated the user !')
 
 })
+router.put('/paiement/:id',verify,async(req,res)=>{
+    const id=req.user.userData.id
+    const role=req.user.userData.role
+    if (role!=='User' || id!== parseInt(req.params.id)) return res.status(400).send('Not authorized!')
+    const schema = Joi.object({payment:Joi.boolean().required()})
+    const { error } = schema.validate(req.body)
+    if (error) {
+        res.status(400).send(error.details[0].message)
+    }
+    const action = await User.updateOne({id:id},{
+        $set:{
+            payment:req.body.payment
+        }
+    })
+    res.send('updated !')
+
+})
 
 
 module.exports = router
