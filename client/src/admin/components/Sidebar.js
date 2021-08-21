@@ -53,7 +53,7 @@ entre SidebarJs et NavbarJs*/ {
               <div>
                 <img className="logo" src={logo} />
               </div>
-              <div className='Title'>
+              <div className='Titles'>
                 <h3>Auto école SITI</h3>
               </div>
             </Link>

@@ -110,14 +110,14 @@ span {
   float: left;
 }
 
-.Title{
+.Titles{
   box-sizing: border-box;
   float:right;
   margin-right: 10vh; /*6vh*/
   margin-top: 4vh ;
   color: #f2e9e4;
 }
-.Title :hover {
+.Titles :hover {
   color:#52ab98;
   transition: all 0.3s;
 }

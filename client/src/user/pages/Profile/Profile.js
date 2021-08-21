@@ -75,7 +75,7 @@ const Profile = () => {
         >
           <Grid style={{ backgroundColor: "#3a506b", }}>
             <Box style={{ backgroundColor: "#0b132b", padding: 70 }}>
-           <center style={{marginRight:"80px"}}>   <div className="Title">
+           <center style={{marginRight:"80px"}}>   <div className="Titles">
                 <h1>{user.name}</h1>
                 <hr className="hr" />
                 <div className="sousTitre">
