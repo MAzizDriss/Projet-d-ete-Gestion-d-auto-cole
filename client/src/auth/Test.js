@@ -3,7 +3,6 @@ import axios from 'axios'
 
 const Test = () => {
     const [user, setuser] = React.useState({})
-    const [post, setpost] = React.useState({})
     React.useEffect(() => {
         axios.get('http://localhost:3001/api/auth', {
             headers: {

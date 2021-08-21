@@ -3,10 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom'
 import Typography from '@material-ui/core/Typography';
-import clients from '../Data/ClientData';
-import employee from '../Data/Employee';
+
+import axios from 'axios'
 
 const useStyles = makeStyles({
   root: {
@@ -30,35 +30,48 @@ const useStyles = makeStyles({
     marginBottom: 12,
   },
 });
-const ProchaineSession = ({ session }) => {
+
+const relativedate = new Date()
+
+//fonction pour retourner la seance la plus proche: 
+function closestsession(arr) {
+  let datesArr1 = arr.map(item => new Date(item.date).toString())
+  const datesArr = arr.map(item => new Date(item.date))
+  let dates = datesArr.sort(function (a, b) {
+    var distancea = Math.abs(relativedate - a);
+    var distanceb = Math.abs(relativedate - b);
+    return distancea - distanceb;
+  })
+  dates = dates.filter(d => d > relativedate)
+  const date = datesArr.find(d => d === dates[0])
+  const index = datesArr1.indexOf(new Date(date).toString())
+  console.log(index)
+  return arr[index]
+}
+
+
+const ProchaineSeance = ({ sessions }) => {
+  console.log(sessions)
+  const [client, setclient] = React.useState({})
+  const [Nextsession, setNextsession] = React.useState(closestsession(sessions))
   const classes = useStyles();
   return (
-    <Card className={classes.root} variant="outlined">
-      <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Prochaine Séance:
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          {session.date.toString().substring(0,21)}
-        </Typography>
-        <Typography variant="h5" component="h2">
-          {clients[session.client - 1].name}
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          {session.ref}
-        </Typography>
-        <Typography variant="body2" component="p">
-          Teacher : {employee[session.employee - 1].name}
-          <br />
-          {(session.vehicule != null) ? `véhicule :${session.vehicule}` : ''}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button href='/Sessions/add' variant="contained" color="secondary" style={{marginLeft:'80%',width:'40%'}}>
-         <center style={{marginRight:'15%'}} >Ajouter une séance</center>
-        </Button>
-      </CardActions>
-    </Card>
+    <>
+    {console.log(Nextsession)}
+{    Nextsession &&   <Card className={classes.root} variant="outlined">
+        <CardContent>
+          <Typography className={classes.title} color="textSecondary" gutterBottom>
+            Prochaine Séance:
+          </Typography>
+          <Typography className={classes.pos} color="textSecondary">
+            {new Date(Nextsession.date).toString().substring(0, 21)}
+          </Typography>
+          <Typography className={classes.pos} color="textSecondary">
+            {Nextsession.ref[0]==='c'?'Séance de code':'Séance de conduite'}
+          </Typography>
+        </CardContent>
+      </Card>}
+    </>
   );
 }
-export default ProchaineSession
+export default ProchaineSeance

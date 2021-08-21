@@ -1,72 +1,63 @@
-import React, { useState } from 'react';
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
-import { MdExpandMore } from 'react-icons/md'
-import clients from '../Data/ClientData';
-import employee from '../Data/Employee';
-import { BsPencilSquare } from 'react-icons/bs'
-import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    flexGrow: 1,
+    maxWidth: 752,
+  },
+  demo: {
+    fontSize:'87px',
+
+  },
+  title: {
+    fontSize:20,
+    margin: theme.spacing(4, 0, 2),
   },
   heading: {
-    fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
-    flexShrink: 0,
-    color:'#0B132B'
+    fontSize:20,
+    letterSpacing:1,
+    textAlign:'center',
+
   },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
-    marginRight: '5%'
+    textAlign:'center'
   },
 }));
-
-export default function SessionCard({ sessions }) {
-  const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
-  const [sessdata, setsessdata] = useState(sessions)
-  const [clientdata, setclientdata] = useState(clients)
-  const [empdata, setempdata] = useState(employee)
-
-  return (
-
-    <div className={classes.root}>
-      {sessdata.map(s =>
-        <Accordion expanded={expanded === s.ref} onChange={handleChange(s.ref)} key={s.ref}>
-          <AccordionSummary
-            expandIcon={<MdExpandMore />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-          
-          >
-            <Typography className={classes.heading}>{clientdata[s.client - 1].name}</Typography>
-            <Typography className={classes.secondaryHeading} >{s.date.toString().substring(0, 21)}</Typography>
-          </AccordionSummary>
-          <AccordionDetails >
-            <Typography className={classes.secondaryHeading} >
-              {s.ref}
-            </Typography>
-            <br />
-            <Typography className={classes.secondaryHeading}>
-              Teacher : {empdata[s.employee - 1].name}
-            </Typography>
-            <Typography className={classes.secondaryHeading} >
-              {(s.vehicule != null) ? `véhicule :${s.vehicule}` : ''}
-            </Typography>
-            <Link to={`/Sessions/edit/${s.ref}`} style={{ position: 'absolute', left: '94.6%' }} ><BsPencilSquare style={{ fill: '#3A506B' }} /></Link>
-          </AccordionDetails>
-        </Accordion>)}
-
-    </div>
-  );
+function sessionname (c) {
+  if(c==='c') return 'Séance de code'
+  if(c==='p') return 'Séance de conduite'
+  if(c==='e') return 'Examen de conduite'
+  if(c==='f') return 'Examen de code'
 }
+const SessionCard = ({sessions}) => {
+
+
+  const [spacing, setSpacing] = React.useState(2);
+  const classes = useStyles();
+  return (
+    
+    <div>
+         <div className={classes.demo}>
+            <List dense={false}>
+              {sessions.map(s=>
+                <ListItem key={s.ref}>
+                  <ListItemText
+                    primary={<Typography className={classes.heading}>{sessionname(s.ref[0])}</Typography>}
+                    secondary={<Typography className={classes.secondaryHeading}>{s.date.substring(0,10)}</Typography>}
+                    />
+                </ListItem>
+              )}
+            </List>
+          </div>
+    </div>
+  )
+}
+
+export default SessionCard

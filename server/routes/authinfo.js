@@ -3,6 +3,6 @@ const verify = require('./verifyToken')
 
 router.get('/',verify,(req,res)=>{
     const user = req.user
-   res.json(user)
+    res.json(user)
 })
 module.exports = router
