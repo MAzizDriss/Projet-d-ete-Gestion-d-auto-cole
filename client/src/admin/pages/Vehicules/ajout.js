@@ -191,7 +191,7 @@ const Ajout = () => {
             }
         }
 
-        if (!marque || !modele || !serie || !disponibilite || vignette=="" || !ass || !epp || !egp || !epj || !egj) {
+        if (!marque || !modele || !serie || !epp || !egp || !epj || !egj) {
             //champs vides
             alert('ATTENTION! Veuillez vérifier les champs')
             if (modele == '') {
