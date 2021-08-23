@@ -2,7 +2,14 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios'
-
+import Grid from '@material-ui/core/Grid';
+import { RiLockPasswordLine } from 'react-icons/ri';
+import { SiMailDotRu } from 'react-icons/si';
+import {VscAccount} from 'react-icons/vsc';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import logo from './images/logo.png'
+import Paper from '@material-ui/core/Paper';
+import './CSS/Signup.css'
 const useStyles = makeStyles((theme) => ({
     root: {
         '& > *': {
@@ -11,6 +18,20 @@ const useStyles = makeStyles((theme) => ({
         },
         marginTop: '4vw',
         textAlign: 'center'
+    },
+    paper: {
+        height: 500,
+        width: 800,
+        display: "flex",
+        flexDirection: "row",
+        marginTop: "4.5vh",
+        marginBottom: "4.3vh"
+    },
+    control: {
+        padding: theme.spacing(2),
+    },
+    form: {
+        width: 400
     },
 }));
 const Signup = () => {
@@ -33,44 +54,83 @@ const Signup = () => {
 
         const client = {
             name: name,
-            e_mail:email,
-            password:password
-          }
+            e_mail: email,
+            password: password
+        }
         console.log(client)
         const nomel = document.querySelector('#Nom')
         const emailel = document.querySelector('#e_mail')
         const passel = document.querySelector('#password')
         nomel.value = ''
         emailel.value = ''
-        passel.value=''
+        passel.value = ''
         setname('')
         setemail('')
         setpassword('')
-        axios.post('http://localhost:3001/api/user/register',client).then((result)=>{console.log(result)
-        window.location.replace("http://localhost:3000/login");})
-        .catch((err)=>console.log(err))
-      
-       
+        axios.post('http://localhost:3001/api/user/register', client).then((result) => {
+            console.log(result)
+            window.location.replace("http://localhost:3000/login");
+        })
+            .catch((err) => console.log(err))
+
+
     }
 
     return (
         <div>
-            <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} >
-                <h1 style={{ color: '#3A506B' }}>Sign Up</h1>
-                <TextField id="Nom" label="Nom" onChange={handleNameChange} />
-                <br />
-                <TextField type='email' id="e_mail" label="E_mail" onChange={handleEmailChange} />
-                <br />
-                <TextField
-                    id="password"
-                    label="Mot de passe"
-                    type="password"
-                    autoComplete="current-password"
-                    onChange={handlePasswordChange}
-                />
-                <br />
-                <button style={{ width: '18vw', marginLeft: '20vw', textAlign: 'center' }} onSubmit={handleSubmit}>Ajouter</button>
-            </form>
+            <Grid container className={classes.root} spacing={2}>
+                <Grid item xs={12}>
+                    <Grid container justifyContent="center" >
+                        <Grid>
+                            <Paper className={classes.paper}>
+                                <form className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmit} >
+                                    <h1 style={{ color: '#3A506B', marginTop: "6vh" }}>Inscription</h1>
+
+                                    <Grid style={{ margin: 70 }} >
+                                        <Grid container spacing={1} alignItems="flex-end">
+                                            <Grid item>
+                                                <VscAccount />
+                                            </Grid>
+                                            <Grid item>
+                                                <TextField id="Nom" label="Nom" onChange={handleNameChange} />
+                                            </Grid>
+                                        </Grid>
+                                        <br />
+                                        <Grid container spacing={1} alignItems="flex-end">
+                                            <Grid item>
+                                                <SiMailDotRu />
+                                            </Grid>
+                                            <Grid item>
+                                                <TextField type='email' id="e_mail" label="E_mail" onChange={handleEmailChange} />
+                                            </Grid>
+                                        </Grid>
+                                        <br />
+                                        <Grid container spacing={1} alignItems="flex-end">
+                                            <Grid item>
+                                                <RiLockPasswordLine />
+                                            </Grid>
+                                            <Grid item>
+                                                <TextField id="password"
+                                                    label="Mot de passe"
+                                                    type="password"
+                                                    autoComplete="current-password"
+                                                    onChange={handlePasswordChange} />
+                                            </Grid>
+                                        </Grid>
+                                        <br />
+                                        <button className="submitbutton" onSubmit={handleSubmit}>S'inscrire</button>
+                                    </Grid>
+                                </form>
+
+                                <div className="secondPart">
+                                    <img src={logo} style={{ width: "30vh", marginTop: "22vh" }} />
+                                </div>
+                            </Paper>
+                        </Grid>
+
+                    </Grid>
+                </Grid>
+            </Grid>
         </div>
     )
 }

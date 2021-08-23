@@ -29,12 +29,12 @@ import image27 from './stationInterdit.jpg'
 import image28 from './isItOk.jpg'
 import image29 from './90.jpg'
 import image30 from './distance.jpg'
+import image from './AreYouReadyOuiNon.jpg'
 
 const Questions = [
   {
     image: image1,
     question: 'Le feu de circulation de droite clignote. Il est en panne. Pour tourner à droite : ',
-    
     answerOptions: [
       { option: "Je m'arrête", isCorrect: false },
       { option: 'Je passe avec prudence', isCorrect: true },
@@ -72,7 +72,7 @@ const Questions = [
   },
   {
     image: image5,
-    question: "Quel est l'ordre de passage de ses voitures : ",
+    question: "Tous les véhicules se dirigent tout droit. Quel est l'ordre de passage de ses voitures : ",
   
     answerOptions: [
       { option: "jaune, rouge, bleue", isCorrect: false },
@@ -96,7 +96,7 @@ const Questions = [
     
     answerOptions: [
       { option: "Jaune, rouge, bleue", isCorrect: false },
-      { option: "Rouge, jaune, bleue", isCorrect: true },
+      { option: "Rouge, bleue, jaune", isCorrect: true },
       { option: 'Bleue, rouge, jaune', isCorrect: false },
     ],
   },
@@ -190,12 +190,12 @@ const Questions = [
   },
   {
     image: image16,
-    question: "Franchir la ligne continue pour dépasser cette voiture entraîne l'emprisonnement du conducteur pour une durée de : ",
+    question: "Franchir la ligne continue pour dépasser cette voiture entraîne : ",
     
     answerOptions: [
-      { option: "1 mois au plus", isCorrect: true },
-      { option: "3 mois au plus", isCorrect: false },
-      { option: '6 mois au plus', isCorrect: false },
+      { option: "Une amende", isCorrect: true },
+      { option: "l'emprisonnement du conducteur pour une durée d'une semaine", isCorrect: false },
+      { option: 'Le retrait du permis', isCorrect: false },
     ],
   },
   {
@@ -214,8 +214,8 @@ const Questions = [
 
     answerOptions: [
       { option: "5 jours", isCorrect: false },
-      { option: "10 jours", isCorrect: true },
-      { option: '7 jours', isCorrect: false },
+      { option: "10 jours", isCorrect: false },
+      { option: '7 jours', isCorrect: true },
     ],
   },
   {

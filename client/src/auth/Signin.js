@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { SiMailDotRu } from 'react-icons/si';
+import {RiArrowGoBackFill} from 'react-icons/ri';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import logo from './images/logo.png'
 import Paper from '@material-ui/core/Paper';

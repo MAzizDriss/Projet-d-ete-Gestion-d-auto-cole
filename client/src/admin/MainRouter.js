@@ -30,8 +30,6 @@ function MainRouter() {
         <Navbar sidebar={sidebar} setSidebar={setSidebar} />
         <Switch>
           <ProtectedAdminRoute exact path='/' component={Home} />
-          <Route exact path='/signup' component={Signup} />
-          <Route exact path='/login' component={Signin} />
           <Route exact path='/test' component={Test} />
           <ProtectedAdminRoute exact path='/Calendrier' component={Calendrier} />
           <ProtectedAdminRoute exact path='/Candidats' component={Candidats} />

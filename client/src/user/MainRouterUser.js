@@ -22,13 +22,11 @@ function MainRouterUser() {
         <Header  sidebar={sidebar} setSidebar={setSidebar} />
         <Route exact path='/user/home' component={homeUser}/>
         <Route exact path='/user/Calendrier' component={Calendrier}/>
-        <Route exact path='/signup' component={Signup} />
         <Route exact path='/user/Profile' component={Profile}/>
         <Route exact path='/user/Paiement' component={Payment}/>
         <Route exact path='/user/Profile/edit' component={Edit}/>
         <Route exact path='/user/Tests' component={Tests}/>
         <Route exact path='/user/Test' component={Questonnaire}/>
-          <Route exact path='/login' component={Signin} />
           <Route exact path='/test' component={Test} />
         <Sidebar sidebar={sidebar} setSidebar={setSidebar} />
   

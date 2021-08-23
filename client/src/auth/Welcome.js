@@ -90,8 +90,8 @@ export default function Welcome() {
             <div className="page1">
               <img src={bg} className="image"/>
             <h1 className={classes.title}>
-            Bienvenu sur <br />
-            auto école<span className={classes.colorText}>SITI</span>
+            Bienvenu à <br />
+            l'auto école<span className={classes.colorText}>SITI</span>
           </h1>
           <h2 className={classes.soustitle}>
             Rejoignez-nous dès<span className={classes.colorText}>maintenant!</span>
