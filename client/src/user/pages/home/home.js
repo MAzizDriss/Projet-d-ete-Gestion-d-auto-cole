@@ -3,9 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import Serv from './services';
 import { Link as Scroll } from 'react-scroll';
-import { Particles } from 'react-particles-js';
-import { AppBar, IconButton, Toolbar, Collapse } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import {  IconButton, Collapse } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {MdExpandMore} from 'react-icons/md'
 

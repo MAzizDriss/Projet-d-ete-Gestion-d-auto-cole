@@ -13,10 +13,12 @@
   object-fit: fill;
   position: relative;
 }
-  .Title{
+  .welcomeTitle{
     color: #1c2541;
     font-size: 2.5rem;
-    margin-top: 11vh
+    margin-top: 11vh;
+    writing-mode: vertical-rl;
+      text-orientation: sideways;
   }
   .welcomePage{
       background-color: #f2f2f2;
@@ -27,7 +29,8 @@
       color: #f2f2f2;
       margin-left:5vw;
       margin-top: 2vh;
-      margin-bottom: 2vh
+      margin-bottom: 2vh;
+      
   }
   .ServicesousTitle{
     color: #000000;
@@ -41,4 +44,38 @@
 } 
 .Tarif{
     margin-left: 70%;
+}
+.aboutus{
+  height: 100vh;
+  background-color: #1c2541;
+  margin-top: 9vh;
+  display: flex;
+  flex-direction: row;
+}
+.firstPage{
+  height: 100vh;
+  background-color: #1c2541;
+}
+.TitleFP{
+  margin-top: 5vh;
+  color: #f2f2f2;
+}
+.page1{
+  height: 100vh;
+  background-color: #0b132b;
+  margin-top: 400
+}
+
+.image{
+  width: 100%;
+  margin-top: 10vh;
+  opacity: 0.6;
+}
+.buttonInscription{
+  margin-left: 38vw;
+  margin-top: 10vh;
+  margin-right: 5vw
+}
+.buttonConnection{
+  margin-top: 10vh;
 }
