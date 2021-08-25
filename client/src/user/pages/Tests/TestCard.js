@@ -3,6 +3,7 @@ import questions from './Questions/Questions'
 import './Test.css'
 import { Button } from '@material-ui/core';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import { useHistory } from 'react-router';
 import "./Timer.css";
 
 
@@ -13,6 +14,7 @@ export default function App() {
     const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(0);
     const [isPlaying, setisPlaying] = useState(true);
+    const history = useHistory();
 
     //fonction qui traîte le cas où il a cliquer sur une option, prenant en paramètre si l'option est correcte ou non
     const handleAnswerOptionClick = (isCorrect) => {
@@ -53,6 +55,10 @@ export default function App() {
             </div>
         );
     };
+    const Retour = () => {
+        history.push('/user/Tests')
+        return('')
+    }
     return (
         <div>
             <div className='QuestionCard'>
@@ -61,7 +67,7 @@ export default function App() {
                         <div className='QuestionScore'>
                             Vous avez obtenu {score} sur {questions.length}
                         </div>
-                        <Button style={{ marginTop: 50 }} variant='outlined'>Retour</Button>
+                        <Button style={{ marginTop: 50 }} variant='outlined' onClick={Retour}>Retour</Button>
                     </div>
                 ) : (
                     <>

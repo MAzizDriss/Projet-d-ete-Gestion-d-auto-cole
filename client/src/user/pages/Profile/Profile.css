@@ -1,5 +1,5 @@
-.Page{
-    height: 100vh;
+.PageProfile{
+    height: 91.9vh;
     margin-top: -1vh;
    
 }
@@ -14,11 +14,13 @@
     margin-left: 4vw;
 }
 .Titles{
-    margin-top: -8vh;
+    margin-top: 20vh;
+    margin-right: -4.5vw;
 }
 .hr{
     margin-top: 2vh; 
     size: 2vw;
+    margin-bottom: 2vw;
 }
 .sousTitre{
     margin-top: 1vh;

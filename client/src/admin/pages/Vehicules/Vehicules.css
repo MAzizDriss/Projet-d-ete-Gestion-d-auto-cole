@@ -11,16 +11,17 @@
     background: rgb(242,242,242);
   }
 
-.title{
+.titl{
     display: flex;
     height: 12vh;
     align-items: center;
-    margin-left: -5px;
-    padding-left: 670px;
-    font-size: 3rem;
-    margin-bottom: 5vh;
+    padding-left: 650px;
+    font-size: 3.5rem;
+    margin-bottom: 1vh;
     color: #16222A;
-    margin-top: 50px;
+    margin-top: 3vh;
+    letter-spacing: 0.2rem;
+    text-align: center;
  }
 
  .App {

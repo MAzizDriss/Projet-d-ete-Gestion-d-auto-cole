@@ -90,7 +90,7 @@ const Calendrier = () => {
 
   return (
     <div>
-      <h1 className='title'>Sessions</h1>
+      <h1 className='titl'>Séances</h1>
       <Container fixed>
         <center>
           <ProchaineSeance session={closestdate(sessions)} clients ={clients} employees={employees}/>

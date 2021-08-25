@@ -31,7 +31,7 @@ function MainRouter() {
         <Switch>
           <ProtectedAdminRoute exact path='/' component={Home} />
           <Route exact path='/test' component={Test} />
-          <ProtectedAdminRoute exact path='/Calendrier' component={Calendrier} />
+          <ProtectedAdminRoute exact path='/Sessions' component={Calendrier} />
           <ProtectedAdminRoute exact path='/Candidats' component={Candidats} />
           <ProtectedAdminRoute exact path='/Employes' component={Employes} />
           <ProtectedAdminRoute exact path='/Vehicules' component={Vehicules} />

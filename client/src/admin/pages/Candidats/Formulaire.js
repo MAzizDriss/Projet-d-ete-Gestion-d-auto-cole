@@ -95,7 +95,7 @@ const Formulaire = () => {
         <div>
             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} >
                 <h1 style={{ color: '#3A506B' }}>Modifier les données  :</h1>
-                <br /><br /><br /><br /><br></br><br />
+                <br /><br /><br />
                 {ErrName ?
                     <TextField error id="name" label="Nom du candidat" helperText="Le nom du candidat est obligatoire" onChange={handleNameChange} value={name} /> :
                     <TextField id="name" label="Nom du candidat" onChange={handleNameChange} value={name} />

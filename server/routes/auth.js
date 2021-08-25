@@ -14,7 +14,7 @@ router.post('/register', async (req, res) => {
         id: (result.length>0 )?result[0].id+1: 1,
         name: req.body.name,
         password: hashedPassword,
-        CIN:req.body.cin,
+        CIN:req.body.CIN,
         telephone:req.body.telephone,
         role: (req.body.role)?req.body.role:'User',
         e_mail: req.body.e_mail,

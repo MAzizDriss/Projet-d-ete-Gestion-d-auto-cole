@@ -63,7 +63,7 @@ const Signin = () => {
             (result) => {
                 localStorage.setItem('token', result.data.token);
                 localStorage.setItem('isAuth', true);
-                window.location.replace("http://localhost:3000/test")
+                window.location.replace("http://localhost:3000/")
             })
             .catch((err) => {
                 console.log(err)

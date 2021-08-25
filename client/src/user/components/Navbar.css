@@ -89,6 +89,8 @@ span {
   align-items: center;
   justify-content: center;
   font-size: larger;
+  display: flex;
+  flex-direction: row;
 }
 .user-info{
   display: inline-block;
@@ -110,14 +112,14 @@ span {
   float: left;
 }
 
-.Titles{
+.TitleSideBar{
   box-sizing: border-box;
   float:right;
   margin-right: 10vh; /*6vh*/
   margin-top: 4vh ;
   color: #f2e9e4;
 }
-.Titles :hover {
+.TitleSideBar :hover {
   color:#52ab98;
   transition: all 0.3s;
 }
@@ -166,16 +168,23 @@ right:5000;
   color: #f2e9e4;
   
 }
-.deconnection{
+.deconnectionIcon{
   color: #f2e9e4;
+  margin-top: 100vh;
 }
-.deconnection:hover{
+.deconnectionUser{
+  color: #f2e9e4;
+  margin-top: 6vh;
+  cursor: pointer;
+}
+.deconnectionUser:hover{
   color: #52ab98;
   transition: all 0.8s;
 }
 .footer-link{
   text-decoration: none;
   color:white;
+  cursor: pointer;
 }
 .footer-link:hover{
   transition: all 0.3s;

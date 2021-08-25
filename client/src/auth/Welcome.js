@@ -68,7 +68,8 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '4.5rem',
         marginTop: -530,
         marginBottom: 100,
-        opacity: 0.7
+        opacity: 0.7,
+        cursor:"pointer"
       },
       colorText: {
         color: '#52ab98',

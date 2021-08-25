@@ -9,7 +9,9 @@ import {VscAccount} from 'react-icons/vsc';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import logo from './images/logo.png'
 import Paper from '@material-ui/core/Paper';
+import {AiOutlinePhone,AiOutlineIdcard} from 'react-icons/ai';
 import './CSS/Signup.css'
+
 const useStyles = makeStyles((theme) => ({
     root: {
         '& > *': {
@@ -48,6 +50,15 @@ const Signup = () => {
     const handlePasswordChange = (event) => {
         setpassword(event.target.value)
     }
+    const [numero, setnumero] = React.useState(200)
+    const handleNumeroChange = (event) => {
+        setnumero(event.target.value)
+    }
+    const [cin, setcin] = React.useState('')
+    const handleCINChange = (event) => {
+        setcin(event.target.value);
+        console.log(cin)
+    }
     const handleSubmit = (event) => {
         event.preventDefault()
         //verification client side
@@ -55,18 +66,11 @@ const Signup = () => {
         const client = {
             name: name,
             e_mail: email,
-            password: password
+            password: password,
+            telephone: numero,
+            CIN: cin
         }
-        console.log(client)
-        const nomel = document.querySelector('#Nom')
-        const emailel = document.querySelector('#e_mail')
-        const passel = document.querySelector('#password')
-        nomel.value = ''
-        emailel.value = ''
-        passel.value = ''
-        setname('')
-        setemail('')
-        setpassword('')
+
         axios.post('http://localhost:3001/api/user/register', client).then((result) => {
             console.log(result)
             window.location.replace("http://localhost:3000/login");
@@ -84,7 +88,7 @@ const Signup = () => {
                         <Grid>
                             <Paper className={classes.paper}>
                                 <form className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmit} >
-                                    <h1 style={{ color: '#3A506B', marginTop: "6vh" }}>Inscription</h1>
+                                    <h1 style={{ color: '#3A506B', marginTop: "4vh", marginBottom:"-9vh" }}>Inscription</h1>
 
                                     <Grid style={{ margin: 70 }} >
                                         <Grid container spacing={1} alignItems="flex-end">
@@ -115,6 +119,24 @@ const Signup = () => {
                                                     type="password"
                                                     autoComplete="current-password"
                                                     onChange={handlePasswordChange} />
+                                            </Grid>
+                                        </Grid>
+                                        <br />
+                                        <Grid container spacing={1} alignItems="flex-end">
+                                            <Grid item>
+                                                <AiOutlinePhone />
+                                            </Grid>
+                                            <Grid item>
+                                                <TextField type='number' id="numero" label="Numéro de téléphone" onChange={handleNumeroChange} />
+                                            </Grid>
+                                        </Grid>
+                                        <br />
+                                        <Grid container spacing={1} alignItems="flex-end" style={{marginBottom:'-4vh'}}>
+                                            <Grid item>
+                                                <AiOutlineIdcard />
+                                            </Grid>
+                                            <Grid item>
+                                                <TextField type='number'  id="cin" label="Numéro de CIN" onChange={handleCINChange} />
                                             </Grid>
                                         </Grid>
                                         <br />

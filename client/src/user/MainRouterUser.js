@@ -20,7 +20,7 @@ function MainRouterUser() {
     <>
       <Router>
         <Header  sidebar={sidebar} setSidebar={setSidebar} />
-        <Route exact path='/user/home' component={homeUser}/>
+        <Route exact path='/' component={homeUser}/>
         <Route exact path='/user/Calendrier' component={Calendrier}/>
         <Route exact path='/user/Profile' component={Profile}/>
         <Route exact path='/user/Paiement' component={Payment}/>

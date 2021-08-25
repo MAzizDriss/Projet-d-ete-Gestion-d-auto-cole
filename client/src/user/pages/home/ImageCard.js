@@ -37,6 +37,10 @@ textAlign:"center"  },
 
 export default function ImageCard({ checked }) {
   const classes = useStyles();
+  const passerletest = () => {
+  window.location.push("/user/Tests")  
+  return('')
+  }
 
   return (
     <div className={classes.cards}>
@@ -116,10 +120,10 @@ export default function ImageCard({ checked }) {
               component="p"
               className={classes.desc}
             >
-              "Résevez une séance de code. Une heure de code est de 20DT. Pour plus d'offres, veuillez consulter nos offres!",
+              "Passez un test gratuit de 30 questions avec un minuteur pour d'entraîner!",
             </Typography>
           </CardContent>
-          <Button variant="outlined" style={{left:170, marginBottom:30}}>Passer le test</Button>
+          <Button onClick={passerletest} variant="outlined" style={{left:170, marginBottom:30}}>Passer le test</Button>
 
         </Card>
       </Collapse>

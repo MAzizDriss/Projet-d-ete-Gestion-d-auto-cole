@@ -13,18 +13,19 @@ function Navbar({sidebar,setSidebar}) {
   const showSidebar = () => setSidebar(!sidebar);
 const logout = () => {
     localStorage.setItem('isAuth',false)
-    history.push("/login")
+    localStorage.setItem('token', '')
+    window.location.replace('/login')
   
 }
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
-        <div className='navbar'>
-          <Link to='#' className='menu-bars'>
-            <FaIcons.FaBars onClick={showSidebar} className='bars' style={{float:'left',boxSizing:'border-box'}}/>
+        <div className='navbarAdmin'>
+          <Link to='#' className='menu-barsAdmin'>
+            <FaIcons.FaBars onClick={showSidebar} className='barsAdmin' style={{float:'left',boxSizing:'border-box'}}/>
           </Link>
-          <div className='site-title'><h1>Auto école SITI</h1></div>
-          <Button  className='logout' onClick={logout}><h4 className="deconnection">Se déconnecter</h4><FiLogOut style={{marginLeft: 10, marginTop: 2}}/></Button>
+          <div className='site-titleAdmin'><h1>Auto école SITI</h1></div>
+          <Button  className='logoutAdmin' onClick={logout}><h4 className="deconnectionAdmin">Se déconnecter</h4><FiLogOut style={{marginLeft: 10, marginTop: 2}}/></Button>
         </div>
       </IconContext.Provider>
     </>

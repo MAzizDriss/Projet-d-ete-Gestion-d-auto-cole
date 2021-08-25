@@ -1,6 +1,6 @@
 import React from "react";
 import "./Vehicules.css";
-import Card from "./CarCard";
+import Card from "./CarCard.js";
 import { Grid, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
@@ -26,10 +26,8 @@ export default function Vehicules() {
 
   return (
     <div>
-         <h1 className="title" >Véhicules</h1>
-    <Button href='/Vehicules/ajouter' variant="contained" color="secondary" style={{marginLeft:'45%',width:'10%', marginTop:'2%'}}>
-   <center style={{marginRight:'15%'}} >Ajouter</center>
-  </Button>
+         <h1 className="titl" >Véhicules</h1>
+    
   
     <Grid
       container
@@ -44,6 +42,9 @@ export default function Vehicules() {
       </Grid>
       )}
     </Grid>
+    <Button href='/Vehicules/ajouter' variant="contained" color="secondary" style={{marginLeft:'45%',width:'10%', marginTop:'2%', marginBottom:50}}>
+   <center style={{marginRight:'15%'}} >Ajouter</center>
+  </Button>
     </div>
   );
 }

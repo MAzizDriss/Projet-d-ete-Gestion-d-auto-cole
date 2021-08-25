@@ -40,24 +40,24 @@ entre SidebarJs et NavbarJs*/ {
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
-        <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
+        <nav className={sidebar ? 'nav-menuAdmin active' : 'nav-menuAdmin'}>
           <ul >
-            <li className='navbar-toggle'>
-              <Link to='#' className='menu-bars'>
+            <li className='navbar-toggleAdmin'>
+              <Link to='#' className='menu-barsAdmin'>
                 <div style={{ marginLeft: '150px' }}>
-                  <FaIcons.FaBars className='bars' onClick={showSidebar} />
+                  <FaIcons.FaBars className='barsAdmin' onClick={showSidebar} />
                 </div>
               </Link>
             </li>
             <Link to='/'>
               <div>
-                <img className="logo" src={logo} />
+                <img className="logoAdmin" src={logo} />
               </div>
-              <div className='Titles'>
+              <div className='TitlesAdmin'>
                 <h3>Auto école SITI</h3>
               </div>
             </Link>
-            <hr className='line' />
+            <hr className='lineAdmin' />
             <div style={{ marginTop: '30px' }}>
               {SidebarData.map((item, index) => {
                 return (
@@ -71,10 +71,10 @@ entre SidebarJs et NavbarJs*/ {
               })}
             </div>
           </ul>
-          <div className="side-menu-footer">
+          <div className="side-menu-footerAdmin">
             <BiLogInCircle style={{ width: 25, height: 25, marginLeft: 20, marginRight: -10, marginBottom: 5, marginTop: 15 }} className='logo' onClick={Disconnect} />
-            <div className="user-info">
-              <h5><div className='footer-link'>{user.name}</div> </h5>
+            <div className="user-infoAdmin">
+              <h5><div className='footer-linkAdmin'>{user.name}</div> </h5>
               <p>{user.role}</p>
             </div>
           </div>

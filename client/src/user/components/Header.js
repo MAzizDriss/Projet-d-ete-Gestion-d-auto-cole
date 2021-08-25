@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
   appbarTitle: {
     flexGrow: '1',
     marginLeft: 450,
-   marginTop: 35
+   marginTop: 35,
+   marginRight: 400
   },
   icon: {
     color: '#f2f2f2',
@@ -55,7 +56,10 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonLogout: {
     color: "#f2f2f2",
-    left: 400
+    display:"flex",
+    flexDirection:"row",
+    size: "500rem",
+    marginRight:"-80vw"
   }
 }));
 export default function Header({ sidebar, setSidebar }) {
@@ -63,8 +67,8 @@ export default function Header({ sidebar, setSidebar }) {
   const history = useHistory();
   const logout = () => {
     localStorage.setItem('isAuth', false)
-    history.push("/login")
-
+    localStorage.setItem('token', '')
+    window.location.replace('/login')
   }
   const classes = useStyles();
 
@@ -80,7 +84,11 @@ export default function Header({ sidebar, setSidebar }) {
               Auto école<span className={classes.colorText}>SITI</span>
             </h1>
 
-            <Button className={classes.buttonLogout} onClick={logout}><h4 className="deconnection">Se déconnecter</h4><FiLogOut style={{ marginLeft: 10, marginTop: 2 }} /></Button>
+            <div className={classes.buttonLogout} onClick={logout}>
+              <h4 className="deconnectionUser">Se déconnecter
+              <FiLogOut style={{ marginLeft:10 }} />
+              </h4>
+              <FiLogOut className="deconnectionIconUser" /></div>
           </div>
         </Toolbar>
       </AppBar>

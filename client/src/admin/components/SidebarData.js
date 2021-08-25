@@ -13,8 +13,8 @@ export const SidebarData = [
     cName: 'nav-text'
   },
   {
-    title: 'Calendrier',
-    path: '/Calendrier',
+    title: 'Séances',
+    path: '/Sessions',
     icon: <BsIcons.BsCalendar />,
     cName: 'nav-text'
   },

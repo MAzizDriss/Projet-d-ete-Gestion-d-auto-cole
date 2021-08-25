@@ -40,7 +40,7 @@ function Sidebar({sidebar, setSidebar}) {
             <div>
               <img className="logo" src={logo} />
             </div>
-            <div className='Titles'>
+            <div className='TitleSideBar'>
               <h3>Auto ecole Siti</h3>
             </div>
             </Link>
