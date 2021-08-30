@@ -34,8 +34,14 @@ function Sidebar({sidebar, setSidebar}) {
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-          <ul className='nav-menu-items'>
-           
+          <ul >
+          <li className='navbar-toggleAdmin'>
+              <Link to='#' className='menu-barsAdmin'>
+                <div style={{ marginLeft: '150px' }}>
+                  <FaIcons.FaBars className='barsAdmin' onClick={showSidebar} />
+                </div>
+              </Link>
+            </li>
             <Link to='/'>
             <div>
               <img className="logo" src={logo} />

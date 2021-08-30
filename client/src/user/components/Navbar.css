@@ -147,6 +147,7 @@ hr{
   box-sizing:border-box;
   margin-left:43%;
   color: #f2e9e4;
+  margin-top: 50px;
   position:absolute;
 }
 .site-title h2 {
@@ -174,7 +175,7 @@ right:5000;
 }
 .deconnectionUser{
   color: #f2e9e4;
-  margin-top: 6vh;
+  margin-right: -350vh;
   cursor: pointer;
 }
 .deconnectionUser:hover{

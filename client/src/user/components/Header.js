@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, IconButton, Toolbar, Collapse } from '@material-ui/core';
-import { FaBars } from 'react-icons/fa'
 import { Button } from '@material-ui/core';
 import { FiLogOut } from 'react-icons/fi'
 import { useHistory } from 'react-router';
 import './Navbar.css'
+import * as FaIcons from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { IconContext } from 'react-icons';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,35 +65,28 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 export default function Header({ sidebar, setSidebar }) {
-  const showSidebar = () => setSidebar(!sidebar);
+  const classes = useStyles();
   const history = useHistory();
+  const showSidebar = () => setSidebar(!sidebar);
   const logout = () => {
     localStorage.setItem('isAuth', false)
     localStorage.setItem('token', '')
     window.location.replace('/login')
   }
-  const classes = useStyles();
 
   return (
-    <div className={classes.root} id="header">
-      <AppBar className={classes.appbar} >
-        <Toolbar className={classes.appbarWrapper}>
-          <IconButton>
-            <FaBars onClick={showSidebar} className="bars" />
-          </IconButton>
-          <div className={classes.navbarItems}>
-            <h1 className={classes.appbarTitle}>
-              Auto école<span className={classes.colorText}>SITI</span>
-            </h1>
-
-            <div className={classes.buttonLogout} onClick={logout}>
-              <h4 className="deconnectionUser">Se déconnecter
-              <FiLogOut style={{ marginLeft:10 }} />
-              </h4>
-              <FiLogOut className="deconnectionIconUser" /></div>
-          </div>
-        </Toolbar>
-      </AppBar>
+    <div>
+       <>
+      <IconContext.Provider value={{ color: '#fff' }}>
+        <div className='navbar'>
+          <Link to='#' className='menu-bars'>
+            <FaIcons.FaBars onClick={showSidebar} className='bars' style={{float:'left',boxSizing:'border-box'}}/>
+          </Link>
+          <div className='site-title'><h1>Auto école <span className={classes.colorText}>SITI</span></h1></div>
+          <Button  className='logout' onClick={logout}><h4 className="deconnectionUser">Se déconnecter</h4><FiLogOut style={{marginLeft: 10, marginTop: 2}}/></Button>
+        </div>
+      </IconContext.Provider>
+    </>
 
 
     </div>

@@ -20,6 +20,7 @@ function MainRouterUser() {
     <>
       <Router>
         <Header  sidebar={sidebar} setSidebar={setSidebar} />
+        <Switch>
         <Route exact path='/' component={homeUser}/>
         <Route exact path='/user/Calendrier' component={Calendrier}/>
         <Route exact path='/user/Profile' component={Profile}/>
@@ -27,9 +28,9 @@ function MainRouterUser() {
         <Route exact path='/user/Profile/edit' component={Edit}/>
         <Route exact path='/user/Tests' component={Tests}/>
         <Route exact path='/user/Test' component={Questonnaire}/>
-          <Route exact path='/test' component={Test} />
+        <Route exact path='/test' component={Test} />
+        </Switch>
         <Sidebar sidebar={sidebar} setSidebar={setSidebar} />
-  
       </Router>
     </>
   );

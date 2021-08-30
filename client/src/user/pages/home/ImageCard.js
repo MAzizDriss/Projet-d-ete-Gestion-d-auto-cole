@@ -44,7 +44,6 @@ export default function ImageCard({ checked }) {
 
   return (
     <div className={classes.cards}>
-      <Collapse in={checked} {...(checked ? { timeout: 1000 } : {})}>
         <Card className={classes.root}>
           <CardMedia
             className={classes.media}
@@ -71,8 +70,6 @@ export default function ImageCard({ checked }) {
           <Button variant="outlined" style={{left:170, marginBottom:30}}>Réserver</Button>
 
         </Card>
-      </Collapse>
-      <Collapse in={checked} {...(checked ? { timeout: 1000 } : {})}>
         <Card className={classes.root}>
           <CardMedia
             className={classes.media}
@@ -98,8 +95,6 @@ export default function ImageCard({ checked }) {
           </CardContent>
           <Button variant="outlined" style={{left:170, marginBottom:30}}>Réserver</Button>
         </Card>
-      </Collapse>
-      <Collapse in={checked} {...(checked ? { timeout: 1000 } : {})}>
         <Card className={classes.root}>
           <CardMedia
             className={classes.media}
@@ -126,7 +121,6 @@ export default function ImageCard({ checked }) {
           <Button onClick={passerletest} variant="outlined" style={{left:170, marginBottom:30}}>Passer le test</Button>
 
         </Card>
-      </Collapse>
 
     </div>
   );

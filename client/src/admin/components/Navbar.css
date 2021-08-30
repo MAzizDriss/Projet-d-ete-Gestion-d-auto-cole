@@ -127,7 +127,7 @@ span {
 .barsAdmin{
   size: 7vh;
 }
-hrAdmin{
+.hrAdmin{
   margin-top: 38%;
 
   width: 80%;
@@ -172,4 +172,7 @@ hrAdmin{
 .deconnectionAdmin:hover{
   color: #52ab98;
   transition: all 0.8s;
+}
+.colorText {
+  color: #52ab98
 }
