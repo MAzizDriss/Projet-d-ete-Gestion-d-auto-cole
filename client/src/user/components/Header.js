@@ -71,7 +71,7 @@ export default function Header({ sidebar, setSidebar }) {
   const logout = () => {
     localStorage.setItem('isAuth', false)
     localStorage.setItem('token', '')
-    window.location.replace('/login')
+    window.location.replace('/login') //se rendre a la page de connexion
   }
 
   return (
