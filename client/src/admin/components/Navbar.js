@@ -32,7 +32,7 @@ const logout = () => {
   );
 }
    /*       <img className="avatar" src={avatar} className="avatar"/>  
-            <Avatar alt="Remy Sharp" src={avatar.png} /> */
+            <Avatar alt="Remy Sharp" src={avatar.png} /> ee*/
 
  
 
