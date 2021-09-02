@@ -26,9 +26,8 @@ function Sidebar({sidebar, setSidebar}) {
   }, [])
   const Disconnect = ()=>{
     localStorage.setItem('isAuth',false)
-    history.push("/login")
-    setuser({})
-    localStorage.setItem('token','')
+    localStorage.setItem('token', '')
+    window.location.replace('/login')
   }
   return (
     <>

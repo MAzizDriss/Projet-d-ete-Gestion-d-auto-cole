@@ -7,7 +7,7 @@ import * as cg from 'react-icons/cg'
 export const SidebarData = [
   {
     title: 'Acceuil',
-    path: '/user/home',
+    path: '/',
     icon: <TiIcons.TiHomeOutline />,
     cName: 'nav-text'
   },

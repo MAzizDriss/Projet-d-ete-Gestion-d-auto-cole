@@ -65,7 +65,7 @@ export default function Examen({user,sessions,type}) {
       </CardContent>
       <CardActions>
         {type==='f'?<Link to='/user/tests' style={{marginLeft:'60%',textDecoration:'none'}}><Button  size="small">Prendre un Test</Button></Link>:
-        <Link to='/user/home' style={{marginLeft:'55%',textDecoration:'none'}}><Button  size="small">Reserver une date</Button></Link>}
+        <Link to='/' style={{marginLeft:'55%',textDecoration:'none'}}><Button  size="small">Reserver une date</Button></Link>}
       </CardActions>
     </Card>
   );
