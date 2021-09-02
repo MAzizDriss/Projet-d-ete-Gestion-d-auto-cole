@@ -24,16 +24,13 @@ const logout = () => {
           <Link to='#' className='menu-barsAdmin'>
             <FaIcons.FaBars onClick={showSidebar} className='barsAdmin' style={{float:'left',boxSizing:'border-box'}}/>
           </Link>
-          <div className='site-titleAdmin'><h1>Auto école <span className="colorText">SITI</span></h1></div>
+          <div className='site-titleAdmin'><h1>Auto école<span className="colorText">SITI</span></h1></div>
           <Button  className='logoutAdmin' onClick={logout}><h4 className="deconnectionAdmin">Se déconnecter</h4><FiLogOut style={{marginLeft: 10, marginTop: 2}}/></Button>
         </div>
       </IconContext.Provider>
     </>
   );
 }
-   /*       <img className="avatar" src={avatar} className="avatar"/>  
-            <Avatar alt="Remy Sharp" src={avatar.png} /> ee*/
 
- 
 
 export default Navbar;

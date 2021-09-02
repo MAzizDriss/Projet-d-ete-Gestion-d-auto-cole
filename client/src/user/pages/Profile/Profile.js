@@ -2,23 +2,16 @@ import React from "react";
 import './Profile.css'
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import avatar from './avatar.png'
 import axios from 'axios'
 import { FcCheckmark } from "react-icons/fc";
 import { IoMdAlert } from "react-icons/io";
 import { makeStyles } from '@material-ui/core/styles';
-import bg1 from './images/bg1.jpg'
-import bg2 from './images/bg2.jpg'
-import bg3 from './images/bg3.jpg'
-import bg4 from './images/bg4.jpg'
-import Particles from 'react-particles-js';
 import { Link } from 'react-router-dom'
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
     height: 500,
     width: 900,
     marginTop: 50,
-    
     display: "flex",
     flexDirection: "row"
   },
@@ -76,9 +68,8 @@ const Profile = () => {
 
   const classes = useStyles();
   return (
-    <div>
+    <div style={{marginTop:650}}>
       <div className="PageProfile">
-        <img className="bg_image" />
         <Grid container className={classes.card}>
           <Grid item xs={12}>
             <Grid container justifyContent="center">

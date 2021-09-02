@@ -162,12 +162,12 @@ hr{
   margin-right: 400vh;
   margin-left: 0%;
   margin-bottom: -20%;
-
 }
-.logout{
-right:5000;
+.logoutUser{
+  display: flex;
+  flex-direction: row;
+  left: 80vw;
   color: #f2e9e4;
-  
 }
 .deconnectionIcon{
   color: #f2e9e4;
@@ -175,7 +175,6 @@ right:5000;
 }
 .deconnectionUser{
   color: #f2e9e4;
-  margin-right: -350vh;
   cursor: pointer;
 }
 .deconnectionUser:hover{

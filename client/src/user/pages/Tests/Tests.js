@@ -11,7 +11,7 @@ const history = useHistory();
  }
 
   return (
-    <div>
+    <div style={{marginTop:9.2}} >
       <Particles/>
     <div style={{width:"100%", backgroundColor:"#3a506b", height:700,marginTop:"-51%"}}>
      <br/><br/>
@@ -29,7 +29,8 @@ const history = useHistory();
       <div style={{display:"flex", flexDirection:"row"}}>
       <h2 style={{color: '#f2f2f2',
     fontSize: '1.5rem', fontFamily:"Century Gothic", fontWeight:"normal", marginLeft:500, marginRight:20}}>Passez un test gratuitement dès maintement : </h2>
-   <Button variant="contained" onClick={gototest} >Test</Button>
+   <Button variant="contained" onClick={gototest}>
+     <span style={{marginRight:35, fontSize:"1rem", fontWeight:"bold"}} >Test</span></Button>
    </div>
    </div>
     </div>

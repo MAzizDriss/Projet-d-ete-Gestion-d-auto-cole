@@ -67,8 +67,6 @@ export default function ImageCard({ checked }) {
               "Résevez une séance de code. Une heure de code est de 5DT. Pour plus d'offres, veuillez consulter nos offres!",
             </Typography>
           </CardContent>
-          <Button variant="outlined" style={{left:170, marginBottom:30}}>Réserver</Button>
-
         </Card>
         <Card className={classes.root}>
           <CardMedia
@@ -93,7 +91,6 @@ export default function ImageCard({ checked }) {
               "Résevez une séance de code. Une heure de code est de 20DT. Pour plus d'offres, veuillez consulter nos offres!",
             </Typography>
           </CardContent>
-          <Button variant="outlined" style={{left:170, marginBottom:30}}>Réserver</Button>
         </Card>
         <Card className={classes.root}>
           <CardMedia
@@ -118,8 +115,6 @@ export default function ImageCard({ checked }) {
               "Passez un test gratuit de 30 questions avec un minuteur pour d'entraîner!",
             </Typography>
           </CardContent>
-          <Button onClick={passerletest} variant="outlined" style={{left:170, marginBottom:30}}>Passer le test</Button>
-
         </Card>
 
     </div>

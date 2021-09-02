@@ -99,13 +99,13 @@ export default function Welcome() {
           </h2>
           <div style={{display:"flex", flexDirection:"row"}}>
           <div className="buttonInscription">
-          <Button variant="outlined" style={{color:"#52ab98"}}>
-            <Link to="/signup" style={{textDecoration:"none", textDecorationColor:"#52ab98"}}>
+          <Button variant="outlined" style={{color:"#52ab98", backgroundColor:"#52ab98", opacity:0.5}}>
+            <Link to="/signup" style={{textDecoration:"none", color:"#ffffff"}}>
             Inscription </Link></Button>
           </div>
           <div className="buttonConnection">
-          <Button variant="outlined" style={{color:"#52ab98"}}>
-          <Link to="/login" style={{textDecoration:"none", textDecorationColor:"#52ab98"}}>
+          <Button variant="outlined" style={{color:"#52ab98", backgroundColor:"#52ab98", opacity:0.5}}>
+          <Link to="/login" style={{textDecoration:"none", color:"#ffffff", marginRight: 15}}>
             Connection
             </Link>
             </Button>

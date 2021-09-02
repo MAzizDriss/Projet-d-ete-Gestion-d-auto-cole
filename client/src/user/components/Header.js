@@ -82,8 +82,12 @@ export default function Header({ sidebar, setSidebar }) {
           <Link to='#' className='menu-bars'>
             <FaIcons.FaBars onClick={showSidebar} className='bars' style={{float:'left',boxSizing:'border-box'}}/>
           </Link>
-          <div className='site-title'><h1>Auto école <span className={classes.colorText}>SITI</span></h1></div>
-          <Button  className='logout' onClick={logout}><h4 className="deconnectionUser">Se déconnecter</h4><FiLogOut style={{marginLeft: 10, marginTop: 2}}/></Button>
+          <div className='site-title'>
+            <h1>Auto école<span className={classes.colorText}>SITI</span></h1></div>
+          <Button  className='logoutUser' onClick={logout}>
+            <h4 className="deconnectionUser">Se déconnecter</h4>
+            <FiLogOut style={{marginLeft: 10, marginTop: 2}}/>
+            </Button>
         </div>
       </IconContext.Provider>
     </>

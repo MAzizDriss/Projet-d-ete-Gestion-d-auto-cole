@@ -26,13 +26,10 @@ export default function Test() {
       spacing={4}
       className={classes.gridContainer}
     >
-     
       <Grid item xs={12} sm={6} md={4}>
         <Card/>
-      </Grid>
-      
-    </Grid>
-    
+      </Grid>   
+    </Grid> 
     </div>
   );
 }
