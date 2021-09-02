@@ -174,7 +174,7 @@ const AddSession = () => {
             headers: {
                 "auth-token": localStorage.getItem('token')
             }
-        }).then(() => history.push('/Calendrier'))
+        }).then(() => history.push('/Sessions'))
             .catch((err) => console.log(err))
     }
 

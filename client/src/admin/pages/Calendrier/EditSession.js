@@ -139,8 +139,7 @@ const EditSession = () => {
             }
         }).then((result) => {
             console.log(result)
-            alert("deleted")
-            history.push('/Calendrier')
+            history.push('/Sessions')
         })
     }
 
@@ -176,8 +175,7 @@ const EditSession = () => {
                 "auth-token": localStorage.getItem('token')
             }
         }).then(() => {
-            history.push('/Calendrier')
-            alert('Saved the new info <3')
+            history.push('/Sessions')
         })
 
     }
