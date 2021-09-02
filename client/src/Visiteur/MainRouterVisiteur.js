@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Welcome from './Welcome';
+import Welcome from './pages/Welcome';
 import Navbar from './component/Navbar.js'
 import Footer from './component/Footer.js'
-import Signup from './Signup'
-import Signin from './Signin'
+import Signup from './pages/Signup'
+import Signin from './pages/Signin'
 
 function MainRouterVisiteur() {
 

@@ -14,10 +14,7 @@ import Ajout from './pages/Vehicules/ajout';
 import AddEmployee from './pages/Employes/AddEmployee';
 import EditEmployee from './pages/Employes/EditEmployee';
 import Footer from './components/Footer';
-import Signup from '../auth/Signup';
-import Signin from '../auth/Signin';
-import Test from '../auth/Test';
-import ProtectedAdminRoute from '../auth/ProtectedRoute';
+import ProtectedAdminRoute from '../Visiteur/ProtectedRoute';
 import Sidebar from './components/Sidebar';
 
 function MainRouter() {
@@ -30,7 +27,6 @@ function MainRouter() {
         <Navbar sidebar={sidebar} setSidebar={setSidebar} />
         <Switch>
           <ProtectedAdminRoute exact path='/' component={Home} />
-          <Route exact path='/test' component={Test} />
           <ProtectedAdminRoute exact path='/Sessions' component={Calendrier} />
           <ProtectedAdminRoute exact path='/Candidats' component={Candidats} />
           <ProtectedAdminRoute exact path='/Employes' component={Employes} />

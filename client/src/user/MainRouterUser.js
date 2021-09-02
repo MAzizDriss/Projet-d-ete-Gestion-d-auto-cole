@@ -3,9 +3,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from '../user/components/Header';
 import Sidebar from '../user/components/Sidebar';
 import homeUser from "../user/pages/home/home"
-import Signup from '../auth/Signup';
-import Signin from '../auth/Signin';
-import Test from '../auth/Test';
 import Calendrier from './pages/Calendrier/Calendrier';
 import Profile from './pages/Profile/Profile'
 import Tests from './pages/Tests/Tests'
@@ -28,7 +25,6 @@ function MainRouterUser() {
         <Route exact path='/user/Profile/edit' component={Edit}/>
         <Route exact path='/user/Tests' component={Tests}/>
         <Route exact path='/user/Test' component={Questonnaire}/>
-        <Route exact path='/test' component={Test} />
         </Switch>
         <Sidebar sidebar={sidebar} setSidebar={setSidebar} />
       </Router>

@@ -2,7 +2,7 @@ import React from 'react';
 import MainRouter from './admin/MainRouter';
 import MainRouterUser from './user/MainRouterUser';
 import axios from 'axios'
-import MainRouterVisiteur from './auth/MainRouterVisiteur';
+import MainRouterVisiteur from './Visiteur/MainRouterVisiteur';
 function App() {
   const [user, setuser] = React.useState({})
   React.useEffect(() => {

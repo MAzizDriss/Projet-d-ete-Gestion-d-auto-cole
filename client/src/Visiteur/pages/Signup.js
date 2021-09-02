@@ -6,11 +6,10 @@ import Grid from '@material-ui/core/Grid';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { SiMailDotRu } from 'react-icons/si';
 import {VscAccount} from 'react-icons/vsc';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import logo from './images/logo.png'
+import logo from '../images/logo.png'
 import Paper from '@material-ui/core/Paper';
 import {AiOutlinePhone,AiOutlineIdcard} from 'react-icons/ai';
-import './CSS/Signup.css'
+import '../CSS/Signup.css'
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -2,15 +2,12 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios'
-import { Redirect } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { SiMailDotRu } from 'react-icons/si';
-import {RiArrowGoBackFill} from 'react-icons/ri';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import logo from './images/logo.png'
+import logo from '../images/logo.png'
 import Paper from '@material-ui/core/Paper';
-import './CSS/Signin.css'
+import '../CSS/Signin.css'
 const useStyles = makeStyles((theme) => ({
     root: {
         '& > *': {

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import './CSS/Welcome.css';
+import '../CSS/Welcome.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import service1 from './images/Conduite.jpg'
-import service2 from './images/Code.jpg'
-import service3 from './images/Test.jpg'
+import service1 from '../images/Conduite.jpg'
+import service2 from '../images/Code.jpg'
+import service3 from '../images/Test.jpg'
 import Aos from "aos";
 import "aos/dist/aos.css"
 import Timeline from '@material-ui/lab/Timeline';
@@ -18,7 +18,7 @@ import TimelineDot from '@material-ui/lab/TimelineDot';
 import Typography from '@material-ui/core/Typography';
 import {FaDesktop, FaMoneyCheckAlt} from 'react-icons/fa'
 import {ImLocation} from 'react-icons/im'
-import bg from './images/bg.jpg'
+import bg from '../images/bg.jpg'
 import { Button } from "@material-ui/core";
 import {Link} from "react-router-dom"
 
