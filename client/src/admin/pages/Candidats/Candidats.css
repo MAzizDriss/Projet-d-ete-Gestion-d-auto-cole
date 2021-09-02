@@ -57,3 +57,12 @@ padding-left: 670px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.4);
   background-color: rgba(245, 0, 87,0.95);
 }
+.session-ref{
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: #16222A;
+}
+.session-ref:hover{
+  transition:all 0.2s;
+  color:#52ab98;
+}

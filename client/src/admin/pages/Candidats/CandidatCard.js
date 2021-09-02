@@ -122,7 +122,7 @@ export default function CandidatCard({ candidats }) {
           <br />
           <AccordionDetails className={classes.detailsSR}>
             <Typography>
-              Les séances réalisées :{candidat.sessions.map(session => <span>{session} |</span>)}
+              Les séances réalisées :{candidat.sessions.map(session => <Link className='session-ref' to={`/Sessions/edit/${session}`}>{session} |</Link>)}
             </Typography>
 
             <div className={classes.date}>
