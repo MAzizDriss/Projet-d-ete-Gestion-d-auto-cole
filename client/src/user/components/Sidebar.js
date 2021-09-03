@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { SidebarData } from './SidebarData';
-import './Navbar.css';
+import '../CSS/Navbar.css';
 import { IconContext } from 'react-icons';
-import logo from './logo.png';
+import logo from '../images/logo.png';
 import {BiLogInCircle} from 'react-icons/bi';
 import axios from 'axios';
 import { useHistory } from 'react-router';

@@ -10,7 +10,7 @@ import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
-import './Vehicules.css'
+import '../CSS/Vehicules.css'
 
 const useStyles = makeStyles((theme) => ({
     root: {

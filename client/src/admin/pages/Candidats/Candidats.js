@@ -1,5 +1,5 @@
 import React from "react";
-import './Candidats.css';
+import '../CSS/Candidats.css';
 import CandidatCard from "./CandidatCard"
 import axios from 'axios'
 

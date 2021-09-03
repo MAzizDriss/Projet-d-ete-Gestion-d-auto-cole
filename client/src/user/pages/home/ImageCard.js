@@ -1,13 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import image1 from './images/questionnaire.jpg'
-import imageConduite from './images/conduite.png'
-import codeimage from './images/code.jpg'
+import image1 from './images/questionnaire.jpg';
+import imageConduite from './images/conduite.jpg';
+import codeimage from './images/code.png';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import { Collapse , Button } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {

@@ -2,16 +2,15 @@ import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {
   Accordion, AccordionSummary, AccordionDetails, Typography,
-  IconButton, Button, Dialog, DialogActions, DialogContent,
+ Button, Dialog, DialogActions, DialogContent,
   DialogContentText, DialogTitle, useMediaQuery, Tooltip
 } from '@material-ui/core';
 import { MdExpandMore, MdDelete } from 'react-icons/md'
-import { BsPencilSquare } from 'react-icons/bs'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import { useHistory } from 'react-router';
 import { GoAlert } from 'react-icons/go'
-import './Candidats.css'
+import '../CSS/Candidats.css'
 
 const useStyles = makeStyles((theme) => ({
   root: {

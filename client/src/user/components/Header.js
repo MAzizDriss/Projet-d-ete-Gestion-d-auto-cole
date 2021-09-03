@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, IconButton, Toolbar, Collapse } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { FiLogOut } from 'react-icons/fi'
 import { useHistory } from 'react-router';
-import './Navbar.css'
+import '../CSS/Navbar.css'
 import * as FaIcons from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { IconContext } from 'react-icons';

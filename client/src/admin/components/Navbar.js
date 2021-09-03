@@ -1,7 +1,7 @@
 import React from 'react';
 import * as FaIcons from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import './Navbar.css';
+import '../CSS/Navbar.css';
 import { IconContext } from 'react-icons';
 import { Button } from '@material-ui/core';
 import {FiLogOut} from 'react-icons/fi'

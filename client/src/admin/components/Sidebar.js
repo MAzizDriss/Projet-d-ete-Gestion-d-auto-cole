@@ -5,9 +5,9 @@ import * as FaIcons from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { SidebarData } from './SidebarData';
 import { IconContext } from 'react-icons';
-import logo from './logo.png';
+import logo from '../images/logo.png';
 import { BiLogInCircle } from 'react-icons/bi';
-import './Navbar.css';
+import '../CSS/Navbar.css';
 
 function Sidebar({ sidebar, setSidebar }) /* Sidebar prend en params les variables sidebar et setsidebar 
 car l'ouverture et la fermeture du sidebar depend des bars qui existent aussi sur le navbar : d'où la relation
@@ -31,9 +31,9 @@ entre SidebarJs et NavbarJs*/ {
 
   const Disconnect = () => {
     localStorage.setItem('isAuth', false)
-    history.push("/login")
     setuser({})
     localStorage.setItem('token', '')
+    window.location.replace('/login')
   }
   // Se déconnecter : Authentification = false et revenir à la page de login
 

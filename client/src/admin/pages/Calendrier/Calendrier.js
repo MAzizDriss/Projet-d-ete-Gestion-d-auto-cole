@@ -1,6 +1,6 @@
 import React from "react";
 import ProchaineSeance from "./ProchaineSeance";
-import './Calendrier.css';
+import '../CSS/Calendrier.css';
 import SessionCard from "./SessionCard"
 import { Container } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';

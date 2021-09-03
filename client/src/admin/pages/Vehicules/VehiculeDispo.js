@@ -7,7 +7,7 @@ import {
 import { AiFillCar } from 'react-icons/ai'
 import Rating from '@material-ui/lab/Rating';
 import { MdExpandMore } from 'react-icons/md'
-import './Vehicules.css'
+import '../CSS/Vehicules.css'
 
 const useStyles = makeStyles((theme) => ({
   root: {
